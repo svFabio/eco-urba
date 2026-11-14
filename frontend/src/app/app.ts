@@ -41,7 +41,6 @@ export class App implements OnInit, AfterViewInit {
   private map?: L.Map;
   private districtLayer?: L.LayerGroup;
   private geoJsonLayer?: L.GeoJSON;
-  private maskLayerGroup?: L.LayerGroup;
   private polygonMap = new Map<number, L.Path>();
   private activePolygon?: L.Path;
 
@@ -113,7 +112,6 @@ export class App implements OnInit, AfterViewInit {
     this.http.get<any>(`${this.API_BASE}/districts/geojson`).subscribe({
       next: (geoData) => {
         this.renderGeoJsonDistricts(geoData);
-        this.loadCercadoPerimeter();
       },
       error: (err) => {
         console.error('Failed to load districts GeoJSON:', err);
@@ -258,12 +256,10 @@ export class App implements OnInit, AfterViewInit {
     });
 
     this.districtLayer = L.layerGroup().addTo(this.map);
-    this.maskLayerGroup = L.layerGroup().addTo(this.map);
 
     L.control.layers(
       { 'OpenStreetMap': osmBase },
       {
-        '🛡️ Aislamiento Cercado (Máscara Exterior 100%)': this.maskLayerGroup,
         '🌿 Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
         '🌳 Parques y Reservas Verdes': greenAreasLayer,
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
@@ -333,67 +329,6 @@ export class App implements OnInit, AfterViewInit {
     });
 
     // Bring markers to front so centroids stay clickable
-    this.districtLayer?.eachLayer((l: any) => l.bringToFront?.());
-  }
-
-  private loadCercadoPerimeter(): void {
-    if (!this.map) return;
-
-    this.http.get<any>(`${this.API_BASE}/districts/perimeter`).subscribe({
-      next: (feat) => {
-        this.applyCercadoMask(feat);
-      },
-      error: (err) => console.error('Failed to load Cercado perimeter for mask:', err),
-    });
-  }
-
-  private applyCercadoMask(feat: any): void {
-    if (!this.map || !this.maskLayerGroup) return;
-
-    this.maskLayerGroup.clearLayers();
-
-    const geom = feat?.geometry;
-    if (!geom) return;
-
-    // Anillo exterior envolviendo todo el mapa mundial
-    const worldRing: [number, number][] = [
-      [-85, -180],
-      [-85, 180],
-      [85, 180],
-      [85, -180],
-    ];
-
-    const rings: [number, number][][] = [worldRing];
-
-    if (geom.type === 'Polygon') {
-      const exterior = geom.coordinates[0].map(
-        (pt: [number, number]) => [pt[1], pt[0]] as [number, number]
-      );
-      rings.push(exterior);
-    } else if (geom.type === 'MultiPolygon') {
-      geom.coordinates.forEach((poly: any) => {
-        const exterior = poly[0].map(
-          (pt: [number, number]) => [pt[1], pt[0]] as [number, number]
-        );
-        rings.push(exterior);
-      });
-    }
-
-    // Máscara opaca al 100% con el color exacto del layout (#0f172a): aísla Cercado
-    const mask = L.polygon(rings, {
-      stroke: true,
-      color: '#475569',
-      weight: 2,
-      opacity: 0.9,
-      fillColor: '#0f172a',
-      fillOpacity: 1.0,
-      interactive: false,
-    });
-
-    this.maskLayerGroup.addLayer(mask);
-
-    // Asegurar que las divisiones de los distritos y los marcadores queden por encima
-    this.geoJsonLayer?.bringToFront();
     this.districtLayer?.eachLayer((l: any) => l.bringToFront?.());
   }
 
