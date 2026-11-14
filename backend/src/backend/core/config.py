@@ -10,6 +10,10 @@ class Settings(BaseSettings):
         "http://127.0.0.1:4200",
     ]
 
+    NASA_APPEEARS_API_URL: str = "https://appeears.earthdatacloud.nasa.gov/api"
+    NASA_EARTHDATA_USERNAME: str = ""
+    NASA_EARTHDATA_PASSWORD: str = ""
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
