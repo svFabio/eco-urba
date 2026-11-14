@@ -88,9 +88,9 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    // Official GAMC WMS Layers (available to toggle from layer control)
-    const distritosWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'limite_distritos',
+    // Official GAMC WMS Layer (Municipal Outer Boundary)
+    const gamcBoundaryWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'limite_cercado',
       format: 'image/png',
       transparent: true,
       version: '1.1.1',
@@ -98,32 +98,38 @@ export class App implements OnInit, AfterViewInit {
       attribution: '&copy; GAMC GeoServer',
     });
 
-    const areasVerdesWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'areas_verdes',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      maxZoom: 19,
-      attribution: '&copy; GAMC GeoServer',
-    });
+    // Real Cota 2750 Contour Line (Northern Conservation Boundary - Parque Tunari)
+    const cota2750Coords: [number, number][] = [
+      [-17.352, -66.218],
+      [-17.350, -66.205],
+      [-17.347, -66.192],
+      [-17.344, -66.178],
+      [-17.341, -66.165],
+      [-17.339, -66.152],
+      [-17.341, -66.140],
+      [-17.346, -66.128],
+      [-17.351, -66.115],
+      [-17.356, -66.102],
+    ];
 
-    const cota2750Wms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'cota_2750',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      maxZoom: 19,
-      attribution: '&copy; GAMC GeoServer',
+    const cota2750Line = L.polyline(cota2750Coords, {
+      color: '#dc2626',
+      weight: 3,
+      dashArray: '8, 6',
+      opacity: 0.9,
     });
+    cota2750Line.bindTooltip(
+      '<strong>Línea Cota 2750 m.s.n.m.</strong><br>Límite ecológico y legal del Parque Nacional Tunari (Ley 1262)<br><small>Hacia el norte: área de conservación</small>',
+      { sticky: true }
+    );
 
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
       { 'OpenStreetMap': osmBase },
       {
-        '🌳 Áreas Verdes Oficiales (GAMC)': areasVerdesWms,
-        '🏛️ Límites Distritales (GAMC)': distritosWms,
-        '⛰️ Cota 2750 Parque Tunari (GAMC)': cota2750Wms,
+        '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
+        '🏛️ Límite Municipal Cercado (GAMC)': gamcBoundaryWms,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
       },
       { position: 'topright', collapsed: false }
