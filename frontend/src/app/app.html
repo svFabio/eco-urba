@@ -23,36 +23,9 @@
       <div class="sidebar-header">
         <h2>15 Distritos Municipales</h2>
         <p class="sidebar-desc">
-          Monitoreo territorial: contraste entre las 2 estaciones de la Red MÓNICA y los 13 distritos por sensado virtual.
+          Seleccioná un distrito para enfocar el mapa y ver su diagnóstico microclimático.
         </p>
       </div>
-
-      <!-- Selected District Detail Card -->
-      @if (selectedDistrict(); as sel) {
-        <div class="district-detail-card">
-          <div class="card-header">
-            <h3>{{ sel.name }}</h3>
-            <button class="btn-close" (click)="clearSelection()" title="Restablecer vista">✕</button>
-          </div>
-          <div class="card-body">
-            <p><strong>Zona:</strong> {{ sel.zone }}</p>
-            @if (sel.area_km2) {
-              <p><strong>Superficie Oficial:</strong> {{ sel.area_km2.toFixed(2) }} km²</p>
-            }
-            <p>
-              <strong>Estación Física:</strong>
-              @if (sel.has_fixed_sensor) {
-                <span class="badge badge-sensor">Activa ({{ sel.station_name }})</span>
-              } @else {
-                <span class="badge badge-virtual">Sensado Virtual Requerido</span>
-              }
-            </p>
-            <div class="coords-box">
-              <small>Centroide: {{ sel.centroid.latitude.toFixed(4) }}, {{ sel.centroid.longitude.toFixed(4) }}</small>
-            </div>
-          </div>
-        </div>
-      }
 
       <!-- District List Scroll -->
       <div class="district-list">
@@ -83,6 +56,104 @@
     <!-- Map Viewport -->
     <section class="map-viewport">
       <div #mapContainer class="map-container"></div>
+
+      <!-- Right Analytics Drawer -->
+      @if (selectedDistrict(); as sel) {
+        <aside class="right-drawer" aria-label="Ficha de Distrito">
+          <div class="drawer-header">
+            <div class="header-title-box">
+              <span class="district-pill">Distrito #{{ sel.id }}</span>
+              <h2>{{ sel.name }}</h2>
+              <span class="zone-text">{{ sel.zone }}</span>
+            </div>
+            <button class="btn-close-drawer" (click)="clearSelection()" title="Cerrar y restablecer vista">✕</button>
+          </div>
+
+          <div class="drawer-content">
+            <!-- Territorial Stats -->
+            <div class="stat-section">
+              <div class="stat-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Superficie Oficial</span>
+                  <span class="stat-value">{{ sel.area_km2?.toFixed(2) }} <small>km²</small></span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Monitoreo GAMC</span>
+                  @if (sel.has_fixed_sensor) {
+                    <span class="badge badge-sensor">📡 Red MÓNICA</span>
+                  } @else {
+                    <span class="badge badge-virtual">🔬 Sensado Virtual</span>
+                  }
+                </div>
+              </div>
+              @if (sel.station_name) {
+                <div class="sensor-info-banner">
+                  <strong>Estación Fija:</strong> {{ sel.station_name }}
+                </div>
+              }
+            </div>
+
+            <!-- Microclimate & NASA Indicators -->
+            @if (sel.microclimate; as mc) {
+              <div class="section-title">
+                <h3>Diagnóstico Microclimático (NASA Trend Detective)</h3>
+              </div>
+
+              <div class="indicator-cards">
+                <!-- LST (Temperatura Superficial) -->
+                <div class="indicator-card">
+                  <div class="indicator-header">
+                    <span class="indicator-name">🌡️ Temp. Superficial Terrestre (LST)</span>
+                    <span class="indicator-val hot">{{ mc.surface_temp_c }} °C</span>
+                  </div>
+                  <small class="indicator-sub">Temperatura estimada de suelo (MODIS / Landsat)</small>
+                </div>
+
+                <!-- NDVI (Biomasa Vegetal) -->
+                <div class="indicator-card">
+                  <div class="indicator-header">
+                    <span class="indicator-name">🌿 Cobertura Vegetal (NDVI)</span>
+                    <span class="indicator-val green">{{ mc.ndvi_index.toFixed(2) }}</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill green" [style.width.%]="mc.ndvi_index * 100"></div>
+                  </div>
+                  <small class="indicator-sub">Índice espectral (0 = árido/cemento, 1 = bosque denso)</small>
+                </div>
+
+                <!-- Cobertura Arbórea -->
+                <div class="indicator-card">
+                  <div class="indicator-header">
+                    <span class="indicator-name">🌳 Cobertura Arbórea Urbana</span>
+                    <span class="indicator-val">{{ mc.tree_canopy_pct }} %</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill canopy" [style.width.%]="mc.tree_canopy_pct"></div>
+                  </div>
+                </div>
+
+                <!-- Vulnerabilidad Térmica -->
+                <div class="indicator-card risk-card" [class]="mc.heat_island_risk.toLowerCase()">
+                  <div class="indicator-header">
+                    <span class="indicator-name">🔥 Riesgo Isla de Calor</span>
+                    <span class="risk-badge" [class]="mc.heat_island_risk.toLowerCase()">{{ mc.heat_island_risk }}</span>
+                  </div>
+                </div>
+
+                <!-- Acción de Mitigación -->
+                <div class="action-card">
+                  <span class="action-tag">Estrategia de Resiliencia Municipal</span>
+                  <p class="action-text">{{ mc.resilience_action }}</p>
+                </div>
+              </div>
+            }
+
+            <button class="btn-reset-view" (click)="clearSelection()">
+              ⬅ Restablecer vista general de Cercado
+            </button>
+          </div>
+        </aside>
+      }
     </section>
   </main>
 </div>

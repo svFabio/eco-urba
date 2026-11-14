@@ -8,6 +8,7 @@ from backend.schemas.district import (
     DistrictGeoJSONFeature,
     DistrictGeoJSONProperties,
     GeoJSONGeometry,
+    MicroclimateProfile,
     PerimeterGeoJSONFeature,
 )
 
@@ -20,6 +21,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3480, longitude=-66.1680),
         bbox=[-66.1950, -17.3650, -66.1410, -17.3310],
         area_km2=5.695,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.58,
+            surface_temp_c=24.2,
+            heat_island_risk="Bajo",
+            tree_canopy_pct=38.0,
+            resilience_action="Protección estricta de la Cota 2750 y recarga hídrica contra loteamientos.",
+        ),
     ),
     District(
         id=2,
@@ -29,6 +37,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3750, longitude=-66.1400),
         bbox=[-66.1600, -17.3900, -66.1200, -17.3600],
         area_km2=9.075,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.35,
+            surface_temp_c=28.5,
+            heat_island_risk="Moderado",
+            tree_canopy_pct=18.0,
+            resilience_action="Consolidación de corredores biológicos urbanos hacia la serranía este.",
+        ),
     ),
     District(
         id=3,
@@ -38,6 +53,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3720, longitude=-66.1850),
         bbox=[-66.2050, -17.3900, -66.1650, -17.3550],
         area_km2=8.156,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.31,
+            surface_temp_c=29.8,
+            heat_island_risk="Moderado",
+            tree_canopy_pct=14.0,
+            resilience_action="Incremento de arbolado nativo en aceras, plazas y ciclovías colectoras.",
+        ),
     ),
     District(
         id=4,
@@ -47,6 +69,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3680, longitude=-66.1620),
         bbox=[-66.1800, -17.3850, -66.1440, -17.3510],
         area_km2=8.344,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.28,
+            surface_temp_c=31.0,
+            heat_island_risk="Alto",
+            tree_canopy_pct=11.0,
+            resilience_action="Mitigación de radiación solar en avenidas anchas y plazas duras mediante toldos vivos.",
+        ),
     ),
     District(
         id=5,
@@ -57,6 +86,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4120, longitude=-66.1480),
         bbox=[-66.1680, -17.4300, -66.1280, -17.3940],
         area_km2=10.444,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.32,
+            surface_temp_c=30.5,
+            heat_island_risk="Moderado",
+            tree_canopy_pct=15.0,
+            resilience_action="Preservación del espejo de agua de la Laguna Alalay y anillo verde de amortiguamiento.",
+        ),
     ),
     District(
         id=6,
@@ -66,6 +102,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4050, longitude=-66.1350),
         bbox=[-66.1520, -17.4250, -66.1180, -17.3850],
         area_km2=9.010,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.22,
+            surface_temp_c=32.8,
+            heat_island_risk="Alto",
+            tree_canopy_pct=8.0,
+            resilience_action="Implementación de pavimentos permeables y techos verdes en zona comercial densa.",
+        ),
     ),
     District(
         id=7,
@@ -75,6 +118,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4350, longitude=-66.1420),
         bbox=[-66.1600, -17.4550, -66.1240, -17.4150],
         area_km2=5.175,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.29,
+            surface_temp_c=31.2,
+            heat_island_risk="Moderado",
+            tree_canopy_pct=10.0,
+            resilience_action="Reforestación perimetral del río Tamborada y barreras verdes periurbanas.",
+        ),
     ),
     District(
         id=8,
@@ -84,6 +134,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4200, longitude=-66.1700),
         bbox=[-66.1900, -17.4400, -66.1500, -17.4000],
         area_km2=24.740,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.20,
+            surface_temp_c=33.6,
+            heat_island_risk="Crítico",
+            tree_canopy_pct=6.0,
+            resilience_action="Plan intensivo de forestación urbana y sombreamiento en paradas y colegios.",
+        ),
     ),
     District(
         id=9,
@@ -93,6 +150,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4600, longitude=-66.1650),
         bbox=[-66.2100, -17.4900, -66.1200, -17.4300],
         area_km2=118.282,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.19,
+            surface_temp_c=33.9,
+            heat_island_risk="Alto",
+            tree_canopy_pct=5.0,
+            resilience_action="Control de erosión en laderas áridas y siembra de especies nativas de bajo consumo hídrico.",
+        ),
     ),
     District(
         id=10,
@@ -102,6 +166,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3935, longitude=-66.1570),
         bbox=[-66.1700, -17.4050, -66.1440, -17.3820],
         area_km2=5.602,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.12,
+            surface_temp_c=35.2,
+            heat_island_risk="Crítico",
+            tree_canopy_pct=4.0,
+            resilience_action="Urgente reducción de impermeabilización, peatonalización verde y arbolado vertical en calles.",
+        ),
     ),
     District(
         id=11,
@@ -111,6 +182,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3880, longitude=-66.1440),
         bbox=[-66.1550, -17.4000, -66.1330, -17.3760],
         area_km2=5.559,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.26,
+            surface_temp_c=31.8,
+            heat_island_risk="Alto",
+            tree_canopy_pct=9.0,
+            resilience_action="Ampliación de masa arbórea en campus universitario UMSS y avenidas conectoras.",
+        ),
     ),
     District(
         id=12,
@@ -121,6 +199,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3620, longitude=-66.1490),
         bbox=[-66.1650, -17.3780, -66.1330, -17.3460],
         area_km2=7.653,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.40,
+            surface_temp_c=27.2,
+            heat_island_risk="Bajo",
+            tree_canopy_pct=24.0,
+            resilience_action="Preservación del Jardín Botánico Martín Cárdenas e incentivo a jardines residenciales permeables.",
+        ),
     ),
     District(
         id=13,
@@ -130,6 +215,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.3550, longitude=-66.1950),
         bbox=[-66.2200, -17.3750, -66.1700, -17.3350],
         area_km2=48.783,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.36,
+            surface_temp_c=28.1,
+            heat_island_risk="Moderado",
+            tree_canopy_pct=20.0,
+            resilience_action="Protección de torrenteras naturales y amortiguamiento contra expansión informal en colinas.",
+        ),
     ),
     District(
         id=14,
@@ -139,6 +231,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4250, longitude=-66.1250),
         bbox=[-66.1450, -17.4500, -66.1050, -17.4000],
         area_km2=6.939,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.23,
+            surface_temp_c=32.5,
+            heat_island_risk="Alto",
+            tree_canopy_pct=7.0,
+            resilience_action="Parques lineales en quebradas y mitigación de acumulación térmica en serranías este.",
+        ),
     ),
     District(
         id=15,
@@ -148,6 +247,13 @@ COCHABAMBA_DISTRICTS: list[District] = [
         centroid=Centroid(latitude=-17.4450, longitude=-66.1150),
         bbox=[-66.1350, -17.4700, -66.0950, -17.4200],
         area_km2=21.224,
+        microclimate=MicroclimateProfile(
+            ndvi_index=0.16,
+            surface_temp_c=34.8,
+            heat_island_risk="Crítico",
+            tree_canopy_pct=3.0,
+            resilience_action="Remediación ambiental del vertedero K'ara K'ara y barreras forestales nativas de mitigación.",
+        ),
     ),
 ]
 
@@ -211,6 +317,7 @@ class DistrictService:
                     ),
                     "area_km2": float(props.get("area_km2", district.area_km2 if district else 0.0)),
                     "municipio": props.get("municipio", "Cochabamba (Cercado)"),
+                    "microclimate": district.microclimate.model_dump() if district and district.microclimate else None,
                 }
 
                 features.append(
@@ -250,6 +357,7 @@ class DistrictService:
                         "centroid": [d.centroid.longitude, d.centroid.latitude],
                         "area_km2": d.area_km2,
                         "municipio": "Cochabamba (Cercado)",
+                        "microclimate": d.microclimate.model_dump() if d.microclimate else None,
                     },
                 )
             )

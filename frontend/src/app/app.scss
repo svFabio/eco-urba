@@ -241,9 +241,301 @@
   flex: 1;
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   .map-container {
     height: 100%;
     width: 100%;
+    background-color: #0f172a;
+  }
+
+  .right-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 410px;
+    max-width: 90vw;
+    background-color: #ffffff;
+    border-left: 1px solid #cbd5e1;
+    box-shadow: -6px 0 24px rgba(15, 23, 42, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+
+    .drawer-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .header-title-box {
+        .district-pill {
+          display: inline-block;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          background-color: #38bdf8;
+          color: #0f172a;
+          padding: 0.15rem 0.5rem;
+          border-radius: 9999px;
+          margin-bottom: 0.35rem;
+        }
+
+        h2 {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #f8fafc;
+          margin: 0;
+        }
+
+        .zone-text {
+          font-size: 0.8rem;
+          color: #94a3b8;
+        }
+      }
+
+      .btn-close-drawer {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #f8fafc;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        transition: background 0.15s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+        }
+      }
+    }
+
+    .drawer-content {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      color: #1e293b;
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+
+        .stat-card {
+          padding: 0.75rem;
+          background-color: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #64748b;
+          }
+
+          .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+          }
+        }
+      }
+
+      .sensor-info-banner {
+        margin-top: 0.5rem;
+        padding: 0.6rem 0.85rem;
+        background-color: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        color: #065f46;
+      }
+
+      .section-title h3 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        color: #475569;
+        margin: 0;
+      }
+
+      .indicator-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+
+        .indicator-card {
+          padding: 0.85rem;
+          background-color: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+
+          .indicator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+
+            .indicator-val {
+              font-weight: 700;
+
+              &.hot {
+                color: #e11d48;
+              }
+
+              &.green {
+                color: #16a34a;
+              }
+            }
+          }
+
+          .progress-bar {
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 0.5rem 0 0.35rem;
+
+            .progress-fill {
+              height: 100%;
+              border-radius: 9999px;
+
+              &.green {
+                background: linear-gradient(90deg, #86efac, #16a34a);
+              }
+
+              &.canopy {
+                background: linear-gradient(90deg, #38bdf8, #0284c7);
+              }
+            }
+          }
+
+          .indicator-sub {
+            font-size: 0.7rem;
+            color: #64748b;
+          }
+
+          &.risk-card {
+            border-left: 4px solid #cbd5e1;
+
+            &.crítico {
+              border-left-color: #e11d48;
+              background-color: #fff1f2;
+            }
+
+            &.alto {
+              border-left-color: #ea580c;
+              background-color: #fff7ed;
+            }
+
+            &.moderado {
+              border-left-color: #ca8a04;
+              background-color: #fefce8;
+            }
+
+            &.bajo {
+              border-left-color: #16a34a;
+              background-color: #f0fdf4;
+            }
+
+            .risk-badge {
+              font-size: 0.72rem;
+              font-weight: 700;
+              padding: 0.15rem 0.5rem;
+              border-radius: 4px;
+
+              &.crítico {
+                background-color: #fecdd3;
+                color: #9f1239;
+              }
+
+              &.alto {
+                background-color: #ffedd5;
+                color: #9a3412;
+              }
+
+              &.moderado {
+                background-color: #fef9c3;
+                color: #854d0e;
+              }
+
+              &.bajo {
+                background-color: #dcfce7;
+                color: #166534;
+              }
+            }
+          }
+        }
+
+        .action-card {
+          padding: 0.85rem;
+          background-color: #f1f5f9;
+          border-left: 3px solid #6366f1;
+          border-radius: 6px;
+
+          .action-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #4f46e5;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.25rem;
+          }
+
+          .action-text {
+            font-size: 0.8rem;
+            color: #1e293b;
+            line-height: 1.4;
+            margin: 0;
+          }
+        }
+      }
+
+      .btn-reset-view {
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        color: #334155;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+
+        &:hover {
+          background-color: #e2e8f0;
+          color: #0f172a;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

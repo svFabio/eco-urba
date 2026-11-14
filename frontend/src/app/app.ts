@@ -15,6 +15,14 @@ export interface Centroid {
   longitude: float;
 }
 
+export interface MicroclimateProfile {
+  ndvi_index: number;
+  surface_temp_c: number;
+  heat_island_risk: 'Crítico' | 'Alto' | 'Moderado' | 'Bajo';
+  tree_canopy_pct: number;
+  resilience_action: string;
+}
+
 export interface District {
   id: number;
   name: string;
@@ -24,6 +32,7 @@ export interface District {
   centroid: Centroid;
   bbox: [number, number, number, number];
   area_km2?: number | null;
+  microclimate?: MicroclimateProfile | null;
 }
 
 type float = number;
@@ -134,7 +143,12 @@ export class App implements OnInit, AfterViewInit {
       maxBoundsViscosity: 1.0, // Bloqueo rígido: no permite arrastrar el mapa fuera de Cercado
       minZoom: 11,            // No permite alejarse hacia el resto de Bolivia o el mundo
       maxZoom: 18,
+      scrollWheelZoom: false, // Mapa tranquilo: evita zoom descontrolado al hacer scroll
+      doubleClickZoom: false, // Zoom controlado por clics en distritos
     }).setView([-17.406, -66.174], 12);
+
+    // Canvas oscuro puro: permite apagar el mapa mundial y ver únicamente a Cercado
+    const darkCanvas = L.layerGroup();
 
     const osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors | EcoUrba Cochabamba',
@@ -258,7 +272,10 @@ export class App implements OnInit, AfterViewInit {
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
-      { 'OpenStreetMap': osmBase },
+      {
+        '🗺️ OpenStreetMap (Calles y Contexto)': osmBase,
+        '🌌 Solo Cercado (Fondo Limpio Sin Mapa Mundial)': darkCanvas,
+      },
       {
         '🌿 Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
         '🌳 Parques y Reservas Verdes': greenAreasLayer,
@@ -378,9 +395,11 @@ export class App implements OnInit, AfterViewInit {
 
       const bounds = (poly as any).getBounds?.();
       if (bounds) {
+        // Deja espacio en la derecha para el panel lateral desplegable
         this.map.flyToBounds(bounds, {
-          padding: [50, 50],
-          maxZoom: 15,
+          paddingTopLeft: [40, 40],
+          paddingBottomRight: [440, 40],
+          maxZoom: 14,
           duration: 1.0,
         });
         return;

@@ -7,6 +7,14 @@ class Centroid(BaseModel):
     longitude: float
 
 
+class MicroclimateProfile(BaseModel):
+    ndvi_index: float = Field(description="Normalized Difference Vegetation Index [0..1]")
+    surface_temp_c: float = Field(description="Estimated Land Surface Temperature in °C")
+    heat_island_risk: Literal["Crítico", "Alto", "Moderado", "Bajo"]
+    tree_canopy_pct: float = Field(description="Estimated urban tree canopy percentage")
+    resilience_action: str = Field(description="Recommended climate resilience action for the district")
+
+
 class District(BaseModel):
     id: int
     name: str
@@ -16,6 +24,7 @@ class District(BaseModel):
     centroid: Centroid
     bbox: list[float] = Field(description="Bounding box [min_lon, min_lat, max_lon, max_lat]")
     area_km2: float | None = Field(default=None, description="Official area in square kilometers")
+    microclimate: MicroclimateProfile | None = None
 
 
 class GeoJSONGeometry(BaseModel):
@@ -32,6 +41,7 @@ class DistrictGeoJSONProperties(BaseModel):
     centroid: list[float]
     area_km2: float
     municipio: str = "Cochabamba (Cercado)"
+    microclimate: MicroclimateProfile | None = None
 
 
 class DistrictGeoJSONFeature(BaseModel):
