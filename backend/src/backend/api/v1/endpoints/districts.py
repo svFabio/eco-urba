@@ -1,6 +1,10 @@
 from fastapi import APIRouter, HTTPException, status
 
-from backend.schemas.district import District, DistrictGeoJSONCollection
+from backend.schemas.district import (
+    District,
+    DistrictGeoJSONCollection,
+    PerimeterGeoJSONFeature,
+)
 from backend.services.district_service import district_service
 
 router = APIRouter()
@@ -18,7 +22,11 @@ def get_districts_geojson():
     return district_service.get_geojson_collection()
 
 
-@router.get("/perimeter", summary="Get consolidated outer perimeter of Cercado")
+@router.get(
+    "/perimeter",
+    response_model=PerimeterGeoJSONFeature,
+    summary="Get consolidated outer perimeter of Cercado",
+)
 def get_cercado_perimeter():
     """Return the dissolved outer boundary of Cochabamba (Cercado) as a single GeoJSON polygon for masking."""
     perimeter = district_service.get_cercado_perimeter()

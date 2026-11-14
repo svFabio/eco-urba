@@ -1,6 +1,6 @@
 import logging
-from typing import Any
 import httpx
+from pydantic import JsonValue
 
 from backend.core.config import settings
 
@@ -73,7 +73,7 @@ class AppEEARSClient:
         self,
         method: str,
         path: str,
-        **kwargs: Any,
+        **kwargs: JsonValue,
     ) -> httpx.Response:
         """Execute HTTP request with automatic token refresh on 401."""
         if not self._token:
@@ -131,24 +131,24 @@ class AppEEARSClient:
         task_name: str,
         product: str,
         layer: str,
-        coordinates: list[dict[str, Any]],
+        coordinates: list[dict[str, JsonValue]],
         start_date: str = "01-01-2024",
         end_date: str = "01-31-2024",
-    ) -> dict[str, Any]:
+    ) -> dict[str, JsonValue]:
         """Submit a point sample extraction task to AppEEARS."""
-        payload = {
+        payload: dict[str, JsonValue] = {
             "task_type": "point",
             "task_name": task_name,
             "params": {
                 "dates": [{"startDate": start_date, "endDate": end_date}],
                 "layers": [{"product": product, "layer": layer}],
-                "coordinates": coordinates,
+                "coordinates": coordinates,  # type: ignore[dict-item]
             },
         }
-        resp = await self._request_with_retry("POST", "/task", json=payload)
+        resp = await self._request_with_retry("POST", "/task", json=payload)  # type: ignore[arg-type]
         return resp.json()
 
-    async def get_task_status(self, task_id: str) -> dict[str, Any]:
+    async def get_task_status(self, task_id: str) -> dict[str, JsonValue]:
         """Check status of a submitted extraction task."""
         resp = await self._request_with_retry("GET", f"/task/{task_id}")
         return resp.json()

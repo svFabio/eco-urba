@@ -1,12 +1,14 @@
 import json
 from pathlib import Path
-from typing import Any
 
 from backend.schemas.district import (
     Centroid,
     District,
     DistrictGeoJSONCollection,
     DistrictGeoJSONFeature,
+    DistrictGeoJSONProperties,
+    GeoJSONGeometry,
+    PerimeterGeoJSONFeature,
 )
 
 COCHABAMBA_DISTRICTS: list[District] = [
@@ -254,12 +256,13 @@ class DistrictService:
         self._cached_geojson = DistrictGeoJSONCollection(features=features)
         return self._cached_geojson
 
-    def get_cercado_perimeter(self) -> dict[str, Any]:
+    def get_cercado_perimeter(self) -> PerimeterGeoJSONFeature | None:
         for path in [PERIMETER_GEOJSON_FILE, PERIMETER_DOCS_FILE]:
             if path.exists():
                 with open(path, "r", encoding="utf-8") as f:
-                    return json.load(f)
-        return {}
+                    raw = json.load(f)
+                    return PerimeterGeoJSONFeature.model_validate(raw)
+        return None
 
 
 district_service = DistrictService()

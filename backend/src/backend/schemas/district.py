@@ -1,5 +1,5 @@
-from typing import Any
-from pydantic import BaseModel, Field
+from typing import Literal
+from pydantic import BaseModel, Field, JsonValue
 
 
 class Centroid(BaseModel):
@@ -18,12 +18,39 @@ class District(BaseModel):
     area_km2: float | None = Field(default=None, description="Official area in square kilometers")
 
 
+class GeoJSONGeometry(BaseModel):
+    type: Literal["Polygon", "MultiPolygon"]
+    coordinates: list[JsonValue]
+
+
+class DistrictGeoJSONProperties(BaseModel):
+    id: int
+    name: str
+    zone: str
+    has_fixed_sensor: bool
+    station_name: str | None = None
+    centroid: list[float]
+    area_km2: float
+    municipio: str = "Cochabamba (Cercado)"
+
+
 class DistrictGeoJSONFeature(BaseModel):
-    type: str = "Feature"
-    geometry: dict[str, Any]
-    properties: dict[str, Any]
+    type: Literal["Feature"] = "Feature"
+    geometry: GeoJSONGeometry
+    properties: DistrictGeoJSONProperties
 
 
 class DistrictGeoJSONCollection(BaseModel):
-    type: str = "FeatureCollection"
+    type: Literal["FeatureCollection"] = "FeatureCollection"
     features: list[DistrictGeoJSONFeature]
+
+
+class PerimeterProperties(BaseModel):
+    nombre: str
+    municipio: str
+
+
+class PerimeterGeoJSONFeature(BaseModel):
+    type: Literal["Feature"] = "Feature"
+    geometry: GeoJSONGeometry
+    properties: PerimeterProperties
