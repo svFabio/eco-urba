@@ -83,12 +83,30 @@ export class App implements OnInit, AfterViewInit {
 
     this.map = L.map(el).setView([-17.3895, -66.1568], 12);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors | EcoUrba Cochabamba',
       maxZoom: 18,
     }).addTo(this.map);
 
+    const gamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'limite_distritos',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      maxZoom: 19,
+      attribution: '&copy; GAMC Cochabamba GeoServer',
+    }).addTo(this.map);
+
     this.districtLayer = L.layerGroup().addTo(this.map);
+
+    L.control.layers(
+      { 'OpenStreetMap Base': osmBase },
+      {
+        'Límites Distritales GAMC (Oficial)': gamcWms,
+        'Distritos y Sensores EcoUrba': this.districtLayer,
+      },
+      { position: 'topright' }
+    ).addTo(this.map);
   }
 
   private renderDistrictsOnMap(districts: District[]): void {
