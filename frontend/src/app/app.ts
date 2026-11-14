@@ -88,24 +88,45 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    const gamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+    // Official GAMC WMS Layers
+    const distritosWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'limite_distritos',
       format: 'image/png',
       transparent: true,
       version: '1.1.1',
       maxZoom: 19,
-      attribution: '&copy; GAMC Cochabamba GeoServer',
+      attribution: '&copy; GAMC GeoServer',
     }).addTo(this.map);
+
+    const areasVerdesWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'areas_verdes',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      maxZoom: 19,
+      attribution: '&copy; GAMC GeoServer',
+    }).addTo(this.map);
+
+    const cota2750Wms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'cota_2750',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      maxZoom: 19,
+      attribution: '&copy; GAMC GeoServer',
+    });
 
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
-      { 'OpenStreetMap Base': osmBase },
+      { 'OpenStreetMap': osmBase },
       {
-        'Límites Distritales GAMC (Oficial)': gamcWms,
-        'Distritos y Sensores EcoUrba': this.districtLayer,
+        '🌳 Áreas Verdes Oficiales (GAMC)': areasVerdesWms,
+        '🏛️ Límites Distritales (GAMC)': distritosWms,
+        '⛰️ Cota 2750 Parque Tunari (GAMC)': cota2750Wms,
+        '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
       },
-      { position: 'topright' }
+      { position: 'topright', collapsed: false }
     ).addTo(this.map);
   }
 
@@ -115,46 +136,27 @@ export class App implements OnInit, AfterViewInit {
     this.districtLayer.clearLayers();
 
     districts.forEach((d) => {
-      const minLon = d.bbox[0];
-      const minLat = d.bbox[1];
-      const maxLon = d.bbox[2];
-      const maxLat = d.bbox[3];
+      const isSensor = d.has_fixed_sensor;
 
-      const bounds: L.LatLngBoundsExpression = [
-        [minLat, minLon],
-        [maxLat, maxLon],
-      ];
-
-      const color = d.has_fixed_sensor ? '#10b981' : '#3b82f6';
-
-      const rect = L.rectangle(bounds, {
-        color: color,
-        weight: 1.5,
-        fillOpacity: 0.12,
+      const marker = L.circleMarker([d.centroid.latitude, d.centroid.longitude], {
+        radius: isSensor ? 10 : 7,
+        fillColor: isSensor ? '#10b981' : '#0284c7',
+        color: '#ffffff',
+        weight: isSensor ? 3 : 2,
+        fillOpacity: 0.9,
       });
 
-      rect.bindTooltip(
-        `<strong>${d.name}</strong><br>${d.zone}${
-          d.has_fixed_sensor ? '<br>📡 ' + d.station_name : ''
-        }`,
-        { permanent: false, direction: 'center' }
-      );
+      const tooltipContent = isSensor
+        ? `<strong>📡 Estación Red MÓNICA</strong><br>${d.station_name}<br><span style="color:#64748b">${d.name} (${d.zone})</span>`
+        : `<strong>${d.name}</strong><br><span style="color:#64748b">${d.zone}</span>`;
 
-      rect.on('click', () => this.selectDistrict(d));
-      rect.addTo(this.districtLayer!);
+      marker.bindTooltip(tooltipContent, {
+        direction: 'top',
+        offset: [0, -6],
+      });
 
-      // Fixed station marker
-      if (d.has_fixed_sensor) {
-        const marker = L.circleMarker([d.centroid.latitude, d.centroid.longitude], {
-          radius: 8,
-          fillColor: '#10b981',
-          color: '#ffffff',
-          weight: 2,
-          fillOpacity: 0.9,
-        });
-        marker.bindPopup(`<strong>Estación Fija Red MÓNICA</strong><br>${d.station_name}`);
-        marker.addTo(this.districtLayer!);
-      }
+      marker.on('click', () => this.selectDistrict(d));
+      marker.addTo(this.districtLayer!);
     });
   }
 
@@ -162,15 +164,13 @@ export class App implements OnInit, AfterViewInit {
     this.selectedDistrict.set(district);
     if (!this.map) return;
 
-    const [minLon, minLat, maxLon, maxLat] = district.bbox;
-    this.map.fitBounds([
-      [minLat, minLon],
-      [maxLat, maxLon],
-    ]);
+    this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+      duration: 1.0,
+    });
   }
 
   clearSelection(): void {
     this.selectedDistrict.set(null);
-    this.map?.setView([-17.3895, -66.1568], 12);
+    this.map?.flyTo([-17.3895, -66.1568], 12, { duration: 1.0 });
   }
 }
