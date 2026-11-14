@@ -88,7 +88,7 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    // Official GAMC WMS Layers
+    // Official GAMC WMS Layers (available to toggle from layer control)
     const distritosWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'limite_distritos',
       format: 'image/png',
@@ -96,7 +96,7 @@ export class App implements OnInit, AfterViewInit {
       version: '1.1.1',
       maxZoom: 19,
       attribution: '&copy; GAMC GeoServer',
-    }).addTo(this.map);
+    });
 
     const areasVerdesWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'areas_verdes',
@@ -105,7 +105,7 @@ export class App implements OnInit, AfterViewInit {
       version: '1.1.1',
       maxZoom: 19,
       attribution: '&copy; GAMC GeoServer',
-    }).addTo(this.map);
+    });
 
     const cota2750Wms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'cota_2750',
