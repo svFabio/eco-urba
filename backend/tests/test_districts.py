@@ -32,7 +32,7 @@ async def test_get_district_geojson():
     assert geojson["type"] == "FeatureCollection"
     assert len(geojson["features"]) == 15
     first_feat = geojson["features"][0]
-    assert first_feat["geometry"]["type"] == "Polygon"
+    assert first_feat["geometry"]["type"] in ("Polygon", "MultiPolygon")
     assert "properties" in first_feat
 
 

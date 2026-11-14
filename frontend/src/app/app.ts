@@ -23,6 +23,7 @@ export interface District {
   station_name?: string | null;
   centroid: Centroid;
   bbox: [number, number, number, number];
+  area_km2?: number | null;
 }
 
 type float = number;
@@ -39,6 +40,9 @@ export class App implements OnInit, AfterViewInit {
 
   private map?: L.Map;
   private districtLayer?: L.LayerGroup;
+  private geoJsonLayer?: L.GeoJSON;
+  private polygonMap = new Map<number, L.Path>();
+  private activePolygon?: L.Path;
 
   districts = signal<District[]>([]);
   selectedDistrict = signal<District | null>(null);
@@ -46,6 +50,30 @@ export class App implements OnInit, AfterViewInit {
   backendHealthy = signal<boolean>(false);
 
   private readonly API_BASE = 'http://localhost:8000/api/v1';
+
+  private readonly defaultPolygonStyle: L.PathOptions = {
+    color: '#795290',
+    weight: 2.5,
+    opacity: 0.95,
+    fillColor: '#8b5cf6',
+    fillOpacity: 0.12,
+  };
+
+  private readonly hoverPolygonStyle: L.PathOptions = {
+    color: '#4c1d95',
+    weight: 3.5,
+    opacity: 1,
+    fillColor: '#7c3aed',
+    fillOpacity: 0.25,
+  };
+
+  private readonly selectedPolygonStyle: L.PathOptions = {
+    color: '#2563eb',
+    weight: 4,
+    opacity: 1,
+    fillColor: '#3b82f6',
+    fillOpacity: 0.35,
+  };
 
   ngOnInit(): void {
     this.checkHealth();
@@ -69,10 +97,24 @@ export class App implements OnInit, AfterViewInit {
         this.districts.set(data);
         this.isLoading.set(false);
         this.renderDistrictsOnMap(data);
+        this.loadDistrictsGeoJson();
       },
       error: (err) => {
         console.error('Failed to load districts from backend:', err);
         this.isLoading.set(false);
+      },
+    });
+  }
+
+  private loadDistrictsGeoJson(): void {
+    if (!this.map) return;
+
+    this.http.get<any>(`${this.API_BASE}/districts/geojson`).subscribe({
+      next: (geoData) => {
+        this.renderGeoJsonDistricts(geoData);
+      },
+      error: (err) => {
+        console.error('Failed to load districts GeoJSON:', err);
       },
     });
   }
@@ -88,7 +130,7 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    // Capa Oficial de la Alcaldía: "Limite Distritos · Simple" (service_id oficial)
+    // GAMC WMS tilelayer kept optional in layer controls so it does not hide vector borders
     const distritosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: '',
       format: 'image/png',
@@ -96,7 +138,7 @@ export class App implements OnInit, AfterViewInit {
       version: '1.1.1',
       maxZoom: 19,
       attribution: '&copy; GAMC Cochabamba · Limite Distritos Simple',
-    }).addTo(this.map);
+    });
 
     // Real Cota 2750 Contour Line (Northern Conservation Boundary - Parque Tunari)
     const cota2750Coords: [number, number][] = [
@@ -129,11 +171,68 @@ export class App implements OnInit, AfterViewInit {
       { 'OpenStreetMap': osmBase },
       {
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
-        '🏛️ Límite Distritos (Oficial GAMC)': distritosGamcWms,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
+        '🏛️ GAMC WMS Raster (Capa Verde Monolítica)': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
+
+    if (this.districts().length > 0) {
+      this.loadDistrictsGeoJson();
+    }
+  }
+
+  private renderGeoJsonDistricts(geoData: any): void {
+    if (!this.map) return;
+
+    if (this.geoJsonLayer) {
+      this.map.removeLayer(this.geoJsonLayer);
+      this.polygonMap.clear();
+    }
+
+    this.geoJsonLayer = L.geoJSON(geoData, {
+      style: () => ({ ...this.defaultPolygonStyle }),
+      onEachFeature: (feature, layer) => {
+        const props = feature.properties || {};
+        const districtId = Number(props.id);
+        const pathLayer = layer as L.Path;
+
+        this.polygonMap.set(districtId, pathLayer);
+
+        const sensorText = props.has_fixed_sensor
+          ? `<br><span style="color:#10b981;font-weight:600">📡 Sensor MÓNICA: ${props.station_name}</span>`
+          : '<br><span style="color:#64748b;font-style:italic">Sensado Virtual</span>';
+
+        const areaText = props.area_km2 ? `<br>📐 Superficie: <strong>${props.area_km2} km²</strong>` : '';
+
+        layer.bindTooltip(
+          `<strong>${props.name}</strong><br><span style="color:#64748b">${props.zone}</span>${areaText}${sensorText}`,
+          { sticky: true }
+        );
+
+        layer.on('mouseover', () => {
+          if (this.activePolygon !== pathLayer) {
+            pathLayer.setStyle(this.hoverPolygonStyle);
+          }
+        });
+
+        layer.on('mouseout', () => {
+          if (this.activePolygon !== pathLayer) {
+            pathLayer.setStyle(this.defaultPolygonStyle);
+          }
+        });
+
+        layer.on('click', () => {
+          const found = this.districts().find((d) => d.id === districtId);
+          if (found) {
+            this.selectDistrict(found);
+          }
+        });
+      },
+    }).addTo(this.map);
+
+    // Bring markers to front so centroids stay clickable
+    this.districtLayer?.eachLayer((l: any) => l.bringToFront?.());
   }
 
   private renderDistrictsOnMap(districts: District[]): void {
@@ -145,10 +244,10 @@ export class App implements OnInit, AfterViewInit {
       const isSensor = d.has_fixed_sensor;
 
       const marker = L.circleMarker([d.centroid.latitude, d.centroid.longitude], {
-        radius: isSensor ? 10 : 7,
-        fillColor: isSensor ? '#10b981' : '#0284c7',
+        radius: isSensor ? 9 : 6,
+        fillColor: isSensor ? '#10b981' : '#6366f1',
         color: '#ffffff',
-        weight: isSensor ? 3 : 2,
+        weight: 2,
         fillOpacity: 0.9,
       });
 
@@ -170,6 +269,27 @@ export class App implements OnInit, AfterViewInit {
     this.selectedDistrict.set(district);
     if (!this.map) return;
 
+    // Reset previous active polygon style
+    if (this.activePolygon) {
+      this.activePolygon.setStyle(this.defaultPolygonStyle);
+    }
+
+    const poly = this.polygonMap.get(district.id);
+    if (poly) {
+      poly.setStyle(this.selectedPolygonStyle);
+      this.activePolygon = poly;
+
+      const bounds = (poly as any).getBounds?.();
+      if (bounds) {
+        this.map.flyToBounds(bounds, {
+          padding: [50, 50],
+          maxZoom: 15,
+          duration: 1.0,
+        });
+        return;
+      }
+    }
+
     this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
       duration: 1.0,
     });
@@ -177,6 +297,10 @@ export class App implements OnInit, AfterViewInit {
 
   clearSelection(): void {
     this.selectedDistrict.set(null);
+    if (this.activePolygon) {
+      this.activePolygon.setStyle(this.defaultPolygonStyle);
+      this.activePolygon = undefined;
+    }
     this.map?.flyTo([-17.3895, -66.1568], 12, { duration: 1.0 });
   }
 }

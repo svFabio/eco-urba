@@ -36,6 +36,9 @@
           </div>
           <div class="card-body">
             <p><strong>Zona:</strong> {{ sel.zone }}</p>
+            @if (sel.area_km2) {
+              <p><strong>Superficie Oficial:</strong> {{ sel.area_km2.toFixed(2) }} km²</p>
+            }
             <p>
               <strong>Estación Física:</strong>
               @if (sel.has_fixed_sensor) {

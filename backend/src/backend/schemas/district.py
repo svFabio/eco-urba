@@ -15,6 +15,7 @@ class District(BaseModel):
     station_name: str | None = None
     centroid: Centroid
     bbox: list[float] = Field(description="Bounding box [min_lon, min_lat, max_lon, max_lat]")
+    area_km2: float | None = Field(default=None, description="Official area in square kilometers")
 
 
 class DistrictGeoJSONFeature(BaseModel):

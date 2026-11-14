@@ -52,7 +52,8 @@ Thumbs.db
 *.swo
 
 # Datasets & Local Data
-data/
+/data/
+!backend/src/backend/data/
 *.rar
 *.zip
 *.7z
