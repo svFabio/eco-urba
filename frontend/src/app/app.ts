@@ -165,11 +165,92 @@ export class App implements OnInit, AfterViewInit {
       { sticky: true }
     );
 
+    // Capa Satelital NASA GIBS: Índice de Vegetación (NDVI) MODIS Terra
+    const nasaNdviLayer = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {
+      layers: 'MODIS_Terra_L3_NDVI_Monthly',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      opacity: 0.65,
+      attribution: '&copy; NASA EOSDIS GIBS · MODIS Terra NDVI',
+    });
+
+    // Parques y Reservas Verdes emblemáticas de Cochabamba
+    const greenAreasLayer = L.layerGroup();
+    const urbanGreenSpaces = [
+      {
+        name: 'Parque Nacional Tunari (Área Protegida)',
+        desc: 'Pulmón verde principal de Cochabamba, zona de recarga hídrica sobre la Cota 2750.',
+        lat: -17.3380,
+        lon: -66.1650,
+        type: 'Reserva Forestal',
+      },
+      {
+        name: 'Jardín Botánico Martín Cárdenas',
+        desc: 'Reserva de flora nativa y biodiversidad andina (Distrito 12).',
+        lat: -17.3712,
+        lon: -66.1486,
+        type: 'Jardín Botánico',
+      },
+      {
+        name: 'Laguna Alalay (Humedal y Anillo Verde)',
+        desc: 'Humedal urbano y franja de mitigación microclimática (Distritos 5 y 6).',
+        lat: -17.4170,
+        lon: -66.1360,
+        type: 'Humedal y Cinturón Verde',
+      },
+      {
+        name: 'Parque de la Familia',
+        desc: 'Espacio verde y recreativo urbano con circuito de aguas.',
+        lat: -17.3872,
+        lon: -66.1601,
+        type: 'Parque Urbano',
+      },
+      {
+        name: 'Parque del Bicentenario',
+        desc: 'Área verde y recreacional del noroeste (Distrito 3).',
+        lat: -17.3630,
+        lon: -66.1835,
+        type: 'Parque Metropolitano',
+      },
+      {
+        name: 'Cerro San Pedro (Área de Conservación)',
+        desc: 'Monumento Cristo de la Concordia y franja vegetal este.',
+        lat: -17.3845,
+        lon: -66.1350,
+        type: 'Área Protegida',
+      },
+      {
+        name: 'Parque Metropolitano Mariscal Santa Cruz',
+        desc: 'Complejo deportivo y forestado del oeste (Distrito 4).',
+        lat: -17.3980,
+        lon: -66.1770,
+        type: 'Parque Urbano',
+      },
+    ];
+
+    urbanGreenSpaces.forEach((g) => {
+      const gMarker = L.circleMarker([g.lat, g.lon], {
+        radius: 8,
+        fillColor: '#16a34a',
+        color: '#ffffff',
+        weight: 2,
+        fillOpacity: 0.9,
+      });
+      gMarker.bindTooltip(
+        `<strong>🌳 ${g.name}</strong><br><span style="color:#16a34a;font-weight:600">${g.type}</span><br><small>${g.desc}</small>`,
+        { direction: 'top', offset: [0, -6] }
+      );
+      gMarker.addTo(greenAreasLayer);
+    });
+
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
       { 'OpenStreetMap': osmBase },
       {
+        '🌿 Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
+        '🌳 Parques y Reservas Verdes': greenAreasLayer,
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
         '🏛️ GAMC WMS Raster (Capa Verde Monolítica)': distritosGamcWms,
