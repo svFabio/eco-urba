@@ -253,7 +253,7 @@ export class App implements OnInit, AfterViewInit {
         '🌳 Parques y Reservas Verdes': greenAreasLayer,
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
-        '🏛️ GAMC WMS Raster (Capa Verde Monolítica)': distritosGamcWms,
+        '🏛️ Radio Urbano GAMC (WMS Alcaldía - No son áreas verdes)': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
