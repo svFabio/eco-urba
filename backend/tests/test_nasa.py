@@ -36,3 +36,46 @@ async def test_nasa_auth_failure_handling():
         ) as ac:
             response = await ac.get("/api/v1/nasa/task/invalid-task")
         assert response.status_code == 401
+
+
+@pytest.mark.asyncio
+async def test_submit_point_task_success():
+    mock_task_resp = {"task_id": "new-uuid-456", "status": "pending"}
+    with patch(
+        "backend.api.v1.endpoints.nasa.appeears_client.get_product_layers",
+        new=AsyncMock(return_value=("HLSL30_VI.020", ["NDVI", "EVI"])),
+    ), patch(
+        "backend.api.v1.endpoints.nasa.appeears_client.submit_point_task",
+        new=AsyncMock(return_value=mock_task_resp),
+    ):
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as ac:
+            payload = {
+                "task_name": "TEST_POINT",
+                "product_prefix": "HLSL30_VI",
+                "layer_name": "NDVI",
+                "coordinates": [{"id": "1", "latitude": -17.38, "longitude": -66.15}],
+            }
+            response = await ac.post("/api/v1/nasa/task/point", json=payload)
+        assert response.status_code == 200
+        assert response.json()["task_id"] == "new-uuid-456"
+
+
+@pytest.mark.asyncio
+async def test_submit_point_task_invalid_layer():
+    with patch(
+        "backend.api.v1.endpoints.nasa.appeears_client.get_product_layers",
+        new=AsyncMock(return_value=("HLSL30_VI.020", ["NDVI", "EVI"])),
+    ):
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as ac:
+            payload = {
+                "task_name": "TEST_POINT",
+                "product_prefix": "HLSL30_VI",
+                "layer_name": "INVALID_LAYER",
+                "coordinates": [{"id": "1", "latitude": -17.38, "longitude": -66.15}],
+            }
+            response = await ac.post("/api/v1/nasa/task/point", json=payload)
+        assert response.status_code == 400

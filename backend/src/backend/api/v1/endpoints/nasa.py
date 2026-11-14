@@ -47,6 +47,8 @@ async def submit_point_task(req: PointTaskRequest):
             end_date=req.end_date,
         )
         return result
+    except HTTPException:
+        raise
     except ProductNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     except AppEEARSAuthError as e:
@@ -61,6 +63,8 @@ async def submit_point_task(req: PointTaskRequest):
 async def get_task_status(task_id: str):
     try:
         return await appeears_client.get_task_status(task_id)
+    except HTTPException:
+        raise
     except AppEEARSAuthError as e:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
     except AppEEARSError as e:
