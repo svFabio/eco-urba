@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any
 
 from backend.schemas.district import (
     Centroid,
@@ -152,6 +153,10 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 DOCS_DIR = Path(__file__).resolve().parents[4] / "docs" / "distritos"
 
 
+PERIMETER_GEOJSON_FILE = DATA_DIR / "perimetro_cercado.geojson"
+PERIMETER_DOCS_FILE = DOCS_DIR / "perimetro_cercado.geojson"
+
+
 def resolve_geojson_path() -> Path | None:
     for path in [
         DATA_DIR / "distritos_cercado_cochabamba.geojson",
@@ -248,6 +253,13 @@ class DistrictService:
             )
         self._cached_geojson = DistrictGeoJSONCollection(features=features)
         return self._cached_geojson
+
+    def get_cercado_perimeter(self) -> dict[str, Any]:
+        for path in [PERIMETER_GEOJSON_FILE, PERIMETER_DOCS_FILE]:
+            if path.exists():
+                with open(path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+        return {}
 
 
 district_service = DistrictService()

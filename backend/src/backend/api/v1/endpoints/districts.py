@@ -18,6 +18,18 @@ def get_districts_geojson():
     return district_service.get_geojson_collection()
 
 
+@router.get("/perimeter", summary="Get consolidated outer perimeter of Cercado")
+def get_cercado_perimeter():
+    """Return the dissolved outer boundary of Cochabamba (Cercado) as a single GeoJSON polygon for masking."""
+    perimeter = district_service.get_cercado_perimeter()
+    if not perimeter:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Perimeter GeoJSON not found.",
+        )
+    return perimeter
+
+
 @router.get("/{district_id}", response_model=District, summary="Get district by ID")
 def get_district(district_id: int):
     """Retrieve specific district details by its municipal ID (1 to 15)."""

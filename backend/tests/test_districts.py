@@ -37,6 +37,18 @@ async def test_get_district_geojson():
 
 
 @pytest.mark.asyncio
+async def test_get_cercado_perimeter():
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get("/api/v1/districts/perimeter")
+    assert response.status_code == 200
+    perimeter = response.json()
+    assert perimeter["type"] == "Feature"
+    assert perimeter["geometry"]["type"] in ("Polygon", "MultiPolygon")
+
+
+@pytest.mark.asyncio
 async def test_get_single_district():
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
