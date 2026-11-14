@@ -123,7 +123,18 @@ export class App implements OnInit, AfterViewInit {
     const el = this.mapElement()?.nativeElement;
     if (!el) return;
 
-    this.map = L.map(el).setView([-17.3895, -66.1568], 12);
+    // Límite territorial estricto para Cercado (Cochabamba)
+    const cercadoBounds = L.latLngBounds(
+      L.latLng(-17.56, -66.32),
+      L.latLng(-17.25, -66.03)
+    );
+
+    this.map = L.map(el, {
+      maxBounds: cercadoBounds,
+      maxBoundsViscosity: 1.0, // Bloqueo rígido: no permite arrastrar el mapa fuera de Cercado
+      minZoom: 11,            // No permite alejarse hacia el resto de Bolivia o el mundo
+      maxZoom: 18,
+    }).setView([-17.406, -66.174], 12);
 
     const osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors | EcoUrba Cochabamba',
@@ -312,6 +323,11 @@ export class App implements OnInit, AfterViewInit {
       },
     }).addTo(this.map);
 
+    // Encuadre inicial estricto sobre los 15 distritos de Cercado
+    this.map.fitBounds(this.geoJsonLayer.getBounds(), {
+      padding: [20, 20],
+    });
+
     // Bring markers to front so centroids stay clickable
     this.districtLayer?.eachLayer((l: any) => l.bringToFront?.());
   }
@@ -382,6 +398,13 @@ export class App implements OnInit, AfterViewInit {
       this.activePolygon.setStyle(this.defaultPolygonStyle);
       this.activePolygon = undefined;
     }
-    this.map?.flyTo([-17.3895, -66.1568], 12, { duration: 1.0 });
+    if (this.geoJsonLayer) {
+      this.map?.flyToBounds(this.geoJsonLayer.getBounds(), {
+        padding: [20, 20],
+        duration: 0.8,
+      });
+    } else {
+      this.map?.flyTo([-17.406, -66.174], 12, { duration: 0.8 });
+    }
   }
 }
