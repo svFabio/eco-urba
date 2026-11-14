@@ -15,17 +15,19 @@ EcoUrba is an open-source platform designed to analyze, visualize, and forecast 
 
 ```
 eco-urba/
-├── backend/            # High-performance REST API & Scientific Data Engine (FastAPI)
-│   ├── src/backend/    # Modular clean architecture (core, api/v1)
+├── backend/            # High-performance async REST API & Scientific Data Engine (FastAPI)
+│   ├── src/backend/    # Modular clean architecture (core, api/v1, services, schemas)
+│   ├── tests/          # Pytest suite with async ASGI testing
 │   └── pyproject.toml  # Managed with uv (Python 3.12)
-├── frontend/           # Reactive Geospatial Dashboard (Angular 19+)
-│   └── src/            # Standalone components, Signals, MapLibre/Leaflet
-└── docs/               # Contextual and scientific documentation
-    └── 00-contexto/    # NASA Space Apps & GAMC problem definitions
+├── frontend/           # Reactive Geospatial Dashboard (Angular 22)
+│   └── src/app/        # Standalone components, Signals, Leaflet map integration
+├── data/               # Local datasets (gitignored: Red MÓNICA CSVs, GeoJSONs)
+└── docs/               # Architecture, NASA AppEEARS & GAMC GeoServer documentation
 ```
 
-- **Frontend:** [Angular](https://angular.dev/) (Standalone Components, Signals, SCSS).
+- **Frontend:** [Angular 22](https://angular.dev/) (Standalone Components, Signals, [Leaflet](https://leafletjs.com/), SCSS).
 - **Backend:** [FastAPI](https://fastapi.tiangolo.com/) powered by [uv](https://docs.astral.sh/uv/) and Python 3.12.
+- **Testing:** [Pytest](https://docs.pytest.org/) with `pytest-asyncio`.
 - **License:** [MIT License](LICENSE)
 
 ---
@@ -41,7 +43,17 @@ eco-urba/
 
 ```bash
 cd backend
+# 1. Setup environment variables
+cp .env.example .env
+# Edit .env with your NASA Earthdata and GAMC credentials
+
+# 2. Sync dependencies
 uv sync
+
+# 3. Run test suite
+uv run pytest
+
+# 4. Start API server
 uv run backend
 # API running at http://localhost:8000
 # Swagger docs at http://localhost:8000/api/v1/docs

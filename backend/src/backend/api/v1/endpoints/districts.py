@@ -1,36 +1,30 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, status
+
+from backend.schemas.district import District, DistrictGeoJSONCollection
+from backend.services.district_service import district_service
 
 router = APIRouter()
 
 
-class DistrictSummary(BaseModel):
-    id: int
-    name: str
-    has_fixed_sensor: bool
-    station_name: str | None = None
-
-
-# Cochabamba's 15 Municipal Districts
-COCHABAMBA_DISTRICTS: list[DistrictSummary] = [
-    DistrictSummary(id=1, name="Distrito 1", has_fixed_sensor=False),
-    DistrictSummary(id=2, name="Distrito 2", has_fixed_sensor=False),
-    DistrictSummary(id=3, name="Distrito 3", has_fixed_sensor=False),
-    DistrictSummary(id=4, name="Distrito 4", has_fixed_sensor=False),
-    DistrictSummary(id=5, name="Distrito 5", has_fixed_sensor=True, station_name="Av. 6 de Agosto"),
-    DistrictSummary(id=6, name="Distrito 6", has_fixed_sensor=False),
-    DistrictSummary(id=7, name="Distrito 7", has_fixed_sensor=False),
-    DistrictSummary(id=8, name="Distrito 8", has_fixed_sensor=False),
-    DistrictSummary(id=9, name="Distrito 9", has_fixed_sensor=False),
-    DistrictSummary(id=10, name="Distrito 10", has_fixed_sensor=False),
-    DistrictSummary(id=11, name="Distrito 11", has_fixed_sensor=False),
-    DistrictSummary(id=12, name="Distrito 12", has_fixed_sensor=True, station_name="Av. Circunvalación"),
-    DistrictSummary(id=13, name="Distrito 13", has_fixed_sensor=False),
-    DistrictSummary(id=14, name="Distrito 14", has_fixed_sensor=False),
-    DistrictSummary(id=15, name="Distrito 15", has_fixed_sensor=False),
-]
-
-
-@router.get("", response_model=list[DistrictSummary], summary="List municipal districts")
+@router.get("", response_model=list[District], summary="List all 15 municipal districts")
 def get_districts():
-    return COCHABAMBA_DISTRICTS
+    """Retrieve all 15 municipal districts with zones, sensor statuses, and bounding boxes."""
+    return district_service.get_all_districts()
+
+
+@router.get("/geojson", response_model=DistrictGeoJSONCollection, summary="Get districts as GeoJSON FeatureCollection")
+def get_districts_geojson():
+    """Return municipal districts formatted as GeoJSON for direct map rendering in Leaflet/MapLibre."""
+    return district_service.get_geojson_collection()
+
+
+@router.get("/{district_id}", response_model=District, summary="Get district by ID")
+def get_district(district_id: int):
+    """Retrieve specific district details by its municipal ID (1 to 15)."""
+    district = district_service.get_district_by_id(district_id)
+    if not district:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"District with ID {district_id} not found.",
+        )
+    return district
