@@ -88,15 +88,15 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    // Official GAMC WMS Layer (Municipal Outer Boundary)
-    const gamcBoundaryWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'limite_cercado',
+    // Capa Oficial de la Alcaldía: "Limite Distritos · Simple" (service_id oficial)
+    const distritosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: '',
       format: 'image/png',
       transparent: true,
       version: '1.1.1',
       maxZoom: 19,
-      attribution: '&copy; GAMC GeoServer',
-    });
+      attribution: '&copy; GAMC Cochabamba · Limite Distritos Simple',
+    }).addTo(this.map);
 
     // Real Cota 2750 Contour Line (Northern Conservation Boundary - Parque Tunari)
     const cota2750Coords: [number, number][] = [
@@ -129,7 +129,7 @@ export class App implements OnInit, AfterViewInit {
       { 'OpenStreetMap': osmBase },
       {
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
-        '🏛️ Límite Municipal Cercado (GAMC)': gamcBoundaryWms,
+        '🏛️ Límite Distritos (Oficial GAMC)': distritosGamcWms,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
       },
       { position: 'topright', collapsed: false }
