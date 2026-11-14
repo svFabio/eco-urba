@@ -14,7 +14,11 @@ class AppEEARSClient:
     ) -> str:
         """Authenticate with NASA Earthdata credentials and retrieve bearer token."""
         user = username or settings.NASA_EARTHDATA_USERNAME
-        pwd = password or settings.NASA_EARTHDATA_PASSWORD
+        pwd = password or (
+            settings.NASA_EARTHDATA_PASSWORD.get_secret_value()
+            if hasattr(settings.NASA_EARTHDATA_PASSWORD, "get_secret_value")
+            else str(settings.NASA_EARTHDATA_PASSWORD)
+        )
 
         if not user or not pwd:
             raise ValueError(

@@ -50,3 +50,11 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Datasets & Local Data
+data/
+*.rar
+*.zip
+*.7z
+*.tar.gz
+

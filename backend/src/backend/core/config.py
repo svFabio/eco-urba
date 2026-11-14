@@ -1,3 +1,4 @@
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -12,7 +13,10 @@ class Settings(BaseSettings):
 
     NASA_APPEEARS_API_URL: str = "https://appeears.earthdatacloud.nasa.gov/api"
     NASA_EARTHDATA_USERNAME: str = ""
-    NASA_EARTHDATA_PASSWORD: str = ""
+    NASA_EARTHDATA_PASSWORD: SecretStr = SecretStr("")
+
+    GAMC_API_KEY: SecretStr = SecretStr("")
+    GAMC_SERVICE_ID: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",
