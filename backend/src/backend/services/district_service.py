@@ -149,7 +149,17 @@ COCHABAMBA_DISTRICTS: list[District] = [
 ]
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-GEOJSON_FILE = DATA_DIR / "distritos_cercado_cochabamba.geojson"
+DOCS_DIR = Path(__file__).resolve().parents[4] / "docs" / "distritos"
+
+
+def resolve_geojson_path() -> Path | None:
+    for path in [
+        DATA_DIR / "distritos_cercado_cochabamba.geojson",
+        DOCS_DIR / "distritos_cercado_cochabamba.geojson",
+    ]:
+        if path.exists():
+            return path
+    return None
 
 
 class DistrictService:
@@ -169,9 +179,10 @@ class DistrictService:
             return self._cached_geojson
 
         district_lookup = {d.id: d for d in COCHABAMBA_DISTRICTS}
+        geojson_path = resolve_geojson_path()
 
-        if GEOJSON_FILE.exists():
-            with open(GEOJSON_FILE, "r", encoding="utf-8") as f:
+        if geojson_path:
+            with open(geojson_path, "r", encoding="utf-8") as f:
                 raw_data = json.load(f)
 
             features: list[DistrictGeoJSONFeature] = []
