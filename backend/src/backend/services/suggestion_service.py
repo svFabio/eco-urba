@@ -127,14 +127,14 @@ def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
         p1_title = f"Cortina Arbórea Anti-Polvo e Isla Térmica ({district.name})"
         p1_reason = (
             f"Severidad térmica crítica (LST {temp}°C) con pendiente suave ({slope1}%). "
-            f"Buffer de amortiguación para mitigar radiación y vientos secos con Molles y Jacarandás."
+            f"Franja de amortiguamiento para mitigar radiación y vientos secos con Molles y Jacarandás."
         )
     else:
         slope1 = 2.4
         elev1 = 2568.0
         p1_title = f"Micro-bosque y Sombra Peatonal ({district.name})"
         p1_reason = (
-            f"Terreno llano urbano ({slope1}% de pendiente). Buffer a 180m de centros educativos "
+            f"Terreno llano urbano ({slope1}% de pendiente). Radio de cobertura a 180m de centros educativos "
             f"para enfriar islas de calor y crear corredores sombreados escolares."
         )
 
@@ -188,7 +188,7 @@ def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
                 longitude=p2_lon,
                 reason=(
                     f"Topografía óptima: pendiente plana de {slope2}% según NASA ASTER/SRTM. "
-                    f"Excelente accesibilidad para ambulancias y buffer > 600m de centros hospitalarios existentes."
+                    f"Excelente accesibilidad para ambulancias y distancia mayor a 600m de centros hospitalarios existentes."
                 ),
                 slope_pct=slope2,
                 elevation_m=elev2,
@@ -240,7 +240,7 @@ Topografía y puntos preliminares (NASA ASTER/SRTM):
 Instrucciones:
 1. Genera una recomendación de intervención urbanística y bioclimática profesional, viva, dinámica, SIN frases cliché ni plantillas repetitivas (máximo 3 o 4 oraciones).
 2. Justifica técnicamente por qué se recomienda cada acción (por ejemplo, laderas altas >15% requieren especies nativas como Kewiña/Kiswara para frenar torrentes y estabilizar suelos, descartando hospitales por accesibilidad de ambulancias; mientras que planicies con alta LST requieren arbolado de sombra densa como Molle/Jacarandá y son aptas para centros de salud).
-3. Puedes ajustar o refinar las descripciones y razones de los puntos de intervención para que sean precisos.
+3. Puedes ajustar o refinar las descripciones y razones de los puntos de intervención para que sean precisos. Evita anglicismos como "buffer"; utiliza en su lugar términos urbanísticos naturales en español como "franja de amortiguamiento", "radio de cobertura" o "distancia de separación".
 
 Responde OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
 {{
