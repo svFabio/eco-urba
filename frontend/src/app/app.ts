@@ -84,11 +84,11 @@ export class App implements OnInit, AfterViewInit {
   private readonly API_BASE = 'http://localhost:8000/api/v1';
 
   private readonly defaultPolygonStyle: L.PathOptions = {
-    color: '#795290',
-    weight: 2.5,
-    opacity: 0.95,
-    fillColor: '#8b5cf6',
-    fillOpacity: 0.12,
+    color: '#ffffff',
+    weight: 1.5,
+    opacity: 0.9,
+    fillColor: '#94a3b8',
+    fillOpacity: 0.45,
   };
 
   getDistrictColor(risk: string): string {
@@ -106,19 +106,17 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private readonly hoverPolygonStyle: L.PathOptions = {
-    color: '#4c1d95',
-    weight: 3.5,
+    color: '#09090b',
+    weight: 2.5,
     opacity: 1,
-    fillColor: '#7c3aed',
-    fillOpacity: 0.25,
+    fillOpacity: 0.65,
   };
 
   private readonly selectedPolygonStyle: L.PathOptions = {
-    color: '#2563eb',
-    weight: 4,
+    color: '#09090b',
+    weight: 3.5,
     opacity: 1,
-    fillColor: '#3b82f6',
-    fillOpacity: 0.35,
+    fillOpacity: 0.6,
   };
 
   ngOnInit(): void {
@@ -170,21 +168,37 @@ export class App implements OnInit, AfterViewInit {
 
   private loadPoiLayer(type: 'school' | 'hospital'): void {
     if (!this.map) return;
-    const emoji = type === 'school' ? '🏫' : '🏥';
     const targetLayer = type === 'school' ? this.schoolsLayer : this.hospitalsLayer;
 
     this.http.get<any[]>(`${this.API_BASE}/pois?type=${type}`).subscribe({
       next: (pois) => {
         targetLayer.clearLayers();
         pois.forEach((poi) => {
+          const svgHtml =
+            type === 'school'
+              ? `<div class="poi-pin-badge poi-school" title="Escuela">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
+                </div>`
+              : `<div class="poi-pin-badge poi-hospital" title="Hospital">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 6v12M6 12h12"/>
+                  </svg>
+                </div>`;
+
           const icon = L.divIcon({
-            html: `<span class="poi-pin">${emoji}</span>`,
-            className: '',
-            iconSize: [28, 28],
-            iconAnchor: [14, 14],
+            html: svgHtml,
+            className: 'poi-custom-container',
+            iconSize: [26, 26],
+            iconAnchor: [13, 13],
           });
           const marker = L.marker([poi.latitude, poi.longitude], { icon });
-          marker.bindTooltip(poi.name ?? `${emoji} POI`, { direction: 'top', offset: [0, -10] });
+          marker.bindTooltip(poi.name ?? (type === 'school' ? 'Escuela' : 'Centro de Salud'), {
+            direction: 'top',
+            offset: [0, -10],
+          });
           marker.addTo(targetLayer);
         });
       },
@@ -329,7 +343,7 @@ export class App implements OnInit, AfterViewInit {
         fillOpacity: 0.9,
       });
       gMarker.bindTooltip(
-        `<strong>🌳 ${g.name}</strong><br><span style="color:#16a34a;font-weight:600">${g.type}</span><br><small>${g.desc}</small>`,
+        `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${g.type}</span><br><small>${g.desc}</small>`,
         { direction: 'top', offset: [0, -6] }
       );
       gMarker.addTo(greenAreasLayer);
@@ -339,17 +353,17 @@ export class App implements OnInit, AfterViewInit {
 
     L.control.layers(
       {
-        '🗺️ OpenStreetMap (Calles y Contexto)': osmBase,
-        '🌌 Solo Cercado (Fondo Limpio Sin Mapa Mundial)': darkCanvas,
+        'OpenStreetMap': osmBase,
+        'Solo Cercado': darkCanvas,
       },
       {
-        '🌿 Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
-        '🌳 Parques y Reservas Verdes': greenAreasLayer,
-        '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
-        '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
+        'Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
+        'Parques y Reservas Verdes': greenAreasLayer,
+        'Cota 2750 Parque Tunari': cota2750Line,
+        'Distritos y Estaciones MÓNICA': this.districtLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
-        '🏛️ Radio Urbano GAMC (WMS Alcaldía - No son áreas verdes)': distritosGamcWms,
+        'Radio Urbano GAMC': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
@@ -406,13 +420,13 @@ export class App implements OnInit, AfterViewInit {
         );
 
         const sensorText = props.has_fixed_sensor
-          ? `<br><span style="color:#10b981;font-weight:600">📡 Sensor MÓNICA: ${props.station_name}</span>`
-          : '<br><span style="color:#64748b;font-style:italic">Sensado Virtual</span>';
+          ? `<br><span style="color:#059669;font-weight:600">Sensor MÓNICA: ${props.station_name}</span>`
+          : '<br><span style="color:#71717a;font-style:italic">Sensado Virtual</span>';
 
-        const areaText = props.area_km2 ? `<br>📐 Superficie: <strong>${props.area_km2} km²</strong>` : '';
+        const areaText = props.area_km2 ? `<br>Superficie: <strong>${props.area_km2} km²</strong>` : '';
 
         layer.bindPopup(
-          `<strong>${props.name}</strong><br><span style="color:#64748b">${props.zone}</span>${areaText}${sensorText}`
+          `<strong>${props.name}</strong><br><span style="color:#71717a">${props.zone}</span>${areaText}${sensorText}`
         );
 
         layer.on('mouseover', () => {
@@ -469,8 +483,8 @@ export class App implements OnInit, AfterViewInit {
       });
 
       const tooltipContent = isSensor
-        ? `<strong>📡 Estación Red MÓNICA</strong><br>${d.station_name}<br><span style="color:#64748b">${d.name} (${d.zone})</span>`
-        : `<strong>${d.name}</strong><br><span style="color:#64748b">${d.zone}</span>`;
+        ? `<strong>Estación Red MÓNICA</strong><br>${d.station_name}<br><span style="color:#71717a">${d.name} (${d.zone})</span>`
+        : `<strong>${d.name}</strong><br><span style="color:#71717a">${d.zone}</span>`;
 
       marker.bindTooltip(tooltipContent, {
         direction: 'top',
