@@ -252,7 +252,12 @@ Respondé OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
   }}
 }}
 """
-    for model in ["gemini-2.5-flash", "gemini-flash-latest"]:
+    preferred_model = settings.GEMINI_MODEL or "gemini-2.5-flash"
+    candidate_models = [preferred_model]
+    if "gemini-flash-latest" not in candidate_models:
+        candidate_models.append("gemini-flash-latest")
+
+    for model in candidate_models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
             with httpx.Client(timeout=20.0) as client:

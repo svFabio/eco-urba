@@ -38,6 +38,15 @@ def get_cercado_perimeter():
     return perimeter
 
 
+@router.get(
+    "/cota2750",
+    summary="Get official Cota 2750 boundary line (Parque Tunari)",
+)
+def get_cota_2750():
+    """Return the official Cota 2750 line as a GeoJSON LineString Feature."""
+    return district_service.get_cota_2750()
+
+
 @router.get("/{district_id}", response_model=District, summary="Get district by ID")
 def get_district(district_id: int):
     """Retrieve specific district details by its municipal ID (1 to 15)."""

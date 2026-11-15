@@ -17,8 +17,10 @@ class Settings(BaseSettings):
 
     GAMC_API_KEY: SecretStr = SecretStr("")
     GAMC_SERVICE_ID: str = ""
+    GAMC_WMS_URL: str = "https://serviciosgamc.cochabamba.bo/api/gs/wms"
 
     GEMINI_API_KEY: SecretStr = SecretStr("")
+    GEMINI_MODEL: str = "gemini-2.5-flash"
 
     model_config = SettingsConfigDict(
         env_file=".env",

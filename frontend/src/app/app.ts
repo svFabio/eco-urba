@@ -11,6 +11,13 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as L from 'leaflet';
+import {
+  HEAT_RISK_COLORS,
+  CANOPY_GOAL_PCT,
+  CANOPY_COLOR_RAMP,
+  CANOPY_GOAL_COLORS,
+  DEFAULT_POLYGON_STYLE,
+} from './core/theme-tokens';
 
 export interface Centroid {
   latitude: float;
@@ -141,22 +148,10 @@ export class App implements OnInit, AfterViewInit {
     return '/api/v1';
   })();
 
-  private readonly defaultPolygonStyle: L.PathOptions = {
-    color: '#ffffff',
-    weight: 1.5,
-    opacity: 0.9,
-    fillColor: '#94a3b8',
-    fillOpacity: 0.45,
-  };
+  private readonly defaultPolygonStyle: L.PathOptions = DEFAULT_POLYGON_STYLE;
 
   getDistrictColor(risk: string): string {
-    switch (risk) {
-      case 'Bajo': return '#4caf50';
-      case 'Moderado': return '#ffeb3b';
-      case 'Alto': return '#ff9800';
-      case 'Crítico': return '#f44336';
-      default: return '#8b5cf6';
-    }
+    return HEAT_RISK_COLORS[risk] ?? HEAT_RISK_COLORS['Default'];
   }
 
   getFillColorForFeature(props: any): string {
@@ -165,18 +160,15 @@ export class App implements OnInit, AfterViewInit {
     const canopy = props?.tree_canopy_pct ?? props?.microclimate?.tree_canopy_pct ?? 0;
 
     if (metric === 'vegetation') {
-      if (canopy >= 30) return '#15803d';
-      if (canopy >= 20) return '#22c55e';
-      if (canopy >= 15) return '#84cc16';
-      if (canopy >= 10) return '#eab308';
-      return '#f97316';
+      const match = CANOPY_COLOR_RAMP.find((ramp) => canopy >= ramp.minCanopy);
+      return match ? match.color : '#f97316';
     }
 
     if (metric === 'goal') {
-      return canopy >= 44 ? '#16a34a' : '#f43f5e';
+      return canopy >= CANOPY_GOAL_PCT ? CANOPY_GOAL_COLORS.met : CANOPY_GOAL_COLORS.notMet;
     }
 
-    return risk ? this.getDistrictColor(risk) : '#94a3b8';
+    return risk ? this.getDistrictColor(risk) : (this.defaultPolygonStyle.fillColor as string);
   }
 
   setMetric(metric: 'risk' | 'vegetation' | 'goal'): void {
@@ -357,99 +349,63 @@ export class App implements OnInit, AfterViewInit {
       attribution: '&copy; GAMC · Cuencas Principales',
     });
 
-    // Real Cota 2750 Contour Line (Northern Conservation Boundary - Parque Tunari)
-    const cota2750Coords: [number, number][] = [
-      [-17.352, -66.218],
-      [-17.350, -66.205],
-      [-17.347, -66.192],
-      [-17.344, -66.178],
-      [-17.341, -66.165],
-      [-17.339, -66.152],
-      [-17.341, -66.140],
-      [-17.346, -66.128],
-      [-17.351, -66.115],
-      [-17.356, -66.102],
-    ];
-
-    const cota2750Line = L.polyline(cota2750Coords, {
-      color: '#dc2626',
-      weight: 3,
-      dashArray: '8, 6',
-      opacity: 0.9,
+    // Real Cota 2750 Contour Line (Cargada dinámicamente vía GeoJSON oficial)
+    const cota2750Line = L.geoJSON(undefined, {
+      style: {
+        color: '#dc2626',
+        weight: 3,
+        dashArray: '8, 6',
+        opacity: 0.9,
+      },
+      onEachFeature: (feature, layer) => {
+        layer.bindTooltip(
+          `<strong>${feature.properties?.name || 'Línea Cota 2750 m.s.n.m.'}</strong><br>${feature.properties?.description || 'Límite ecológico y legal del Parque Nacional Tunari (Ley 1262)'}<br><small>Hacia el norte: área de conservación</small>`,
+          { sticky: true }
+        );
+      },
     });
-    cota2750Line.bindTooltip(
-      '<strong>Línea Cota 2750 m.s.n.m.</strong><br>Límite ecológico y legal del Parque Nacional Tunari (Ley 1262)<br><small>Hacia el norte: área de conservación</small>',
-      { sticky: true }
-    );
 
-    // Parques y Reservas Verdes emblemáticas de Cochabamba (Vectorial)
+    fetch(`${this.API_BASE}/districts/cota2750`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) {
+          cota2750Line.addData(data);
+        }
+      })
+      .catch((err) => console.warn('Error loading Cota 2750:', err));
+
+    // Parques y Reservas Verdes de Cochabamba (Cargadas dinámicamente desde la API)
     const greenAreasLayer = L.layerGroup();
-    const urbanGreenSpaces = [
-      {
-        name: 'Parque Nacional Tunari (Área Protegida)',
-        desc: 'Pulmón verde principal de Cochabamba, zona de recarga hídrica sobre la Cota 2750.',
-        lat: -17.3380,
-        lon: -66.1650,
-        type: 'Reserva Forestal',
-      },
-      {
-        name: 'Jardín Botánico Martín Cárdenas',
-        desc: 'Reserva de flora nativa y biodiversidad andina (Distrito 12).',
-        lat: -17.3712,
-        lon: -66.1486,
-        type: 'Jardín Botánico',
-      },
-      {
-        name: 'Laguna Alalay (Humedal y Anillo Verde)',
-        desc: 'Humedal urbano y franja de mitigación microclimática (Distritos 5 y 6).',
-        lat: -17.4170,
-        lon: -66.1360,
-        type: 'Humedal y Cinturón Verde',
-      },
-      {
-        name: 'Parque de la Familia',
-        desc: 'Espacio verde y recreativo urbano con circuito de aguas.',
-        lat: -17.3872,
-        lon: -66.1601,
-        type: 'Parque Urbano',
-      },
-      {
-        name: 'Parque del Bicentenario',
-        desc: 'Área verde y recreacional del noroeste (Distrito 3).',
-        lat: -17.3630,
-        lon: -66.1835,
-        type: 'Parque Metropolitano',
-      },
-      {
-        name: 'Cerro San Pedro (Área de Conservación)',
-        desc: 'Monumento Cristo de la Concordia y franja vegetal este.',
-        lat: -17.3845,
-        lon: -66.1350,
-        type: 'Área Protegida',
-      },
-      {
-        name: 'Parque Metropolitano Mariscal Santa Cruz',
-        desc: 'Complejo deportivo y forestado del oeste (Distrito 4).',
-        lat: -17.3980,
-        lon: -66.1770,
-        type: 'Parque Urbano',
-      },
-    ];
+    const loadGreenPOIs = (type: string, color: string, radius: number) => {
+      fetch(`${this.API_BASE}/pois?type=${type}`)
+        .then((res) => (res.ok ? res.json() : []))
+        .then((items: any[]) => {
+          items.forEach((g) => {
+            const lat = g.lat ?? g.latitude;
+            const lng = g.lng ?? g.longitude;
+            if (lat && lng) {
+              const marker = L.circleMarker([lat, lng], {
+                radius,
+                fillColor: color,
+                color: '#ffffff',
+                weight: 2,
+                fillOpacity: 0.95,
+              });
+              const typeLabel = g.sub_type || (type === 'green_area' ? 'Área Protegida' : 'Parque Urbano');
+              const descLabel = g.description ? `<br><small>${g.description}</small>` : '';
+              marker.bindTooltip(
+                `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${typeLabel}</span>${descLabel}`,
+                { direction: 'top', offset: [0, -6] }
+              );
+              marker.addTo(greenAreasLayer);
+            }
+          });
+        })
+        .catch((err) => console.warn(`Error loading POIs (${type}):`, err));
+    };
 
-    urbanGreenSpaces.forEach((g) => {
-      const gMarker = L.circleMarker([g.lat, g.lon], {
-        radius: 7,
-        fillColor: '#10b981',
-        color: '#ffffff',
-        weight: 2,
-        fillOpacity: 0.95,
-      });
-      gMarker.bindTooltip(
-        `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${g.type}</span><br><small>${g.desc}</small>`,
-        { direction: 'top', offset: [0, -6] }
-      );
-      gMarker.addTo(greenAreasLayer);
-    });
+    loadGreenPOIs('park', '#10b981', 7);
+    loadGreenPOIs('green_area', '#059669', 8);
 
     this.districtLayer = L.layerGroup().addTo(this.map);
 

@@ -12,6 +12,8 @@ class POI(BaseModel):
     lat: float
     lng: float
     district_id: int
+    description: str | None = None
+    sub_type: str | None = None
 
     @computed_field
     @property

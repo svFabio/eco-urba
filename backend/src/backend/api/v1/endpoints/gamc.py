@@ -5,8 +5,6 @@ from backend.core.config import settings
 
 router = APIRouter()
 
-GAMC_WMS_URL = "https://serviciosgamc.cochabamba.bo/api/gs/wms"
-
 AVAILABLE_LAYERS = [
     {"name": "limite_distritos", "title": "Límites Distritales Oficiales"},
     {"name": "areas_verdes", "title": "Áreas Verdes y Parques"},
@@ -45,7 +43,7 @@ async def proxy_gamc_wms(request: Request):
 
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.get(GAMC_WMS_URL, params=params)
+            resp = await client.get(settings.GAMC_WMS_URL, params=params)
             media_type = resp.headers.get("content-type", "image/png")
             return Response(content=resp.content, status_code=resp.status_code, media_type=media_type)
     except Exception as e:

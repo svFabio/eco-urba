@@ -52,12 +52,13 @@ class TrendService:
         total_span = len(years) - 1
 
         for idx, y in enumerate(years):
-            factor = (idx - total_span) / total_span  # de -1 a 0
-            # Temperatura en el año y
-            y_temp = round(base_temp + (rate * 0.7 * factor) + (0.3 if y in [2020, 2023] else -0.2), 1)
-            # NDVI en el año y
+            factor = (idx - total_span) / total_span  # de -1.0 a 0.0
+            # Proyección lineal científica basada en la tasa de calentamiento (°C por década)
+            years_offset = y - years[-1]
+            y_temp = round(base_temp + (rate * (years_offset / 10.0)), 1)
+            # NDVI proyectado según delta decenal
             y_ndvi = round(max(0.05, min(0.95, base_ndvi - ((ndvi_delta / 100.0) * base_ndvi * factor))), 2)
-            # Canopy en el año y
+            # Canopy proyectado
             y_canopy = round(max(1.0, base_canopy - ((ndvi_delta / 100.0) * base_canopy * factor)), 1)
 
             history.append(
