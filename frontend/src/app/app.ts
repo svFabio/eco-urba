@@ -473,10 +473,15 @@ export class App implements OnInit, AfterViewInit {
     this.map.on('zoomend', () => {
       const z = this.map!.getZoom();
       this.currentZoom.set(z);
-      // Auto-activación de trama de manzanos oficial del GAMC a nivel granular (zoom >= 15)
-      if (z >= 15 && !this.showManzanos() && this.manzanosLayer) {
-        this.manzanosLayer.addTo(this.map!);
-        this.showManzanos.set(true);
+      // Auto-activación de trama de manzanos oficial del GAMC a nivel granular (zoom >= 14)
+      if (this.manzanosLayer) {
+        if (z >= 14 && !this.showManzanos()) {
+          this.manzanosLayer.addTo(this.map!);
+          this.showManzanos.set(true);
+        } else if (z < 14 && this.showManzanos()) {
+          this.map!.removeLayer(this.manzanosLayer);
+          this.showManzanos.set(false);
+        }
       }
     });
   }
@@ -629,7 +634,7 @@ export class App implements OnInit, AfterViewInit {
         this.map.fitBounds(bounds, {
           paddingTopLeft: [30, 30],
           paddingBottomRight: [430, 30],
-          maxZoom: 14,
+          maxZoom: 15,
           animate: true,
           duration: 0.35,
         });

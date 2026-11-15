@@ -3,27 +3,9 @@
   <header class="app-header">
     <div class="header-left">
       <div class="brand-box">
-        <span class="brand-badge">NASA Space Apps</span>
         <h1 class="brand-title">EcoUrba</h1>
         <span class="brand-divider">/</span>
         <span class="brand-city">Cochabamba</span>
-      </div>
-      <span class="sub-title">Detección de Tendencias Microclimáticas</span>
-    </div>
-
-    <div class="header-right">
-      <div class="header-status">
-        @if (backendHealthy()) {
-          <span class="status-indicator online">
-            <span class="status-dot"></span>
-            API Online
-          </span>
-        } @else {
-          <span class="status-indicator offline">
-            <span class="status-dot"></span>
-            API Offline
-          </span>
-        }
       </div>
     </div>
   </header>
@@ -243,7 +225,6 @@
             @if (sel.microclimate; as mc) {
               <div class="section-title">
                 <h3>Diagnóstico Microclimático</h3>
-                <span class="source-tag">NASA GIBS & MODIS</span>
               </div>
 
               <div class="indicator-cards">
