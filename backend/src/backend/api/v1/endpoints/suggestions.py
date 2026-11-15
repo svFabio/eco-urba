@@ -7,8 +7,8 @@ router = APIRouter()
 
 
 @router.get("/{district_id}/suggestion", response_model=SuggestionResult)
-def district_suggestion(district_id: int) -> SuggestionResult:
-    result = get_suggestion(district_id)
+def district_suggestion(district_id: int, force_refresh: bool = False) -> SuggestionResult:
+    result = get_suggestion(district_id, force_refresh=force_refresh)
     if result is None:
         raise HTTPException(status_code=404, detail=f"District {district_id} not found")
     return result

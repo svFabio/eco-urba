@@ -1,9 +1,25 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from backend.main import app
-from backend.services.suggestion_service import _build_suggestion_text
+from backend.services.suggestion_service import _build_suggestion_text, clear_suggestion_cache
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def mock_gemini_and_clear_cache(monkeypatch):
+    clear_suggestion_cache()
+    monkeypatch.setattr(
+        "backend.services.suggestion_service._query_gemini_suggestion",
+        lambda district, interventions: {
+            "suggestion_text": f"Sugerencia analítica de IA para {district.name} basada en telemetría NASA.",
+            "available_areas_hint": "Franjas de amortiguamiento y predios públicos disponibles en el distrito.",
+            "refined_reasons": {i.id: f"Razón IA para {i.title}" for i in interventions},
+        },
+    )
+    yield
+    clear_suggestion_cache()
 
 
 def test_pois_returns_200() -> None:

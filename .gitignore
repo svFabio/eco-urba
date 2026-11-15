@@ -54,6 +54,7 @@ Thumbs.db
 # Datasets & Local Data
 /data/
 !backend/src/backend/data/
+docs/03-prototipo/
 *.rar
 *.zip
 *.7z

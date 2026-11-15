@@ -25,6 +25,22 @@ body {
 .poi-custom-container {
   background: transparent !important;
   border: none !important;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+// Level of detail: Solo mostrar colegios y hospitales al hacer zoom (zoom >= 14)
+.map-macro-view .poi-custom-container {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transform: scale(0.6);
+}
+
+.map-detailed-view .poi-custom-container {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  transform: scale(1);
 }
 
 .poi-pin-badge {

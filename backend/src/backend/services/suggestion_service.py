@@ -57,6 +57,7 @@ _ZONE_HINTS: dict[str, str] = {
     "Suroeste": "Terrenos de equipamiento público, áreas de cesión barrial y predios escolares",
     "Este Urbano": "Plazas de cesión vecinal, cubiertas públicas y aceras comerciales densas",
     "Sureste": "Áreas de cesión en loteamientos aprobados y quebradas de mitigación térmica",
+    "Sudeste (Av. Petrolera)": "Franjas de servidumbre en la Av. Petrolera y retiros públicos de loteamientos en Valle Hermoso Sur",
     "Sur Periférico": "Franjas de amortiguamiento del vertedero K'ara K'ara y terrenos públicos de amortiguación",
     "Extremo Sur": "Terrenos comunales de preservación y laderas áridas aptas para especies nativas xerófilas",
 }
@@ -260,20 +261,31 @@ Responde OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
     for model in candidate_models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
-            with httpx.Client(timeout=20.0) as client:
+            with httpx.Client(timeout=12.0) as client:
                 resp = client.post(
                     url,
                     headers={"Content-Type": "application/json", "X-goog-api-key": raw_key},
                     json={
                         "contents": [{"parts": [{"text": prompt}]}],
-                        "generationConfig": {"temperature": 0.35, "responseMimeType": "application/json"},
+                        "generationConfig": {
+                            "temperature": 0.35,
+                            "responseMimeType": "application/json",
+                            "thinkingConfig": {"thinkingBudget": 0},
+                        },
                     },
                 )
                 if resp.status_code == 200:
                     data = resp.json()
                     candidates = data.get("candidates", [])
                     if candidates:
-                        text = candidates[0]["content"]["parts"][0]["text"]
+                        text = candidates[0]["content"]["parts"][0]["text"].strip()
+                        if text.startswith("```"):
+                            lines = text.splitlines()
+                            if lines and lines[0].startswith("```"):
+                                lines = lines[1:]
+                            if lines and lines[-1].startswith("```"):
+                                lines = lines[:-1]
+                            text = "\n".join(lines).strip()
                         return json.loads(text)
                 else:
                     logger.warning(
@@ -285,7 +297,17 @@ Responde OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
     return None
 
 
-def get_suggestion(district_id: int) -> SuggestionResult | None:
+_SUGGESTION_CACHE: dict[int, SuggestionResult] = {}
+
+
+def clear_suggestion_cache() -> None:
+    _SUGGESTION_CACHE.clear()
+
+
+def get_suggestion(district_id: int, force_refresh: bool = False) -> SuggestionResult | None:
+    if not force_refresh and district_id in _SUGGESTION_CACHE:
+        return _SUGGESTION_CACHE[district_id]
+
     district = district_service.get_district_by_id(district_id)
     if district is None:
         return None
@@ -319,7 +341,7 @@ def get_suggestion(district_id: int) -> SuggestionResult | None:
         )
         available_areas_hint = zone_hint
 
-    return SuggestionResult(
+    result = SuggestionResult(
         district_id=district.id,
         district_name=district.name,
         meets_goal=meets_goal,
@@ -328,3 +350,5 @@ def get_suggestion(district_id: int) -> SuggestionResult | None:
         available_areas_hint=available_areas_hint,
         candidate_interventions=interventions,
     )
+    _SUGGESTION_CACHE[district_id] = result
+    return result

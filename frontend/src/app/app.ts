@@ -231,6 +231,24 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  updateZoomState(): void {
+    if (!this.map) return;
+    const zoom = this.map.getZoom();
+    this.currentZoom.set(zoom);
+    this.updatePolygonOpacities();
+
+    const container = this.map.getContainer();
+    if (container) {
+      if (zoom >= 14) {
+        container.classList.remove('map-macro-view');
+        container.classList.add('map-detailed-view');
+      } else {
+        container.classList.remove('map-detailed-view');
+        container.classList.add('map-macro-view');
+      }
+    }
+  }
+
   private updatePolygonColors(): void {
     if (!this.geoJsonLayer) return;
     const zoom = this.map?.getZoom() ?? 12;
@@ -596,11 +614,11 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
           'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
           'Cota 2750 Parque Tunari': cota2750Line,
           'Distritos y Estaciones MÓNICA': this.districtLayer,
-          '🛰️ NASA Térmico Píxel a Píxel (LST 2025)': lst2025Raster,
-          '🌿 NASA Vegetación Píxel a Píxel (NDVI 2025)': ndvi2025Raster,
-          '🔥 NASA Hotspots Térmicos 2024': hotspotsRaster,
-          '📉 Cambio Térmico 2016 ➔ 2025 (Delta LST)': deltaLstRaster,
-          '🌱 Cambio Vegetal 2016 ➔ 2025 (Delta NDVI)': deltaNdviRaster,
+          'NASA Térmico Píxel a Píxel (LST 2025)': lst2025Raster,
+          'NASA Vegetación Píxel a Píxel (NDVI 2025)': ndvi2025Raster,
+          'NASA Hotspots Térmicos 2024': hotspotsRaster,
+          'Cambio Térmico 2016 - 2025 (Delta LST)': deltaLstRaster,
+          'Cambio Vegetal 2016 - 2025 (Delta NDVI)': deltaNdviRaster,
         },
         { position: 'topright', collapsed: false }
       )
@@ -620,14 +638,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.loadPoiLayer('hospital');
 
     this.map.on('zoom', () => {
-      this.updatePolygonOpacities();
+      this.updateZoomState();
     });
 
     this.map.on('zoomend', () => {
-      const z = this.map!.getZoom();
-      this.currentZoom.set(z);
-      this.updatePolygonOpacities();
+      this.updateZoomState();
     });
+
+    this.updateZoomState();
   }
 
   private renderGeoJsonDistricts(geoData: any): void {
@@ -855,13 +873,16 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  generateSuggestions(): void {
+  generateSuggestions(force = false): void {
     const district = this.selectedDistrict();
     if (!district) return;
     this.suggestionLoading.set(true);
     this.suggestionSub?.unsubscribe();
+    const url = force
+      ? `${this.API_BASE}/districts/${district.id}/suggestion?force_refresh=true`
+      : `${this.API_BASE}/districts/${district.id}/suggestion`;
     this.suggestionSub = this.http
-      .get<SuggestionResult>(`${this.API_BASE}/districts/${district.id}/suggestion`)
+      .get<SuggestionResult>(url)
       .subscribe({
         next: (result) => {
           this.suggestion.set(result);
