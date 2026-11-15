@@ -31,7 +31,6 @@ services:
   - type: web
     name: eco-urba
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build && echo "window.__API_BASE__='https://${BACKEND_HOST}/api/v1';" > dist/frontend/browser/env.js
     staticPublishPath: dist/frontend/browser
