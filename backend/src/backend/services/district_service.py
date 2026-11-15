@@ -21,25 +21,6 @@ PERIMETER_DOCS_FILE = DOCS_DIR / "perimetro_cercado.geojson"
 INDICATORS_FILE = DATA_DIR / "cocha360_distritos_indicadores.geojson"
 
 
-def _load_nasa_hotspots() -> dict[int, tuple[float, float]]:
-    hotspots: dict[int, tuple[float, float]] = {}
-    if INDICATORS_FILE.exists():
-        try:
-            with open(INDICATORS_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            for feat in data.get("features", []):
-                p = feat.get("properties", {})
-                d_str = p.get("distrito", "")
-                if d_str.startswith("D"):
-                    num = int(d_str[1:])
-                    pct = float(p.get("hotspot_2024_pct_valido", 0.0))
-                    km2 = float(p.get("hotspot_2024_km2", 0.0))
-                    hotspots[num] = (pct, km2)
-        except Exception:
-            pass
-    return hotspots
-
-
 def resolve_geojson_path() -> Path | None:
     for path in [
         DATA_DIR / "distritos_cercado_cochabamba.geojson",
@@ -50,209 +31,46 @@ def resolve_geojson_path() -> Path | None:
     return None
 
 
+def _load_nasa_indicators() -> dict[int, dict]:
+    indicators: dict[int, dict] = {}
+    if INDICATORS_FILE.exists():
+        try:
+            with open(INDICATORS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for feat in data.get("features", []):
+                p = feat.get("properties", {})
+                d_str = p.get("distrito", "")
+                if d_str.startswith("D"):
+                    num = int(d_str[1:])
+                    indicators[num] = p
+        except Exception:
+            pass
+    return indicators
+
+
 _DISTRICT_METADATA: dict[int, dict] = {
-    1: {
-        "name": "Distrito 1 - Tunari",
-        "zone": "Norte (Parque Tunari)",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.58,
-            surface_temp_c=24.2,
-            heat_island_risk="Bajo",
-            tree_canopy_pct=38.0,
-            resilience_action="Protección estricta de la Cota 2750 y recarga hídrica contra loteamientos.",
-        ),
-    },
-    2: {
-        "name": "Distrito 2 - Tunari",
-        "zone": "Norte",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.35,
-            surface_temp_c=28.5,
-            heat_island_risk="Moderado",
-            tree_canopy_pct=18.0,
-            resilience_action="Consolidación de corredores biológicos urbanos hacia la serranía este.",
-        ),
-    },
-    3: {
-        "name": "Distrito 3 - Sarco",
-        "zone": "Noroeste",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.31,
-            surface_temp_c=29.8,
-            heat_island_risk="Moderado",
-            tree_canopy_pct=14.0,
-            resilience_action="Incremento de arbolado nativo en aceras, plazas y ciclovías colectoras.",
-        ),
-    },
-    4: {
-        "name": "Distrito 4 - Molle",
-        "zone": "Oeste Urbano",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.28,
-            surface_temp_c=31.0,
-            heat_island_risk="Alto",
-            tree_canopy_pct=11.0,
-            resilience_action="Mitigación de radiación solar en avenidas anchas y plazas duras mediante toldos vivos.",
-        ),
-    },
-    5: {
-        "name": "Distrito 5 - Alejo Calatayud",
-        "zone": "Sur Central",
-        "has_fixed_sensor": True,
-        "station_name": "Av. 6 de Agosto (Red MÓNICA)",
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.32,
-            surface_temp_c=30.5,
-            heat_island_risk="Moderado",
-            tree_canopy_pct=15.0,
-            resilience_action="Preservación del espejo de agua de la Laguna Alalay y anillo verde de amortiguamiento.",
-        ),
-    },
-    6: {
-        "name": "Distrito 6 - San Antonio",
-        "zone": "Este Urbano",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.22,
-            surface_temp_c=32.8,
-            heat_island_risk="Alto",
-            tree_canopy_pct=8.0,
-            resilience_action="Implementación de pavimentos permeables y techos verdes en zona comercial densa.",
-        ),
-    },
-    7: {
-        "name": "Distrito 7 - Valle Hermoso",
-        "zone": "Sur",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.29,
-            surface_temp_c=31.2,
-            heat_island_risk="Moderado",
-            tree_canopy_pct=10.0,
-            resilience_action="Reforestación perimetral del río Tamborada y barreras verdes periurbanas.",
-        ),
-    },
-    8: {
-        "name": "Distrito 8 - Jaihuayco",
-        "zone": "Suroeste",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.20,
-            surface_temp_c=33.6,
-            heat_island_risk="Crítico",
-            tree_canopy_pct=6.0,
-            resilience_action="Plan intensivo de forestación urbana y sombreamiento en paradas y colegios.",
-        ),
-    },
-    9: {
-        "name": "Distrito 9 - Itocta",
-        "zone": "Extremo Sur",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.19,
-            surface_temp_c=33.9,
-            heat_island_risk="Alto",
-            tree_canopy_pct=5.0,
-            resilience_action="Control de erosión en laderas áridas y siembra de especies nativas de bajo consumo hídrico.",
-        ),
-    },
-    10: {
-        "name": "Distrito 10 - Centro Histórico",
-        "zone": "Centro",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.12,
-            surface_temp_c=35.2,
-            heat_island_risk="Crítico",
-            tree_canopy_pct=4.0,
-            resilience_action="Urgente reducción de impermeabilización, peatonalización verde y arbolado vertical en calles.",
-        ),
-    },
-    11: {
-        "name": "Distrito 11 - Las Cuadras",
-        "zone": "Centro Este",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.26,
-            surface_temp_c=31.8,
-            heat_island_risk="Alto",
-            tree_canopy_pct=9.0,
-            resilience_action="Ampliación de masa arbórea en campus universitario UMSS y avenidas conectoras.",
-        ),
-    },
-    12: {
-        "name": "Distrito 12 - Cala Cala / Queru Queru",
-        "zone": "Norte Urbano",
-        "has_fixed_sensor": True,
-        "station_name": "Av. Circunvalación (Red MÓNICA)",
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.40,
-            surface_temp_c=27.2,
-            heat_island_risk="Bajo",
-            tree_canopy_pct=24.0,
-            resilience_action="Preservación del Jardín Botánico Martín Cárdenas e incentivo a jardines residenciales permeables.",
-        ),
-    },
-    13: {
-        "name": "Distrito 13 - Condebamba",
-        "zone": "Noroeste Semi-urbano",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.36,
-            surface_temp_c=28.1,
-            heat_island_risk="Moderado",
-            tree_canopy_pct=20.0,
-            resilience_action="Protección de torrenteras naturales y amortiguamiento contra expansión informal en colinas.",
-        ),
-    },
-    14: {
-        "name": "Distrito 14 - Valle Hermoso",
-        "zone": "Sureste",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.23,
-            surface_temp_c=32.5,
-            heat_island_risk="Alto",
-            tree_canopy_pct=7.0,
-            resilience_action="Parques lineales en quebradas y mitigación de acumulación térmica en serranías este.",
-        ),
-    },
-    15: {
-        "name": "Distrito 15 - K'ara K'ara",
-        "zone": "Sur Periférico",
-        "has_fixed_sensor": False,
-        "station_name": None,
-        "microclimate": MicroclimateProfile(
-            ndvi_index=0.16,
-            surface_temp_c=34.8,
-            heat_island_risk="Crítico",
-            tree_canopy_pct=3.0,
-            resilience_action="Remediación ambiental del vertedero K'ara K'ara y barreras forestales nativas de mitigación.",
-        ),
-    },
+    1: {"name": "Distrito 1 - Tunari", "zone": "Norte (Parque Tunari)", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Protección estricta de la Cota 2750 y recarga hídrica contra loteamientos."},
+    2: {"name": "Distrito 2 - Tunari", "zone": "Norte", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Consolidación de corredores biológicos urbanos hacia la serranía este."},
+    3: {"name": "Distrito 3 - Sarco", "zone": "Noroeste", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Incremento de arbolado nativo en aceras, plazas y ciclovías colectoras."},
+    4: {"name": "Distrito 4 - Molle", "zone": "Oeste Urbano", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Mitigación de radiación solar en avenidas anchas y plazas duras mediante toldos vivos."},
+    5: {"name": "Distrito 5 - Alejo Calatayud", "zone": "Sur Central", "has_fixed_sensor": True, "station_name": "Av. 6 de Agosto (Red MÓNICA)", "resilience_action": "Preservación del espejo de agua de la Laguna Alalay y anillo verde de amortiguamiento."},
+    6: {"name": "Distrito 6 - San Antonio", "zone": "Este Urbano", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Implementación de pavimentos permeables y techos verdes en zona comercial densa."},
+    7: {"name": "Distrito 7 - Valle Hermoso", "zone": "Sur", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Reforestación perimetral del río Tamborada y barreras verdes periurbanas."},
+    8: {"name": "Distrito 8 - Jaihuayco", "zone": "Suroeste", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Plan intensivo de forestación urbana y sombreamiento en paradas y colegios."},
+    9: {"name": "Distrito 9 - Itocta", "zone": "Extremo Sur", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Control de erosión en laderas áridas y siembra de especies nativas de bajo consumo hídrico."},
+    10: {"name": "Distrito 10 - Centro Histórico", "zone": "Centro", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Urgente reducción de impermeabilización, peatonalización verde y arbolado vertical en calles."},
+    11: {"name": "Distrito 11 - Las Cuadras", "zone": "Centro Este", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Ampliación de masa arbórea en campus universitario UMSS y avenidas conectoras."},
+    12: {"name": "Distrito 12 - Cala Cala / Queru Queru", "zone": "Norte Urbano", "has_fixed_sensor": True, "station_name": "Av. Circunvalación (Red MÓNICA)", "resilience_action": "Preservación del Jardín Botánico Martín Cárdenas e incentivo a jardines residenciales permeables."},
+    13: {"name": "Distrito 13 - Condebamba", "zone": "Noroeste Semi-urbano", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Protección de torrenteras naturales y amortiguamiento contra expansión informal en colinas."},
+    14: {"name": "Distrito 14 - Valle Hermoso", "zone": "Sureste", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Parques lineales en quebradas y mitigación de acumulación térmica en serranías este."},
+    15: {"name": "Distrito 15 - K'ara K'ara", "zone": "Sur Periférico", "has_fixed_sensor": False, "station_name": None, "resilience_action": "Remediación ambiental del vertedero K'ara K'ara y barreras forestales nativas de mitigación."},
 }
 
 
 def _load_districts() -> list[District]:
     districts: list[District] = []
     geojson_path = resolve_geojson_path()
-    nasa_hotspots = _load_nasa_hotspots()
+    nasa_indicators = _load_nasa_indicators()
 
     if geojson_path and geojson_path.exists():
         with open(geojson_path, "r", encoding="utf-8") as f:
@@ -273,10 +91,34 @@ def _load_districts() -> list[District]:
             area_km2 = float(props.get("area_km2", 0.0))
 
             meta = _DISTRICT_METADATA[d_id]
-            meta_mc = meta["microclimate"].model_copy()
-            if d_id in nasa_hotspots:
-                meta_mc.hotspot_2024_pct = nasa_hotspots[d_id][0]
-                meta_mc.hotspot_2024_km2 = nasa_hotspots[d_id][1]
+            nasa_p = nasa_indicators.get(d_id, {})
+
+            surface_temp = round(float(nasa_p.get("lst_2025_c", 28.0)), 1)
+            ndvi = round(float(nasa_p.get("ndvi_2025", 0.3)), 2)
+            hotspot_pct = round(float(nasa_p.get("hotspot_2024_pct_valido", 0.0)), 1)
+            hotspot_km2 = round(float(nasa_p.get("hotspot_2024_km2", 0.0)), 3)
+
+            # Clasificación bioclimática objetiva derivada de telemetría NASA
+            if hotspot_pct >= 25.0 or surface_temp >= 32.5:
+                risk = "Crítico"
+            elif hotspot_pct >= 15.0 or surface_temp >= 30.5:
+                risk = "Alto"
+            elif hotspot_pct >= 5.0 or surface_temp >= 28.0:
+                risk = "Moderado"
+            else:
+                risk = "Bajo"
+
+            canopy = round(max(3.0, min(50.0, (ndvi - 0.12) * 100.0)), 1)
+
+            microclimate = MicroclimateProfile(
+                ndvi_index=ndvi,
+                surface_temp_c=surface_temp,
+                heat_island_risk=risk,
+                tree_canopy_pct=canopy,
+                resilience_action=meta["resilience_action"],
+                hotspot_2024_pct=hotspot_pct,
+                hotspot_2024_km2=hotspot_km2,
+            )
 
             districts.append(
                 District(
@@ -288,7 +130,7 @@ def _load_districts() -> list[District]:
                     centroid=centroid,
                     bbox=bbox,
                     area_km2=area_km2,
-                    microclimate=meta_mc,
+                    microclimate=microclimate,
                 )
             )
 
@@ -388,6 +230,8 @@ class DistrictService:
                         "municipio": "Cochabamba (Cercado)",
                         "heat_island_risk": d.microclimate.heat_island_risk if d.microclimate else None,
                         "tree_canopy_pct": d.microclimate.tree_canopy_pct if d.microclimate else None,
+                        "hotspot_2024_pct": d.microclimate.hotspot_2024_pct if d.microclimate else None,
+                        "hotspot_2024_km2": d.microclimate.hotspot_2024_km2 if d.microclimate else None,
                         "microclimate": d.microclimate.model_dump() if d.microclimate else None,
                     },
                 )
