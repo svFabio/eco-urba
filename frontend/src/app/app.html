@@ -404,6 +404,22 @@
                   </svg>
                   <small>{{ suggestion()!.available_areas_hint }}</small>
                 </div>
+
+                @if (suggestion()!.candidate_interventions && suggestion()!.candidate_interventions!.length > 0) {
+                  <div class="intervention-list-section">
+                    <span class="intervention-section-title">Puntos Óptimos de Inversión (Topografía NASA):</span>
+                    @for (pt of suggestion()!.candidate_interventions; track pt.id) {
+                      <div class="intervention-mini-card" [class.tree]="pt.type === 'tree_planting'" [class.health]="pt.type === 'health_center'" [class.park]="pt.type === 'pocket_park'">
+                        <div class="mini-card-top">
+                          <span class="mini-card-type">{{ pt.type === 'tree_planting' ? 'Reforestación' : (pt.type === 'health_center' ? 'Centro de Salud' : 'Parque') }}</span>
+                          <span class="mini-card-slope" [class.steep]="pt.slope_pct > 15">{{ pt.slope_pct }}% pend.</span>
+                        </div>
+                        <span class="mini-card-title">{{ pt.title }}</span>
+                        <p class="mini-card-reason">{{ pt.reason }}</p>
+                      </div>
+                    }
+                  </div>
+                }
               </div>
             }
 

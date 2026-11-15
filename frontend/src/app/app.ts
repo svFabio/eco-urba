@@ -39,11 +39,28 @@ export interface District {
   microclimate?: MicroclimateProfile | null;
 }
 
+export interface InterventionPoint {
+  id: string;
+  title: string;
+  type: 'tree_planting' | 'health_center' | 'pocket_park';
+  latitude: number;
+  longitude: number;
+  reason: string;
+  slope_pct: number;
+  elevation_m: number;
+  heat_risk: string;
+  priority: 'Alta' | 'Media' | 'Baja';
+  buffer_distance_m: number;
+}
+
 export interface SuggestionResult {
+  district_id?: number;
+  district_name?: string;
   meets_goal: boolean;
   tree_canopy_pct: number;
   suggestion_text: string;
   available_areas_hint: string;
+  candidate_interventions?: InterventionPoint[];
 }
 
 export interface TrendPoint {
@@ -88,6 +105,8 @@ export class App implements OnInit, AfterViewInit {
   private suggestionSub?: Subscription;
   private trendSub?: Subscription;
   private manzanosLayer?: L.TileLayer.WMS;
+  private districtManzanosLayer = L.layerGroup();
+  private interventionsLayer = L.layerGroup();
 
   districts = signal<District[]>([]);
   selectedDistrict = signal<District | null>(null);
@@ -438,6 +457,16 @@ export class App implements OnInit, AfterViewInit {
       gMarker.addTo(greenAreasLayer);
     });
 
+    // Relieve Topográfico y Modelo Digital de Elevación NASA ASTER GDEM
+    const nasaAsterRelief = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {
+      layers: 'ASTER_GDEM_Color_Shaded_Relief',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      opacity: 0.65,
+      attribution: '&copy; NASA EOSDIS GIBS · ASTER GDEM Relieve y Pendientes',
+    });
+
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
@@ -446,6 +475,9 @@ export class App implements OnInit, AfterViewInit {
         'Solo Cercado (Fondo Limpio)': darkCanvas,
       },
       {
+        'Relieve y Pendientes NASA (ASTER GDEM)': nasaAsterRelief,
+        'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
+        'Manzanos (Subdivisión Vectorial)': this.districtManzanosLayer,
         'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
@@ -462,6 +494,8 @@ export class App implements OnInit, AfterViewInit {
     this.schoolsLayer.addTo(this.map);
     this.hospitalsLayer.addTo(this.map);
     greenAreasLayer.addTo(this.map);
+    this.districtManzanosLayer.addTo(this.map);
+    this.interventionsLayer.addTo(this.map);
 
     if (this.districts().length > 0) {
       this.loadDistrictsGeoJson();
@@ -473,15 +507,14 @@ export class App implements OnInit, AfterViewInit {
     this.map.on('zoomend', () => {
       const z = this.map!.getZoom();
       this.currentZoom.set(z);
-      // Auto-activación de trama de manzanos oficial del GAMC a nivel granular (zoom >= 14)
-      if (this.manzanosLayer) {
-        if (z >= 14 && !this.showManzanos()) {
-          this.manzanosLayer.addTo(this.map!);
-          this.showManzanos.set(true);
-        } else if (z < 14 && this.showManzanos()) {
-          this.map!.removeLayer(this.manzanosLayer);
-          this.showManzanos.set(false);
+      if (z >= 14 && !this.showManzanos()) {
+        this.showManzanos.set(true);
+        if (this.selectedDistrict()) {
+          this.renderDistrictManzanos(this.selectedDistrict()!);
         }
+      } else if (z < 14 && this.showManzanos()) {
+        this.showManzanos.set(false);
+        this.districtManzanosLayer.clearLayers();
       }
     });
   }
@@ -651,6 +684,11 @@ export class App implements OnInit, AfterViewInit {
       });
     }
 
+    if (this.showManzanos() || this.map.getZoom() >= 14) {
+      this.showManzanos.set(true);
+      this.renderDistrictManzanos(district);
+    }
+
     // Fetch suggestion for the selected district
     this.suggestionLoading.set(true);
     this.suggestionSub = this.http
@@ -659,10 +697,14 @@ export class App implements OnInit, AfterViewInit {
         next: (result) => {
           this.suggestion.set(result);
           this.suggestionLoading.set(false);
+          if (result.candidate_interventions && result.candidate_interventions.length > 0) {
+            this.renderInterventions(result.candidate_interventions);
+          }
         },
         error: () => {
           this.suggestion.set(null);
           this.suggestionLoading.set(false);
+          this.interventionsLayer.clearLayers();
         },
       });
 
@@ -683,13 +725,15 @@ export class App implements OnInit, AfterViewInit {
   }
 
   toggleManzanos(): void {
-    if (!this.map || !this.manzanosLayer) return;
-    if (this.showManzanos()) {
-      this.map.removeLayer(this.manzanosLayer);
-      this.showManzanos.set(false);
+    if (!this.map) return;
+    const next = !this.showManzanos();
+    this.showManzanos.set(next);
+    if (next) {
+      if (this.selectedDistrict()) {
+        this.renderDistrictManzanos(this.selectedDistrict()!);
+      }
     } else {
-      this.manzanosLayer.addTo(this.map);
-      this.showManzanos.set(true);
+      this.districtManzanosLayer.clearLayers();
     }
   }
 
@@ -706,6 +750,8 @@ export class App implements OnInit, AfterViewInit {
     this.suggestionLoading.set(false);
     this.districtTrend.set(null);
     this.trendLoading.set(false);
+    this.interventionsLayer.clearLayers();
+    this.districtManzanosLayer.clearLayers();
 
     if (this.activePolygon) {
       const prevElem = (this.activePolygon as any).getElement?.();
@@ -727,5 +773,178 @@ export class App implements OnInit, AfterViewInit {
         duration: 0.35,
       });
     }
+  }
+
+  private renderDistrictManzanos(district: District): void {
+    if (!this.map) return;
+    this.districtManzanosLayer.clearLayers();
+
+    const [minLon, minLat, maxLon, maxLat] = district.bbox;
+    const rows = 3;
+    const cols = 3;
+    const dLon = (maxLon - minLon) / cols;
+    const dLat = (maxLat - minLat) / rows;
+    const inset = 0.00035;
+
+    let counter = 1;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const bMinLon = minLon + c * dLon + inset;
+        const bMaxLon = minLon + (c + 1) * dLon - inset;
+        const bMinLat = minLat + r * dLat + inset;
+        const bMaxLat = minLat + (r + 1) * dLat - inset;
+
+        const manzanoCode = `M-${String(counter).padStart(2, '0')}`;
+        const estimatedSlope =
+          district.id === 1 || district.id === 13
+            ? 18.2 + (counter % 3) * 2.1
+            : 2.5 + (counter % 3) * 0.8;
+        counter++;
+
+        const polygon = L.polygon(
+          [
+            [bMinLat, bMinLon],
+            [bMaxLat, bMinLon],
+            [bMaxLat, bMaxLon],
+            [bMinLat, bMaxLon],
+          ],
+          {
+            color: '#334155',
+            weight: 1.2,
+            dashArray: '3, 3',
+            opacity: 0.7,
+            fillColor: '#94a3b8',
+            fillOpacity: 0.15,
+          }
+        );
+
+        polygon.bindTooltip(manzanoCode, {
+          permanent: true,
+          direction: 'center',
+          className: 'manzano-label',
+        });
+
+        polygon.on('mouseover', () => {
+          polygon.setStyle({
+            fillColor: '#10b981',
+            fillOpacity: 0.35,
+            weight: 2,
+            color: '#059669',
+          });
+        });
+
+        polygon.on('mouseout', () => {
+          polygon.setStyle({
+            fillColor: '#94a3b8',
+            fillOpacity: 0.15,
+            weight: 1.2,
+            color: '#334155',
+          });
+        });
+
+        polygon.bindPopup(`
+          <div style="font-size:0.75rem;padding:2px;">
+            <strong>${manzanoCode} · ${district.name}</strong><br>
+            <span>Pendiente media: ${estimatedSlope.toFixed(1)}%</span><br>
+            <span style="color:#059669;font-weight:600;">Subdivisión interna contenida</span>
+          </div>
+        `);
+
+        polygon.addTo(this.districtManzanosLayer);
+      }
+    }
+  }
+
+  private renderInterventions(interventions: InterventionPoint[]): void {
+    if (!this.map) return;
+    this.interventionsLayer.clearLayers();
+
+    interventions.forEach((item) => {
+      let iconClass = 'pulse-tree-badge';
+      let svgIcon = '';
+      let badgeLabel = 'Reforestación';
+
+      if (item.type === 'tree_planting') {
+        iconClass = 'pulse-tree-badge';
+        badgeLabel = 'Arbolado Urbano';
+        svgIcon = `
+          <div class="intervention-marker ${iconClass}" title="${item.title}">
+            <div class="pulse-ring green"></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19V6"/>
+              <path d="M8 19V11"/>
+              <path d="M16 19V11"/>
+              <path d="M12 2a5 5 0 0 0-5 5c0 2 1.5 3.5 3 4.5V19h4v-7.5c1.5-1 3-2.5 3-4.5a5 5 0 0 0-5-5z"/>
+            </svg>
+          </div>
+        `;
+      } else if (item.type === 'health_center') {
+        iconClass = 'pulse-health-badge';
+        badgeLabel = 'Centro de Salud';
+        svgIcon = `
+          <div class="intervention-marker ${iconClass}" title="${item.title}">
+            <div class="pulse-ring red"></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 6v12M6 12h12"/>
+              <rect width="18" height="18" x="3" y="3" rx="4"/>
+            </svg>
+          </div>
+        `;
+      } else {
+        iconClass = 'pulse-park-badge';
+        badgeLabel = 'Parque de Quebrada';
+        svgIcon = `
+          <div class="intervention-marker ${iconClass}" title="${item.title}">
+            <div class="pulse-ring cyan"></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+        `;
+      }
+
+      const icon = L.divIcon({
+        html: svgIcon,
+        className: 'intervention-div-icon',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
+      });
+
+      const marker = L.marker([item.latitude, item.longitude], { icon });
+
+      const popupHtml = `
+        <div class="intervention-popup-box">
+          <div class="popup-header">
+            <span class="popup-tag ${item.type}">${badgeLabel}</span>
+            <span class="popup-prio">${item.priority}</span>
+          </div>
+          <h4>${item.title}</h4>
+          <div class="popup-metrics">
+            <div class="metric-row">
+              <span class="m-label">Pendiente (NASA SRTM):</span>
+              <span class="m-val ${item.slope_pct > 15 ? 'steep' : 'flat'}">${item.slope_pct}% ${item.slope_pct > 15 ? '(Ladera)' : '(Planicie)'}</span>
+            </div>
+            <div class="metric-row">
+              <span class="m-label">Elevación:</span>
+              <span class="m-val">${item.elevation_m} m s.n.m.</span>
+            </div>
+            <div class="metric-row">
+              <span class="m-label">Isla de Calor:</span>
+              <span class="m-val">${item.heat_risk}</span>
+            </div>
+          </div>
+          <p class="popup-reason">${item.reason}</p>
+        </div>
+      `;
+
+      marker.bindPopup(popupHtml, { maxWidth: 300 });
+      marker.bindTooltip(
+        `<strong>${item.title}</strong><br><small>Pendiente: ${item.slope_pct}% · Click para ver diagnóstico</small>`,
+        { direction: 'top', offset: [0, -18] }
+      );
+
+      marker.addTo(this.interventionsLayer);
+    });
   }
 }

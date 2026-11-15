@@ -75,3 +75,25 @@ def test_suggestion_meets_goal_message() -> None:
     )
     assert "¡Excelente!" in text
     assert "supera la meta del 44%" in text
+
+
+def test_suggestion_candidate_interventions_topography() -> None:
+    # Distrito 1 (Tunari): ladera de alta pendiente, descarta hospital
+    r1 = client.get("/api/v1/districts/1/suggestion")
+    assert r1.status_code == 200
+    ints1 = r1.json()["candidate_interventions"]
+    assert len(ints1) >= 2
+    types1 = [i["type"] for i in ints1]
+    assert "tree_planting" in types1
+    assert "health_center" not in types1  # Pendiente alta descarta hospital
+    assert any(i["slope_pct"] > 15.0 for i in ints1)
+
+    # Distrito 10 (Centro): planicie baja, incluye centro de salud
+    r10 = client.get("/api/v1/districts/10/suggestion")
+    assert r10.status_code == 200
+    ints10 = r10.json()["candidate_interventions"]
+    assert len(ints10) >= 2
+    types10 = [i["type"] for i in ints10]
+    assert "tree_planting" in types10
+    assert "health_center" in types10  # Terreno plano apto para salud
+    assert all(i["slope_pct"] < 5.0 for i in ints10)

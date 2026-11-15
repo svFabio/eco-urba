@@ -24,6 +24,20 @@ class POI(BaseModel):
         return self.lng
 
 
+class InterventionPoint(BaseModel):
+    id: str
+    title: str
+    type: Literal["tree_planting", "health_center", "pocket_park"]
+    latitude: float
+    longitude: float
+    reason: str
+    slope_pct: float
+    elevation_m: float
+    heat_risk: str
+    priority: Literal["Alta", "Media", "Baja"]
+    buffer_distance_m: int
+
+
 class SuggestionResult(BaseModel):
     district_id: int
     district_name: str
@@ -31,3 +45,4 @@ class SuggestionResult(BaseModel):
     tree_canopy_pct: float
     suggestion_text: str
     available_areas_hint: str
+    candidate_interventions: list[InterventionPoint] = []

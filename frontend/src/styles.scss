@@ -296,3 +296,225 @@ html, body {
     margin: 0;
   }
 }
+
+// Marcadores de intervención con pulso/parpadeo (Flaticons)
+.intervention-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.intervention-marker {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: scale(1.18);
+  }
+
+  &.pulse-tree-badge {
+    border: 2px solid #10b981;
+  }
+
+  &.pulse-health-badge {
+    border: 2px solid #ef4444;
+  }
+
+  &.pulse-park-badge {
+    border: 2px solid #06b6d4;
+  }
+
+  .pulse-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &.green {
+      animation: pulse-ring-green 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+
+    &.red {
+      animation: pulse-ring-red 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+
+    &.cyan {
+      animation: pulse-ring-cyan 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+  }
+}
+
+@keyframes pulse-ring-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes pulse-ring-red {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+@keyframes pulse-ring-cyan {
+  0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+  70% { box-shadow: 0 0 0 14px rgba(6, 182, 212, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+}
+
+.manzano-label {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  padding: 1px 4px !important;
+  pointer-events: none;
+}
+
+.intervention-popup-box {
+  padding: 0.2rem;
+  max-width: 280px;
+
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+
+    .popup-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+
+      &.tree_planting { background: #dcfce7; color: #15803d; }
+      &.health_center { background: #fee2e2; color: #b91c1c; }
+      &.pocket_park { background: #e0f2fe; color: #0369a1; }
+    }
+
+    .popup-prio {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+  }
+
+  h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    color: #0f172a;
+  }
+
+  .popup-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.45rem;
+    background: #f8fafc;
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+
+      .m-label { color: #64748b; }
+      .m-val { font-weight: 600; }
+      .m-val.steep { color: #d97706; }
+      .m-val.flat { color: #16a34a; }
+    }
+  }
+
+  .popup-reason {
+    font-size: 0.72rem;
+    color: #475569;
+    line-height: 1.35;
+    margin: 0;
+  }
+}
+
+.intervention-list-section {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+
+  .intervention-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+  }
+
+  .intervention-mini-card {
+    background: #ffffff;
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+    padding: 0.5rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    transition: border-color 0.15s ease;
+
+    &:hover {
+      border-color: #cbd5e1;
+    }
+
+    &.tree { border-left: 3px solid #10b981; }
+    &.health { border-left: 3px solid #ef4444; }
+    &.park { border-left: 3px solid #06b6d4; }
+
+    .mini-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .mini-card-type {
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .mini-card-slope {
+        font-size: 0.64rem;
+        font-weight: 600;
+        color: #16a34a;
+        background: #f0fdf4;
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+
+        &.steep {
+          color: #d97706;
+          background: #fffbeb;
+        }
+      }
+    }
+
+    .mini-card-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .mini-card-reason {
+      font-size: 0.68rem;
+      color: #64748b;
+      line-height: 1.3;
+      margin: 0;
+    }
+  }
+}
