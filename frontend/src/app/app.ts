@@ -46,6 +46,28 @@ export interface SuggestionResult {
   available_areas_hint: string;
 }
 
+export interface TrendPoint {
+  year: number;
+  surface_temp_c: number;
+  ndvi_index: number;
+  canopy_pct: number;
+}
+
+export interface TrendAnalysisResult {
+  district_id: number;
+  district_name: string;
+  sensor_fusion_type: string;
+  baseline_temp_c: number;
+  current_temp_c: number;
+  warming_rate_c_per_decade: number;
+  ndvi_change_pct: number;
+  p_value: number;
+  is_significant: boolean;
+  divergence_classification: string;
+  earth_system_diagnosis: string;
+  history: TrendPoint[];
+}
+
 type float = number;
 
 @Component({
@@ -64,6 +86,8 @@ export class App implements OnInit, AfterViewInit {
   private polygonMap = new Map<number, L.Path>();
   private activePolygon?: L.Path;
   private suggestionSub?: Subscription;
+  private trendSub?: Subscription;
+  private manzanosLayer?: L.TileLayer.WMS;
 
   districts = signal<District[]>([]);
   selectedDistrict = signal<District | null>(null);
@@ -71,8 +95,11 @@ export class App implements OnInit, AfterViewInit {
   backendHealthy = signal<boolean>(false);
   suggestion = signal<SuggestionResult | null>(null);
   suggestionLoading = signal(false);
+  districtTrend = signal<TrendAnalysisResult | null>(null);
+  trendLoading = signal(false);
   currentZoom = signal(12);
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
+  showManzanos = signal(false);
 
   top5Districts = computed(() =>
     [...this.districts()]
@@ -276,7 +303,7 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
-    // GAMC WMS tilelayer kept optional in layer controls so it does not hide vector borders
+    // Capas oficiales del GAMC (Alcaldía de Cochabamba)
     const distritosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: '',
       format: 'image/png',
@@ -284,6 +311,27 @@ export class App implements OnInit, AfterViewInit {
       version: '1.1.1',
       maxZoom: 19,
       attribution: '&copy; GAMC Cochabamba · Limite Distritos Simple',
+    });
+
+    const manzanosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'poblacion_por_mazanas',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      maxZoom: 19,
+      opacity: 0.65,
+      attribution: '&copy; GAMC · Población por Manzanos',
+    });
+    this.manzanosLayer = manzanosGamcWms;
+
+    const cuencasGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: 'cuencas_principales',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      maxZoom: 19,
+      opacity: 0.7,
+      attribution: '&copy; GAMC · Cuencas Principales',
     });
 
     // Real Cota 2750 Contour Line (Northern Conservation Boundary - Parque Tunari)
@@ -401,6 +449,8 @@ export class App implements OnInit, AfterViewInit {
         'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
+        'Manzanos Oficiales (GAMC)': manzanosGamcWms,
+        'Cuencas y Torrentes Tunari (GAMC)': cuencasGamcWms,
         'Cota 2750 Parque Tunari': cota2750Line,
         'Distritos y Estaciones MÓNICA': this.districtLayer,
         'Evidencia Satelital NASA (MODIS 1km)': nasaNdviLayer,
@@ -413,9 +463,6 @@ export class App implements OnInit, AfterViewInit {
     this.hospitalsLayer.addTo(this.map);
     greenAreasLayer.addTo(this.map);
 
-    this.schoolsLayer.addTo(this.map);
-    this.hospitalsLayer.addTo(this.map);
-
     if (this.districts().length > 0) {
       this.loadDistrictsGeoJson();
     }
@@ -424,7 +471,13 @@ export class App implements OnInit, AfterViewInit {
     this.loadPoiLayer('hospital');
 
     this.map.on('zoomend', () => {
-      this.currentZoom.set(this.map!.getZoom());
+      const z = this.map!.getZoom();
+      this.currentZoom.set(z);
+      // Auto-activación de trama de manzanos oficial del GAMC a nivel granular (zoom >= 15)
+      if (z >= 15 && !this.showManzanos() && this.manzanosLayer) {
+        this.manzanosLayer.addTo(this.map!);
+        this.showManzanos.set(true);
+      }
     });
   }
 
@@ -607,6 +660,32 @@ export class App implements OnInit, AfterViewInit {
           this.suggestionLoading.set(false);
         },
       });
+
+    // Fetch NASA Trend Detective analysis
+    this.trendLoading.set(true);
+    this.trendSub = this.http
+      .get<TrendAnalysisResult>(`${this.API_BASE}/districts/${district.id}/trends`)
+      .subscribe({
+        next: (res) => {
+          this.districtTrend.set(res);
+          this.trendLoading.set(false);
+        },
+        error: () => {
+          this.districtTrend.set(null);
+          this.trendLoading.set(false);
+        },
+      });
+  }
+
+  toggleManzanos(): void {
+    if (!this.map || !this.manzanosLayer) return;
+    if (this.showManzanos()) {
+      this.map.removeLayer(this.manzanosLayer);
+      this.showManzanos.set(false);
+    } else {
+      this.manzanosLayer.addTo(this.map);
+      this.showManzanos.set(true);
+    }
   }
 
   clearSelection(): void {
@@ -615,10 +694,13 @@ export class App implements OnInit, AfterViewInit {
       this.map.stop();
     }
     this.suggestionSub?.unsubscribe();
+    this.trendSub?.unsubscribe();
 
     this.selectedDistrict.set(null);
     this.suggestion.set(null);
     this.suggestionLoading.set(false);
+    this.districtTrend.set(null);
+    this.trendLoading.set(false);
 
     if (this.activePolygon) {
       const prevElem = (this.activePolygon as any).getElement?.();

@@ -159,3 +159,140 @@ html, body {
     }
   }
 }
+
+// NASA Trend Detective Card (ElevenLabs Clean Style)
+.trend-card {
+  background: #fafafa;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+
+  .trend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    .trend-title-box {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      h4 {
+        margin: 0;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: #09090b;
+      }
+    }
+
+    .trend-fusion-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      background: #f4f4f5;
+      border: 1px solid #e4e4e7;
+      color: #047857;
+    }
+  }
+
+  .trend-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+
+    .trend-metric-item {
+      background: #ffffff;
+      border: 1px solid #eaecf0;
+      border-radius: 8px;
+      padding: 0.5rem 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+
+      .m-label {
+        font-size: 0.65rem;
+        color: #71717a;
+      }
+
+      .m-val {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #18181b;
+
+        small {
+          font-size: 0.65rem;
+          font-weight: normal;
+          color: #71717a;
+        }
+
+        &.hot { color: #dc2626; }
+        &.down { color: #b91c1c; }
+        &.sig { color: #047857; }
+      }
+    }
+  }
+
+  .trend-sparkline-box {
+    background: #ffffff;
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+    padding: 0.65rem;
+
+    .sparkline-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: #71717a;
+      margin-bottom: 0.4rem;
+    }
+
+    .sparkline-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.35rem;
+      height: 48px;
+
+      .spark-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+        cursor: pointer;
+
+        .spark-bar {
+          width: 100%;
+          min-height: 4px;
+          max-height: 38px;
+          background: #18181b;
+          border-radius: 2px 2px 0 0;
+          transition: background 0.15s ease;
+        }
+
+        &:hover .spark-bar {
+          background: #3b82f6;
+        }
+
+        .spark-yr {
+          font-size: 0.6rem;
+          color: #a1a1aa;
+          margin-top: 0.2rem;
+        }
+      }
+    }
+  }
+
+  .trend-diagnosis-text {
+    font-size: 0.76rem;
+    color: #52525b;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
