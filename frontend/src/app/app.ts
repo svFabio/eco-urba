@@ -255,14 +255,18 @@ export class App implements OnInit, AfterViewInit {
       this.loadDistrictsGeoJson();
     }
 
-    // 2. Background revalidation from backend API
+    // 2. Background revalidation from backend API (silent update without rebuilding if identical)
     this.http.get<District[]>(`${this.API_BASE}/districts`).subscribe({
       next: (data) => {
-        this.setCachedItem(this.CACHE_KEY_DISTRICTS, data);
-        this.districts.set(data);
-        this.isLoading.set(false);
-        this.renderDistrictsOnMap(data);
-        this.loadDistrictsGeoJson();
+        const rawNew = JSON.stringify(data);
+        const rawCached = sessionStorage.getItem(this.CACHE_KEY_DISTRICTS);
+        if (rawNew !== rawCached) {
+          this.setCachedItem(this.CACHE_KEY_DISTRICTS, data);
+          this.districts.set(data);
+          this.isLoading.set(false);
+          this.renderDistrictsOnMap(data);
+          this.loadDistrictsGeoJson();
+        }
       },
       error: (err) => {
         if (!cached) {
@@ -282,11 +286,15 @@ export class App implements OnInit, AfterViewInit {
       this.renderGeoJsonDistricts(cachedGeo);
     }
 
-    // 2. Background revalidation from backend API
+    // 2. Background revalidation from backend API (silent update without destroying layer if identical)
     this.http.get<any>(`${this.API_BASE}/districts/geojson`).subscribe({
       next: (geoData) => {
-        this.setCachedItem(this.CACHE_KEY_GEOJSON, geoData);
-        this.renderGeoJsonDistricts(geoData);
+        const rawNew = JSON.stringify(geoData);
+        const rawCached = sessionStorage.getItem(this.CACHE_KEY_GEOJSON);
+        if (rawNew !== rawCached) {
+          this.setCachedItem(this.CACHE_KEY_GEOJSON, geoData);
+          this.renderGeoJsonDistricts(geoData);
+        }
       },
       error: (err) => {
         if (!cachedGeo) {
@@ -352,6 +360,7 @@ export class App implements OnInit, AfterViewInit {
     );
 
     this.map = L.map(el, {
+      renderer: L.svg({ padding: 2.0 }),
       maxBounds: cercadoBounds,
       maxBoundsViscosity: 0.7, // Permite elasticidad para encuadrar distritos periféricos con drawer abierto
       minZoom: 10,
@@ -366,6 +375,9 @@ export class App implements OnInit, AfterViewInit {
     const osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors | EcoUrba Cochabamba',
       maxZoom: 18,
+      keepBuffer: 12,
+      updateWhenIdle: false,
+      updateWhenZooming: false,
     }).addTo(this.map);
 
     // Mapa Topográfico Real de Cochabamba (Esri World Topo: relieve real sin ruido)
@@ -480,6 +492,7 @@ export class App implements OnInit, AfterViewInit {
     this.interventionsLayer.addTo(this.map);
 
     if (this.districts().length > 0) {
+      this.renderDistrictsOnMap(this.districts());
       this.loadDistrictsGeoJson();
     }
 
@@ -500,11 +513,14 @@ export class App implements OnInit, AfterViewInit {
       this.polygonMap.clear();
     }
 
+    const svgRenderer = L.svg({ padding: 2.0 });
+
     this.geoJsonLayer = L.geoJSON(geoData, {
       style: (feature) => {
         const fillColor = this.getFillColorForFeature(feature?.properties);
         return {
           ...this.defaultPolygonStyle,
+          renderer: svgRenderer,
           fillColor,
           fillOpacity: 0.5,
           weight: 1.5,
