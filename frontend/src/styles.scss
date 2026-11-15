@@ -679,18 +679,18 @@ path.leaflet-interactive {
 .district-selected,
 path.district-selected,
 .district-selected path {
-  stroke: #2563eb !important;
+  stroke: #10b981 !important;
   stroke-width: 3.5px !important;
   fill-opacity: 0.45 !important;
-  filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.8)) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)) !important;
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.85)) drop-shadow(0 0 20px rgba(5, 150, 105, 0.4)) !important;
   animation: districtLevitate 2.5s infinite ease-in-out;
 }
 
 @keyframes districtLevitate {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.35));
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.7)) drop-shadow(0 0 16px rgba(5, 150, 105, 0.3));
   }
   50% {
-    filter: drop-shadow(0 0 14px rgba(37, 99, 235, 0.95)) drop-shadow(0 0 26px rgba(59, 130, 246, 0.6));
+    filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.95)) drop-shadow(0 0 24px rgba(16, 185, 129, 0.55));
   }
 }
