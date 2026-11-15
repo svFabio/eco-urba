@@ -100,3 +100,62 @@ html, body {
 .leaflet-popup-tip {
   background: #ffffff !important;
 }
+
+// Map Metric Toolbar (ElevenLabs Floating Pill Style)
+.map-metric-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 56px;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  border-radius: 9999px;
+  padding: 0.25rem 0.55rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  .toolbar-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #71717a;
+    padding-left: 0.25rem;
+  }
+
+  .toolbar-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .metric-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #52525b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: #f4f4f5;
+        color: #18181b;
+      }
+
+      &.active {
+        background: #18181b;
+        color: #ffffff;
+        border-color: #18181b;
+
+        svg {
+          stroke: #ffffff;
+        }
+      }
+    }
+  }
+}

@@ -70,6 +70,7 @@ export class App implements OnInit, AfterViewInit {
   suggestion = signal<SuggestionResult | null>(null);
   suggestionLoading = signal(false);
   currentZoom = signal(12);
+  activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
 
   top5Districts = computed(() =>
     [...this.districts()]
@@ -99,6 +100,44 @@ export class App implements OnInit, AfterViewInit {
       case 'Crítico': return '#f44336';
       default: return '#8b5cf6';
     }
+  }
+
+  getFillColorForFeature(props: any): string {
+    const metric = this.activeMetric();
+    const risk = (props?.heat_island_risk || props?.microclimate?.heat_island_risk) as string | undefined;
+    const canopy = props?.tree_canopy_pct ?? props?.microclimate?.tree_canopy_pct ?? 0;
+
+    if (metric === 'vegetation') {
+      if (canopy >= 30) return '#15803d';
+      if (canopy >= 20) return '#22c55e';
+      if (canopy >= 15) return '#84cc16';
+      if (canopy >= 10) return '#eab308';
+      return '#f97316';
+    }
+
+    if (metric === 'goal') {
+      return canopy >= 44 ? '#16a34a' : '#f43f5e';
+    }
+
+    return risk ? this.getDistrictColor(risk) : '#94a3b8';
+  }
+
+  setMetric(metric: 'risk' | 'vegetation' | 'goal'): void {
+    this.activeMetric.set(metric);
+    this.updatePolygonColors();
+  }
+
+  private updatePolygonColors(): void {
+    if (!this.geoJsonLayer) return;
+    this.geoJsonLayer.eachLayer((layer: any) => {
+      const props = layer.feature?.properties || {};
+      const fillColor = this.getFillColorForFeature(props);
+      if (this.activePolygon === layer) {
+        layer.setStyle({ ...this.selectedPolygonStyle, fillColor });
+      } else {
+        layer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5 });
+      }
+    });
   }
 
   getCanopyPct(d: District): number {
@@ -270,17 +309,17 @@ export class App implements OnInit, AfterViewInit {
       { sticky: true }
     );
 
-    // Capa Satelital NASA GIBS: Índice de Vegetación (NDVI) MODIS Terra
+    // Capa Satelital NASA GIBS: Índice de Vegetación (NDVI) MODIS Terra (1km)
     const nasaNdviLayer = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {
       layers: 'MODIS_Terra_L3_NDVI_Monthly',
       format: 'image/png',
       transparent: true,
       version: '1.1.1',
-      opacity: 0.65,
+      opacity: 0.35,
       attribution: '&copy; NASA EOSDIS GIBS · MODIS Terra NDVI',
     });
 
-    // Parques y Reservas Verdes emblemáticas de Cochabamba
+    // Parques y Reservas Verdes emblemáticas de Cochabamba (Vectorial)
     const greenAreasLayer = L.layerGroup();
     const urbanGreenSpaces = [
       {
@@ -336,11 +375,11 @@ export class App implements OnInit, AfterViewInit {
 
     urbanGreenSpaces.forEach((g) => {
       const gMarker = L.circleMarker([g.lat, g.lon], {
-        radius: 8,
-        fillColor: '#16a34a',
+        radius: 7,
+        fillColor: '#10b981',
         color: '#ffffff',
         weight: 2,
-        fillOpacity: 0.9,
+        fillOpacity: 0.95,
       });
       gMarker.bindTooltip(
         `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${g.type}</span><br><small>${g.desc}</small>`,
@@ -353,20 +392,24 @@ export class App implements OnInit, AfterViewInit {
 
     L.control.layers(
       {
-        'OpenStreetMap': osmBase,
-        'Solo Cercado': darkCanvas,
+        'OpenStreetMap (Contexto Urbano)': osmBase,
+        'Solo Cercado (Fondo Limpio)': darkCanvas,
       },
       {
-        'Vegetación Satelital (NASA NDVI)': nasaNdviLayer,
-        'Parques y Reservas Verdes': greenAreasLayer,
-        'Cota 2750 Parque Tunari': cota2750Line,
-        'Distritos y Estaciones MÓNICA': this.districtLayer,
+        'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
+        'Cota 2750 Parque Tunari': cota2750Line,
+        'Distritos y Estaciones MÓNICA': this.districtLayer,
+        'Evidencia Satelital NASA (MODIS 1km)': nasaNdviLayer,
         'Radio Urbano GAMC': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
+
+    this.schoolsLayer.addTo(this.map);
+    this.hospitalsLayer.addTo(this.map);
+    greenAreasLayer.addTo(this.map);
 
     this.schoolsLayer.addTo(this.map);
     this.hospitalsLayer.addTo(this.map);
@@ -393,13 +436,12 @@ export class App implements OnInit, AfterViewInit {
 
     this.geoJsonLayer = L.geoJSON(geoData, {
       style: (feature) => {
-        const risk = (feature?.properties?.heat_island_risk || feature?.properties?.microclimate?.heat_island_risk) as string | undefined;
-        const fillColor = risk ? this.getDistrictColor(risk) : '#8b5cf6';
+        const fillColor = this.getFillColorForFeature(feature?.properties);
         return {
           ...this.defaultPolygonStyle,
           fillColor,
           fillOpacity: 0.5,
-          weight: 2,
+          weight: 1.5,
         };
       },
       onEachFeature: (feature, layer) => {
@@ -431,20 +473,15 @@ export class App implements OnInit, AfterViewInit {
 
         layer.on('mouseover', () => {
           if (this.activePolygon !== pathLayer) {
-            pathLayer.setStyle({ weight: 4, fillOpacity: 0.75 });
+            pathLayer.setStyle({ weight: 3, fillOpacity: 0.75 });
             pathLayer.bringToFront();
           }
         });
 
         layer.on('mouseout', () => {
           if (this.activePolygon !== pathLayer) {
-            if (this.geoJsonLayer) {
-              this.geoJsonLayer.resetStyle(pathLayer);
-            } else {
-              const risk = feature?.properties?.heat_island_risk as string | undefined;
-              const fillColor = risk ? this.getDistrictColor(risk) : '#8b5cf6';
-              pathLayer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5, weight: 2 });
-            }
+            const fillColor = this.getFillColorForFeature(props);
+            pathLayer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5, weight: 1.5 });
           }
         });
 
@@ -504,16 +541,15 @@ export class App implements OnInit, AfterViewInit {
     if (this.activePolygon) {
       const prevElem = (this.activePolygon as any).getElement?.();
       prevElem?.classList.remove('district-selected');
-      if (this.geoJsonLayer) {
-        this.geoJsonLayer.resetStyle(this.activePolygon);
-      } else {
-        this.activePolygon.setStyle(this.defaultPolygonStyle);
-      }
+      const prevProps = (this.activePolygon as any).feature?.properties;
+      const prevFillColor = this.getFillColorForFeature(prevProps);
+      this.activePolygon.setStyle({ ...this.defaultPolygonStyle, fillColor: prevFillColor, fillOpacity: 0.5, weight: 1.5 });
     }
 
     const poly = this.polygonMap.get(district.id);
     if (poly) {
-      poly.setStyle(this.selectedPolygonStyle);
+      const currentFill = this.getFillColorForFeature((poly as any).feature?.properties);
+      poly.setStyle({ ...this.selectedPolygonStyle, fillColor: currentFill });
       this.activePolygon = poly;
 
       const elem = (poly as any).getElement?.();
@@ -563,11 +599,9 @@ export class App implements OnInit, AfterViewInit {
     if (this.activePolygon) {
       const prevElem = (this.activePolygon as any).getElement?.();
       prevElem?.classList.remove('district-selected');
-      if (this.geoJsonLayer) {
-        this.geoJsonLayer.resetStyle(this.activePolygon);
-      } else {
-        this.activePolygon.setStyle(this.defaultPolygonStyle);
-      }
+      const prevProps = (this.activePolygon as any).feature?.properties;
+      const prevFillColor = this.getFillColorForFeature(prevProps);
+      this.activePolygon.setStyle({ ...this.defaultPolygonStyle, fillColor: prevFillColor, fillOpacity: 0.5, weight: 1.5 });
       this.activePolygon = undefined;
     }
     if (this.geoJsonLayer) {
