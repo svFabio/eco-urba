@@ -548,8 +548,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.initMap();
   }
 
-  private readonly CACHE_KEY_DISTRICTS = 'ecourba_districts_cache_v3';
-  private readonly CACHE_KEY_GEOJSON = 'ecourba_geojson_cache_v3';
+  private readonly CACHE_KEY_DISTRICTS = 'ecourba_districts_cache_v4';
+  private readonly CACHE_KEY_GEOJSON = 'ecourba_geojson_cache_v4';
 
   private getCachedItem<T>(key: string): T | null {
     try {
