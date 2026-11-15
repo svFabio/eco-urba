@@ -128,6 +128,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   currentZoom = signal(12);
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
   legendCollapsed = signal(false);
+  sidebarCollapsed = signal(false);
+
+  toggleSidebar(): void {
+    this.sidebarCollapsed.update((v) => !v);
+    setTimeout(() => {
+      this.map?.invalidateSize();
+    }, 320);
+  }
 
   // Comparador Temporal NASA (2016 - 2025)
   showComparator = signal<boolean>(false);
