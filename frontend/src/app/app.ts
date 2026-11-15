@@ -658,8 +658,32 @@ export class App implements OnInit, AfterViewInit {
       });
     }
 
-    // Fetch suggestion for the selected district
+    // Resetea sugerencias previas al cambiar de distrito para no saturar el mapa
+    this.suggestion.set(null);
+    this.suggestionLoading.set(false);
+    this.interventionsLayer.clearLayers();
+
+    // Fetch NASA Trend Detective analysis
+    this.trendLoading.set(true);
+    this.trendSub = this.http
+      .get<TrendAnalysisResult>(`${this.API_BASE}/districts/${district.id}/trends`)
+      .subscribe({
+        next: (res) => {
+          this.districtTrend.set(res);
+          this.trendLoading.set(false);
+        },
+        error: () => {
+          this.districtTrend.set(null);
+          this.trendLoading.set(false);
+        },
+      });
+  }
+
+  generateSuggestions(): void {
+    const district = this.selectedDistrict();
+    if (!district) return;
     this.suggestionLoading.set(true);
+    this.suggestionSub?.unsubscribe();
     this.suggestionSub = this.http
       .get<SuggestionResult>(`${this.API_BASE}/districts/${district.id}/suggestion`)
       .subscribe({
@@ -676,21 +700,12 @@ export class App implements OnInit, AfterViewInit {
           this.interventionsLayer.clearLayers();
         },
       });
+  }
 
-    // Fetch NASA Trend Detective analysis
-    this.trendLoading.set(true);
-    this.trendSub = this.http
-      .get<TrendAnalysisResult>(`${this.API_BASE}/districts/${district.id}/trends`)
-      .subscribe({
-        next: (res) => {
-          this.districtTrend.set(res);
-          this.trendLoading.set(false);
-        },
-        error: () => {
-          this.districtTrend.set(null);
-          this.trendLoading.set(false);
-        },
-      });
+  clearInterventions(): void {
+    this.suggestion.set(null);
+    this.suggestionLoading.set(false);
+    this.interventionsLayer.clearLayers();
   }
 
   clearSelection(): void {

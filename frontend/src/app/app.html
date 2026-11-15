@@ -362,15 +362,50 @@
               </div>
             }
 
-            @if (suggestionLoading()) {
-              <div class="loading-spinner">Analizando distrito con IA...</div>
-            } @else if (suggestion()) {
+            @if (!suggestion()) {
+              <div class="ai-action-card">
+                <div class="action-header">
+                  <div class="action-icon-pill">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                    </svg>
+                  </div>
+                  <div class="action-title-box">
+                    <h4>Planificador de Inversión IA</h4>
+                    <p>Detectá puntos óptimos de reforestación o salud según pendiente y radiación solar.</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn-generate-ai"
+                  [disabled]="suggestionLoading()"
+                  (click)="generateSuggestions()"
+                >
+                  @if (suggestionLoading()) {
+                    <span class="btn-spinner"></span>
+                    <span>Consultando IA y telemetría...</span>
+                  } @else {
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    <span>Sugerir Puntos de Inversión</span>
+                  }
+                </button>
+              </div>
+            } @else {
               <div class="suggestion-card">
                 <div class="suggestion-header">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-                  </svg>
-                  <h4>Sugerencia de Intervención</h4>
+                  <div class="header-title-row">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                    </svg>
+                    <h4>Sugerencia de Intervención</h4>
+                  </div>
+                  <button type="button" class="btn-close-subtle" (click)="clearInterventions()" title="Ocultar puntos del mapa">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 6 6 18M6 6l12 12"/>
+                    </svg>
+                  </button>
                 </div>
                 <p>{{ suggestion()!.suggestion_text }}</p>
                 <div class="available-hint">
@@ -396,6 +431,21 @@
                     }
                   </div>
                 }
+
+                <div class="card-footer-actions">
+                  <button type="button" class="btn-subtle" (click)="generateSuggestions()" [disabled]="suggestionLoading()">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                      <path d="M3 3v5h5"/>
+                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                      <path d="M16 21h5v-5"/>
+                    </svg>
+                    <span>Recalcular con IA</span>
+                  </button>
+                  <button type="button" class="btn-subtle danger" (click)="clearInterventions()">
+                    <span>Ocultar marcadores</span>
+                  </button>
+                </div>
               </div>
             }
 
