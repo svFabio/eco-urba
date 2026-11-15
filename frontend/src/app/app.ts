@@ -104,8 +104,6 @@ export class App implements OnInit, AfterViewInit {
   private activePolygon?: L.Path;
   private suggestionSub?: Subscription;
   private trendSub?: Subscription;
-  private manzanosLayer?: L.TileLayer.WMS;
-  private districtManzanosLayer = L.layerGroup();
   private interventionsLayer = L.layerGroup();
 
   districts = signal<District[]>([]);
@@ -118,7 +116,6 @@ export class App implements OnInit, AfterViewInit {
   trendLoading = signal(false);
   currentZoom = signal(12);
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
-  showManzanos = signal(false);
 
   top5Districts = computed(() =>
     [...this.districts()]
@@ -332,17 +329,6 @@ export class App implements OnInit, AfterViewInit {
       attribution: '&copy; GAMC Cochabamba · Limite Distritos Simple',
     });
 
-    const manzanosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'poblacion_por_mazanas',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      maxZoom: 19,
-      opacity: 0.65,
-      attribution: '&copy; GAMC · Población por Manzanos',
-    });
-    this.manzanosLayer = manzanosGamcWms;
-
     const cuencasGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'cuencas_principales',
       format: 'image/png',
@@ -477,11 +463,9 @@ export class App implements OnInit, AfterViewInit {
       {
         'Relieve y Pendientes NASA (ASTER GDEM)': nasaAsterRelief,
         'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
-        'Manzanos (Subdivisión Vectorial)': this.districtManzanosLayer,
         'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
-        'Manzanos Oficiales (GAMC)': manzanosGamcWms,
         'Cuencas y Torrentes Tunari (GAMC)': cuencasGamcWms,
         'Cota 2750 Parque Tunari': cota2750Line,
         'Distritos y Estaciones MÓNICA': this.districtLayer,
@@ -494,7 +478,6 @@ export class App implements OnInit, AfterViewInit {
     this.schoolsLayer.addTo(this.map);
     this.hospitalsLayer.addTo(this.map);
     greenAreasLayer.addTo(this.map);
-    this.districtManzanosLayer.addTo(this.map);
     this.interventionsLayer.addTo(this.map);
 
     if (this.districts().length > 0) {
@@ -507,15 +490,6 @@ export class App implements OnInit, AfterViewInit {
     this.map.on('zoomend', () => {
       const z = this.map!.getZoom();
       this.currentZoom.set(z);
-      if (z >= 14 && !this.showManzanos()) {
-        this.showManzanos.set(true);
-        if (this.selectedDistrict()) {
-          this.renderDistrictManzanos(this.selectedDistrict()!);
-        }
-      } else if (z < 14 && this.showManzanos()) {
-        this.showManzanos.set(false);
-        this.districtManzanosLayer.clearLayers();
-      }
     });
   }
 
@@ -684,11 +658,6 @@ export class App implements OnInit, AfterViewInit {
       });
     }
 
-    if (this.showManzanos() || this.map.getZoom() >= 14) {
-      this.showManzanos.set(true);
-      this.renderDistrictManzanos(district);
-    }
-
     // Fetch suggestion for the selected district
     this.suggestionLoading.set(true);
     this.suggestionSub = this.http
@@ -724,19 +693,6 @@ export class App implements OnInit, AfterViewInit {
       });
   }
 
-  toggleManzanos(): void {
-    if (!this.map) return;
-    const next = !this.showManzanos();
-    this.showManzanos.set(next);
-    if (next) {
-      if (this.selectedDistrict()) {
-        this.renderDistrictManzanos(this.selectedDistrict()!);
-      }
-    } else {
-      this.districtManzanosLayer.clearLayers();
-    }
-  }
-
   clearSelection(): void {
     if (!this.selectedDistrict()) return;
     if (this.map) {
@@ -751,7 +707,6 @@ export class App implements OnInit, AfterViewInit {
     this.districtTrend.set(null);
     this.trendLoading.set(false);
     this.interventionsLayer.clearLayers();
-    this.districtManzanosLayer.clearLayers();
 
     if (this.activePolygon) {
       const prevElem = (this.activePolygon as any).getElement?.();
@@ -772,86 +727,6 @@ export class App implements OnInit, AfterViewInit {
         animate: true,
         duration: 0.35,
       });
-    }
-  }
-
-  private renderDistrictManzanos(district: District): void {
-    if (!this.map) return;
-    this.districtManzanosLayer.clearLayers();
-
-    const [minLon, minLat, maxLon, maxLat] = district.bbox;
-    const rows = 3;
-    const cols = 3;
-    const dLon = (maxLon - minLon) / cols;
-    const dLat = (maxLat - minLat) / rows;
-    const inset = 0.00035;
-
-    let counter = 1;
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const bMinLon = minLon + c * dLon + inset;
-        const bMaxLon = minLon + (c + 1) * dLon - inset;
-        const bMinLat = minLat + r * dLat + inset;
-        const bMaxLat = minLat + (r + 1) * dLat - inset;
-
-        const manzanoCode = `M-${String(counter).padStart(2, '0')}`;
-        const estimatedSlope =
-          district.id === 1 || district.id === 13
-            ? 18.2 + (counter % 3) * 2.1
-            : 2.5 + (counter % 3) * 0.8;
-        counter++;
-
-        const polygon = L.polygon(
-          [
-            [bMinLat, bMinLon],
-            [bMaxLat, bMinLon],
-            [bMaxLat, bMaxLon],
-            [bMinLat, bMaxLon],
-          ],
-          {
-            color: '#334155',
-            weight: 1.2,
-            dashArray: '3, 3',
-            opacity: 0.7,
-            fillColor: '#94a3b8',
-            fillOpacity: 0.15,
-          }
-        );
-
-        polygon.bindTooltip(manzanoCode, {
-          permanent: true,
-          direction: 'center',
-          className: 'manzano-label',
-        });
-
-        polygon.on('mouseover', () => {
-          polygon.setStyle({
-            fillColor: '#10b981',
-            fillOpacity: 0.35,
-            weight: 2,
-            color: '#059669',
-          });
-        });
-
-        polygon.on('mouseout', () => {
-          polygon.setStyle({
-            fillColor: '#94a3b8',
-            fillOpacity: 0.15,
-            weight: 1.2,
-            color: '#334155',
-          });
-        });
-
-        polygon.bindPopup(`
-          <div style="font-size:0.75rem;padding:2px;">
-            <strong>${manzanoCode} · ${district.name}</strong><br>
-            <span>Pendiente media: ${estimatedSlope.toFixed(1)}%</span><br>
-            <span style="color:#059669;font-weight:600;">Subdivisión interna contenida</span>
-          </div>
-        `);
-
-        polygon.addTo(this.districtManzanosLayer);
-      }
     }
   }
 
