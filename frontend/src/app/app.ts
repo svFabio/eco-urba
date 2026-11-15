@@ -129,9 +129,30 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
   legendCollapsed = signal(false);
   sidebarCollapsed = signal(false);
+  rightDrawerOpen = signal(false);
 
   toggleSidebar(): void {
-    this.sidebarCollapsed.update((v) => !v);
+    const next = !this.sidebarCollapsed();
+    this.sidebarCollapsed.set(next);
+    if (!next) {
+      // Abre el panel izquierdo -> cierra el derecho para garantizar UN SOLO sidebar
+      this.rightDrawerOpen.set(false);
+    }
+    setTimeout(() => {
+      this.map?.invalidateSize();
+    }, 320);
+  }
+
+  toggleRightDrawer(): void {
+    const next = !this.rightDrawerOpen();
+    this.rightDrawerOpen.set(next);
+    if (next) {
+      // Abre el panel derecho (Ficha/IA) -> cierra el izquierdo para garantizar UN SOLO sidebar
+      this.sidebarCollapsed.set(true);
+      if (!this.selectedDistrict() && this.districts().length > 0) {
+        this.selectDistrict(this.districts()[0]);
+      }
+    }
     setTimeout(() => {
       this.map?.invalidateSize();
     }, 320);
@@ -754,7 +775,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
           'Cambio Térmico 2016 - 2025 (Delta LST)': deltaLstRaster,
           'Cambio Vegetal 2016 - 2025 (Delta NDVI)': deltaNdviRaster,
         },
-        { position: 'topright', collapsed: false }
+        { position: 'topright', collapsed: true }
       )
       .addTo(this.map);
 
@@ -928,6 +949,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.suggestionSub?.unsubscribe();
 
     this.selectedDistrict.set(district);
+    this.rightDrawerOpen.set(true);
+    this.sidebarCollapsed.set(true); // Garantiza UN SOLO sidebar activo para evitar saturar el mapa
 
     // Reset previous active polygon style & remove selected class
     if (this.activePolygon) {
@@ -1060,6 +1083,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.trendSub?.unsubscribe();
 
     this.selectedDistrict.set(null);
+    this.rightDrawerOpen.set(false);
     this.suggestion.set(null);
     this.suggestionLoading.set(false);
     this.districtTrend.set(null);
