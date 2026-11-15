@@ -2,6 +2,20 @@
   <!-- Top Navigation Header (ElevenLabs Clean Style) -->
   <header class="app-header">
     <div class="header-left">
+      <button
+        type="button"
+        class="btn-header-menu"
+        (click)="toggleSidebar()"
+        [attr.aria-expanded]="!sidebarCollapsed()"
+        [title]="sidebarCollapsed() ? 'Mostrar panel de distritos' : 'Ocultar panel lateral'"
+        aria-label="Alternar panel lateral"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"/>
+          <line x1="4" x2="20" y1="6" y2="6"/>
+          <line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      </button>
       <div class="brand-box">
         <h1 class="brand-title">EcoUrba</h1>
         <span class="brand-divider">/</span>
@@ -14,6 +28,22 @@
   <main class="main-content">
     <!-- Sidebar: District Selector & Analytics Summary -->
     <aside class="sidebar" [class.collapsed]="sidebarCollapsed()">
+      <div class="sidebar-top-bar">
+        <span class="sidebar-top-title">Explorador de Distritos</span>
+        <button
+          type="button"
+          class="btn-sidebar-collapse"
+          (click)="toggleSidebar()"
+          title="Ocultar panel lateral (☰)"
+          aria-label="Ocultar panel lateral"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"/>
+            <line x1="4" x2="20" y1="6" y2="6"/>
+            <line x1="4" x2="20" y1="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
       <!-- Top Section: Rankings Top 5 -->
       <section class="rankings-panel" aria-label="Ranking de Distritos">
         <div class="rankings-header">
@@ -187,34 +217,29 @@
         </div>
       </nav>
 
-      <!-- Floating NASA Temporal Comparator Widget -->
-      @if (showComparator()) {
-        <section class="comparator-floating-card" aria-label="Comparador Temporal Satelital">
-          <div class="comp-header">
-            <div class="comp-title">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="18" height="18" x="3" y="3" rx="2"/>
-                <path d="M12 3v18"/>
-              </svg>
+      <!-- Dedicated Split-Screen NASA Comparator Viewport -->
+      <div class="split-map-viewport" [class.hidden]="!showComparator()" aria-label="Comparador Satelital Dividido">
+        <!-- Split Toolbar Header -->
+        <header class="split-toolbar">
+          <div class="split-brand">
+            <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"/>
+              <path d="M12 3v18"/>
+            </svg>
+            <div>
               <strong>Comparador Satelital NASA</strong>
-              <span class="comp-badge">2016 – 2025</span>
+              <span class="split-subtext">Estación Seca · Landsat 8/9 &amp; MODIS</span>
             </div>
-            <button type="button" class="comp-close-btn" (click)="toggleComparator()" title="Cerrar comparador" aria-label="Cerrar comparador">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </button>
           </div>
 
-          <div class="comp-body">
-            <!-- Variable Selector -->
-            <div class="comp-group">
-              <span class="comp-group-label">Variable:</span>
-              <div class="comp-toggle-group">
+          <div class="split-controls-center">
+            <!-- Variable Selection -->
+            <div class="split-control-group">
+              <span class="control-label">Variable:</span>
+              <div class="btn-group">
                 <button
                   type="button"
-                  class="comp-toggle-btn"
+                  class="split-btn"
                   [class.active]="comparatorVariable() === 'lst'"
                   (click)="setComparatorVariable('lst')"
                 >
@@ -225,7 +250,7 @@
                 </button>
                 <button
                   type="button"
-                  class="comp-toggle-btn"
+                  class="split-btn"
                   [class.active]="comparatorVariable() === 'ndvi'"
                   (click)="setComparatorVariable('ndvi')"
                 >
@@ -238,68 +263,39 @@
               </div>
             </div>
 
-            <!-- Mode Selector -->
-            <div class="comp-group">
-              <span class="comp-group-label">Modo:</span>
-              <div class="comp-toggle-group">
+            <!-- View Mode -->
+            <div class="split-control-group">
+              <span class="control-label">Vista:</span>
+              <div class="btn-group">
                 <button
                   type="button"
-                  class="comp-toggle-btn"
-                  [class.active]="comparatorMode() === 'single'"
-                  (click)="setComparatorMode('single')"
+                  class="split-btn"
+                  [class.active]="comparatorMode() === 'dual'"
+                  (click)="setComparatorMode('dual')"
                 >
-                  Año Individual
+                  <svg class="ui-icon-xs" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2"/>
+                    <path d="M12 3v18"/>
+                  </svg>
+                  <span>Pantalla Dividida (Dual)</span>
                 </button>
                 <button
                   type="button"
-                  class="comp-toggle-btn"
+                  class="split-btn"
                   [class.active]="comparatorMode() === 'delta'"
                   (click)="setComparatorMode('delta')"
                 >
-                  Mapa de Cambio (Δ)
+                  <svg class="ui-icon-xs" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3 2 21h20Z"/>
+                  </svg>
+                  <span>Mapa de Cambio (Δ)</span>
                 </button>
               </div>
             </div>
 
-            <!-- Year Selector (Only when single) -->
-            @if (comparatorMode() === 'single') {
-              <div class="comp-group">
-                <span class="comp-group-label">Año Satelital:</span>
-                <div class="comp-toggle-group years-group">
-                  <button
-                    type="button"
-                    class="comp-toggle-btn year-btn"
-                    [class.active]="comparatorYear() === 2016"
-                    (click)="setComparatorYear(2016)"
-                  >
-                    2016
-                  </button>
-                  <button
-                    type="button"
-                    class="comp-toggle-btn year-btn"
-                    [class.active]="comparatorYear() === 2020"
-                    (click)="setComparatorYear(2020)"
-                  >
-                    2020
-                  </button>
-                  <button
-                    type="button"
-                    class="comp-toggle-btn year-btn"
-                    [class.active]="comparatorYear() === 2025"
-                    (click)="setComparatorYear(2025)"
-                  >
-                    2025
-                  </button>
-                </div>
-              </div>
-            }
-
-            <!-- Opacity Slider -->
-            <div class="comp-group opacity-group">
-              <div class="opacity-label-row">
-                <span class="comp-group-label">Opacidad Ráster:</span>
-                <span class="opacity-val">{{ (comparatorOpacity() * 100).toFixed(0) }}%</span>
-              </div>
+            <!-- Opacity Control -->
+            <div class="split-control-group opacity-ctrl">
+              <span class="control-label">Opacidad:</span>
               <input
                 type="range"
                 min="20"
@@ -307,62 +303,140 @@
                 step="5"
                 [value]="comparatorOpacity() * 100"
                 (input)="onOpacityChange($event)"
-                class="comp-range-input"
+                class="split-slider"
               />
-            </div>
-
-            <!-- Telemetry Stats Pill -->
-            <div class="comp-stat-box">
-              @if (comparatorMode() === 'single') {
-                <div class="stat-main-row">
-                  <span class="stat-tag">NASA {{ comparatorYear() }}</span>
-                  <span class="stat-reading">
-                    {{ comparatorVariable() === 'lst' ? (comparatorYear() === 2016 ? '29.43 °C' : comparatorYear() === 2020 ? '26.82 °C' : '26.10 °C') : (comparatorYear() === 2016 ? '0.2395' : comparatorYear() === 2020 ? '0.2563' : '0.2773') }}
-                    <small>{{ comparatorVariable() === 'lst' ? 'promedio' : 'NDVI' }}</small>
-                  </span>
-                </div>
-                <p class="stat-subtext">Compuesto satelital de estación seca libre de nubes (Landsat/MODIS).</p>
-              } @else {
-                <div class="stat-main-row highlight">
-                  <span class="stat-tag delta">Diferencia 2016 → 2025</span>
-                  <span class="stat-reading delta">
-                    {{ comparatorVariable() === 'lst' ? 'Δ −3.33 °C' : 'Δ +0.0378' }}
-                  </span>
-                </div>
-                <p class="stat-subtext">Cálculo diferencial matricial sobre 327.874 píxeles válidos del valle.</p>
-              }
-            </div>
-
-            <!-- Legend Scale -->
-            <div class="comp-legend-box">
-              <div
-                class="legend-gradient"
-                [class.lst]="comparatorVariable() === 'lst' && comparatorMode() === 'single'"
-                [class.ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'single'"
-                [class.delta-lst]="comparatorVariable() === 'lst' && comparatorMode() === 'delta'"
-                [class.delta-ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'delta'"
-              ></div>
-              <div class="legend-labels">
-                @if (comparatorMode() === 'delta') {
-                  <span>{{ comparatorVariable() === 'lst' ? '−7 °C (Enfriamiento)' : '−0.25 (Pérdida)' }}</span>
-                  <span>0 (Sin cambio)</span>
-                  <span>{{ comparatorVariable() === 'lst' ? '+7 °C (Calor severo)' : '+0.25 (Ganancia)' }}</span>
-                } @else if (comparatorVariable() === 'lst') {
-                  <span>15 °C (Templado)</span>
-                  <span>28 °C</span>
-                  <span>40 °C (Calor extremo)</span>
-                } @else {
-                  <span>−0.10 (Suelo árido)</span>
-                  <span>0.30</span>
-                  <span>0.75 (Bosque denso)</span>
-                }
-              </div>
+              <span class="slider-val">{{ (comparatorOpacity() * 100).toFixed(0) }}%</span>
             </div>
           </div>
-        </section>
-      }
 
-      <div #mapContainer class="map-container"></div>
+          <!-- Close / Back Button -->
+          <button
+            type="button"
+            class="split-close-btn"
+            (click)="toggleComparator()"
+            title="Cerrar comparador y volver al visor unificado"
+          >
+            <svg class="ui-icon-xs" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Volver al Visor</span>
+          </button>
+        </header>
+
+        <!-- Difference Stats Pill (Center floating) -->
+        <div class="split-telemetry-banner">
+          @if (comparatorMode() === 'dual') {
+            <div class="telemetry-pill">
+              <span class="telemetry-item">
+                <strong>Año {{ comparatorYearA() }}:</strong> {{ comparatorDelta().aVal }}
+              </span>
+              <span class="telemetry-divider">vs</span>
+              <span class="telemetry-item">
+                <strong>Año {{ comparatorYearB() }}:</strong> {{ comparatorDelta().bVal }}
+              </span>
+              <span class="telemetry-divider">→</span>
+              <span class="telemetry-item delta" [class.negative]="comparatorDelta().isReduction">
+                <strong>Diferencia:</strong> {{ comparatorDelta().diff }}
+              </span>
+            </div>
+          } @else {
+            <div class="telemetry-pill">
+              <span class="telemetry-item delta">
+                <strong>Cambio Satelital Píxel a Píxel (2016 → 2025):</strong>
+                {{ comparatorVariable() === 'lst' ? 'Δ −3.33 °C' : 'Δ +0.0378' }}
+              </span>
+              <span class="telemetry-sub">Cálculo diferencial sobre 327.874 píxeles del valle</span>
+            </div>
+          }
+        </div>
+
+        <!-- Maps Split Grid -->
+        <div class="split-maps-grid" [class.single-view]="comparatorMode() === 'delta'">
+          <!-- Pane A (Left) -->
+          <div class="split-pane split-pane-left">
+            <div class="pane-badge-floating">
+              @if (comparatorMode() === 'dual') {
+                <span class="badge-title">Izquierda:</span>
+                <div class="year-selector-pills">
+                  <button
+                    type="button"
+                    class="year-pill"
+                    [class.active]="comparatorYearA() === 2016"
+                    (click)="setComparatorYearA(2016)"
+                  >2016</button>
+                  <button
+                    type="button"
+                    class="year-pill"
+                    [class.active]="comparatorYearA() === 2020"
+                    (click)="setComparatorYearA(2020)"
+                  >2020</button>
+                  <button
+                    type="button"
+                    class="year-pill"
+                    [class.active]="comparatorYearA() === 2025"
+                    (click)="setComparatorYearA(2025)"
+                  >2025</button>
+                </div>
+                <span class="badge-val">{{ comparatorDelta().aVal }}</span>
+              } @else {
+                <span class="badge-title">Mapa de Cambio Diferencial (2016 → 2025)</span>
+              }
+            </div>
+            <div #mapAContainer class="split-map-element"></div>
+          </div>
+
+          <!-- Pane B (Right) -->
+          <div class="split-pane split-pane-right" [class.hidden]="comparatorMode() === 'delta'">
+            <div class="pane-badge-floating">
+              <span class="badge-title">Derecha:</span>
+              <div class="year-selector-pills">
+                <button
+                  type="button"
+                  class="year-pill"
+                  [class.active]="comparatorYearB() === 2016"
+                  (click)="setComparatorYearB(2016)"
+                >2016</button>
+                <button
+                  type="button"
+                  class="year-pill"
+                  [class.active]="comparatorYearB() === 2020"
+                  (click)="setComparatorYearB(2020)"
+                >2020</button>
+                <button
+                  type="button"
+                  class="year-pill"
+                  [class.active]="comparatorYearB() === 2025"
+                  (click)="setComparatorYearB(2025)"
+                >2025</button>
+              </div>
+              <span class="badge-val">{{ comparatorDelta().bVal }}</span>
+            </div>
+            <div #mapBContainer class="split-map-element"></div>
+          </div>
+        </div>
+
+        <!-- Legend Bottom Bar -->
+        <footer class="split-legend-footer">
+          <div class="legend-scale-row">
+            <span class="legend-min">
+              {{ comparatorMode() === 'delta' ? (comparatorVariable() === 'lst' ? '−7 °C' : '−0.25') : (comparatorVariable() === 'lst' ? '15 °C' : '−0.10') }}
+            </span>
+            <div
+              class="legend-bar-gradient"
+              [class.lst]="comparatorVariable() === 'lst' && comparatorMode() === 'dual'"
+              [class.ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'dual'"
+              [class.delta-lst]="comparatorVariable() === 'lst' && comparatorMode() === 'delta'"
+              [class.delta-ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'delta'"
+            ></div>
+            <span class="legend-max">
+              {{ comparatorMode() === 'delta' ? (comparatorVariable() === 'lst' ? '+7 °C' : '+0.25') : (comparatorVariable() === 'lst' ? '40 °C' : '0.75') }}
+            </span>
+          </div>
+        </footer>
+      </div>
+
+      <div #mapContainer class="map-container" [class.hidden]="showComparator()"></div>
 
       <!-- Floating Map Legend (Bottom-Left) -->
       <aside class="map-floating-legend" [class.collapsed]="legendCollapsed()" aria-label="Leyenda del mapa">

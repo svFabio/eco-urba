@@ -137,13 +137,55 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     }, 320);
   }
 
-  // Comparador Temporal NASA (2016 - 2025)
+  // Comparador Temporal Satelital NASA (2016 - 2025) - Split-Screen Dual
   showComparator = signal<boolean>(false);
   comparatorVariable = signal<'ndvi' | 'lst'>('lst');
-  comparatorMode = signal<'single' | 'delta'>('single');
-  comparatorYear = signal<number>(2025);
+  comparatorMode = signal<'dual' | 'delta'>('dual');
+  comparatorYearA = signal<number>(2016);
+  comparatorYearB = signal<number>(2025);
   comparatorOpacity = signal<number>(0.85);
-  private comparatorOverlayLayer?: L.ImageOverlay;
+
+  private mapAElement = viewChild<ElementRef<HTMLDivElement>>('mapAContainer');
+  private mapBElement = viewChild<ElementRef<HTMLDivElement>>('mapBContainer');
+  private mapA?: L.Map;
+  private mapB?: L.Map;
+  private layerA?: L.ImageOverlay;
+  private layerB?: L.ImageOverlay;
+  private syncCleanup: Array<() => void> = [];
+  private cachedGeoData?: any;
+
+  readonly SATELLITE_STATS = {
+    2016: { ndvi: 0.2395, lst: 29.43, n: 327874 },
+    2020: { ndvi: 0.2563, lst: 26.82, n: 327874 },
+    2025: { ndvi: 0.2773, lst: 26.10, n: 327874 },
+  };
+
+  comparatorDelta = computed(() => {
+    const v = this.comparatorVariable();
+    const a = this.comparatorYearA();
+    const b = this.comparatorYearB();
+    const statA = this.SATELLITE_STATS[a as keyof typeof this.SATELLITE_STATS];
+    const statB = this.SATELLITE_STATS[b as keyof typeof this.SATELLITE_STATS];
+    if (!statA || !statB) return { aVal: '', bVal: '', diff: '', isReduction: false };
+
+    if (v === 'lst') {
+      const d = statB.lst - statA.lst;
+      return {
+        aVal: `${statA.lst.toFixed(2)} °C`,
+        bVal: `${statB.lst.toFixed(2)} °C`,
+        diff: `${d >= 0 ? '+' : ''}${d.toFixed(2)} °C`,
+        isReduction: d < 0,
+      };
+    } else {
+      const d = statB.ndvi - statA.ndvi;
+      return {
+        aVal: statA.ndvi.toFixed(4),
+        bVal: statB.ndvi.toFixed(4),
+        diff: `${d >= 0 ? '+' : ''}${d.toFixed(4)}`,
+        isReduction: d < 0,
+      };
+    }
+  });
 
   top5Districts = computed(() =>
     [...this.districts()]
@@ -307,10 +349,26 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     }
     this.suggestionSub?.unsubscribe();
     this.trendSub?.unsubscribe();
+    this.syncCleanup.forEach((fn) => fn());
+    this.syncCleanup = [];
+    if (this.mapA) {
+      this.mapA.remove();
+      this.mapA = undefined;
+    }
+    if (this.mapB) {
+      this.mapB.remove();
+      this.mapB = undefined;
+    }
   }
 
   private onGlobalKeyDown = (e: KeyboardEvent): void => {
     if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+      if (this.showComparator()) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleComparator();
+        return;
+      }
       if (this.selectedDistrict()) {
         e.preventDefault();
         e.stopPropagation();
@@ -387,13 +445,17 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
     // 1. Instant hydration from sessionStorage (0ms Stale-While-Revalidate)
     const cachedGeo = this.getCachedItem<any>(this.CACHE_KEY_GEOJSON);
-    if (cachedGeo && !this.geoJsonLayer) {
-      this.renderGeoJsonDistricts(cachedGeo);
+    if (cachedGeo) {
+      this.cachedGeoData = cachedGeo;
+      if (!this.geoJsonLayer) {
+        this.renderGeoJsonDistricts(cachedGeo);
+      }
     }
 
     // 2. Background revalidation from backend API (silent update without destroying layer if identical)
     this.http.get<any>(`${this.API_BASE}/districts/geojson`).subscribe({
       next: (geoData) => {
+        this.cachedGeoData = geoData;
         const rawNew = JSON.stringify(geoData);
         const rawCached = sessionStorage.getItem(this.CACHE_KEY_GEOJSON);
         if (rawNew !== rawCached) {
@@ -1060,82 +1122,176 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   toggleComparator(): void {
     const nextState = !this.showComparator();
     this.showComparator.set(nextState);
-    this.updateComparatorLayer();
+    if (nextState) {
+      setTimeout(() => {
+        this.initComparatorSplitMaps();
+      }, 30);
+    } else {
+      setTimeout(() => {
+        this.map?.invalidateSize();
+      }, 50);
+    }
   }
 
   setComparatorVariable(v: 'ndvi' | 'lst'): void {
     this.comparatorVariable.set(v);
-    this.updateComparatorLayer();
+    this.updateSplitRasterLayers();
   }
 
-  setComparatorMode(m: 'single' | 'delta'): void {
+  setComparatorMode(m: 'dual' | 'delta'): void {
     this.comparatorMode.set(m);
-    this.updateComparatorLayer();
+    this.updateSplitRasterLayers();
+    setTimeout(() => {
+      this.mapA?.invalidateSize();
+      if (m === 'dual') {
+        this.mapB?.invalidateSize();
+      }
+    }, 50);
   }
 
-  setComparatorYear(y: number): void {
-    this.comparatorYear.set(y);
-    this.updateComparatorLayer();
+  setComparatorYearA(y: number): void {
+    this.comparatorYearA.set(y);
+    this.updateSplitRasterLayers();
+  }
+
+  setComparatorYearB(y: number): void {
+    this.comparatorYearB.set(y);
+    this.updateSplitRasterLayers();
   }
 
   onOpacityChange(event: Event): void {
     const val = Number((event.target as HTMLInputElement).value) / 100;
     this.comparatorOpacity.set(val);
-    if (this.comparatorOverlayLayer) {
-      this.comparatorOverlayLayer.setOpacity(val);
-    }
+    if (this.layerA) this.layerA.setOpacity(val);
+    if (this.layerB) this.layerB.setOpacity(val);
   }
 
-  updateComparatorLayer(): void {
-    if (!this.map) return;
-    if (this.comparatorOverlayLayer) {
-      this.map.removeLayer(this.comparatorOverlayLayer);
-      this.comparatorOverlayLayer = undefined;
-    }
+  private initComparatorSplitMaps(): void {
+    const elA = this.mapAElement()?.nativeElement;
+    const elB = this.mapBElement()?.nativeElement;
+    if (!elA || !elB) return;
 
-    if (!this.showComparator()) {
-      if (this.geoJsonLayer) {
-        this.geoJsonLayer.eachLayer((layer: any) => {
-          if (layer.setStyle) {
-            const props = layer.feature?.properties || {};
-            const fillColor = this.getFillColorForFeature(props);
-            layer.setStyle({ fillOpacity: this.activePolygon === layer ? 0.6 : 0.5, fillColor });
-          }
-        });
-      }
-      return;
-    }
-
-    const variable = this.comparatorVariable();
-    const mode = this.comparatorMode();
-    const year = this.comparatorYear();
-    const opacity = this.comparatorOpacity();
-
-    const rasterId = mode === 'delta' ? `delta_${variable}` : `${variable}_${year}`;
     const bounds: L.LatLngBoundsExpression = [
       [-17.547539808818485, -66.29457894571759],
       [-17.264661664569346, -66.05274190721205],
     ];
 
-    this.comparatorOverlayLayer = L.imageOverlay(
-      `${this.API_BASE}/rasters/${rasterId}.png`,
-      bounds,
-      { opacity, interactive: false }
-    ).addTo(this.map);
-
-    if (this.geoJsonLayer) {
-      this.geoJsonLayer.eachLayer((layer: any) => {
-        if (layer.setStyle) {
-          layer.setStyle({ fillOpacity: 0.15, weight: 2, color: '#ffffff' });
-        }
-        layer.bringToFront?.();
+    if (!this.mapA) {
+      this.mapA = L.map(elA, {
+        zoomControl: true,
+        attributionControl: false,
+        zoomSnap: 0.25,
+        zoomDelta: 0.5,
       });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+      }).addTo(this.mapA);
+      this.mapA.fitBounds(bounds, { padding: [14, 14] });
+      this.addDistrictBoundariesToMap(this.mapA);
     }
-    if (this.districtLayer) {
-      this.districtLayer.eachLayer((layer: any) => layer.bringToFront?.());
+
+    if (!this.mapB) {
+      this.mapB = L.map(elB, {
+        zoomControl: false,
+        attributionControl: false,
+        zoomSnap: 0.25,
+        zoomDelta: 0.5,
+      });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+      }).addTo(this.mapB);
+      this.mapB.fitBounds(bounds, { padding: [14, 14] });
+      this.addDistrictBoundariesToMap(this.mapB);
     }
-    if (this.interventionsLayer) {
-      this.interventionsLayer.eachLayer((layer: any) => layer.bringToFront?.());
+
+    // Bidirectional Map Sync (Pan & Zoom)
+    if (this.syncCleanup.length === 0 && this.mapA && this.mapB) {
+      let syncing = false;
+      const sync = (source: L.Map, target: L.Map) => {
+        const handler = () => {
+          if (syncing) return;
+          syncing = true;
+          target.setView(source.getCenter(), source.getZoom(), { animate: false });
+          syncing = false;
+        };
+        source.on('move', handler);
+        return () => source.off('move', handler);
+      };
+
+      this.syncCleanup.push(sync(this.mapA, this.mapB));
+      this.syncCleanup.push(sync(this.mapB, this.mapA));
+    }
+
+    this.updateSplitRasterLayers();
+
+    setTimeout(() => {
+      this.mapA?.invalidateSize();
+      this.mapB?.invalidateSize();
+    }, 50);
+  }
+
+  private addDistrictBoundariesToMap(targetMap: L.Map): void {
+    const geo = this.cachedGeoData || this.getCachedItem<any>(this.CACHE_KEY_GEOJSON);
+    if (!geo) return;
+    L.geoJSON(geo, {
+      style: {
+        color: '#ffffff',
+        weight: 1.5,
+        fillOpacity: 0,
+        opacity: 0.75,
+      },
+      onEachFeature: (feature, layer) => {
+        const name = feature.properties?.Distrito || feature.properties?.nombre || `D${feature.properties?.id ?? ''}`;
+        layer.bindTooltip(name, {
+          direction: 'center',
+          className: 'district-tooltip-label',
+        });
+      },
+    }).addTo(targetMap);
+  }
+
+  private updateSplitRasterLayers(): void {
+    const bounds: L.LatLngBoundsExpression = [
+      [-17.547539808818485, -66.29457894571759],
+      [-17.264661664569346, -66.05274190721205],
+    ];
+    const opacity = this.comparatorOpacity();
+    const v = this.comparatorVariable();
+    const mode = this.comparatorMode();
+
+    if (this.layerA && this.mapA) {
+      this.mapA.removeLayer(this.layerA);
+      this.layerA = undefined;
+    }
+    if (this.layerB && this.mapB) {
+      this.mapB.removeLayer(this.layerB);
+      this.layerB = undefined;
+    }
+
+    if (mode === 'delta') {
+      const key = `delta_${v}`;
+      if (this.mapA) {
+        this.layerA = L.imageOverlay(`${this.API_BASE}/rasters/${key}.png`, bounds, {
+          opacity,
+          interactive: false,
+        }).addTo(this.mapA);
+      }
+    } else {
+      const keyA = `${v}_${this.comparatorYearA()}`;
+      const keyB = `${v}_${this.comparatorYearB()}`;
+
+      if (this.mapA) {
+        this.layerA = L.imageOverlay(`${this.API_BASE}/rasters/${keyA}.png`, bounds, {
+          opacity,
+          interactive: false,
+        }).addTo(this.mapA);
+      }
+      if (this.mapB) {
+        this.layerB = L.imageOverlay(`${this.API_BASE}/rasters/${keyB}.png`, bounds, {
+          opacity,
+          interactive: false,
+        }).addTo(this.mapB);
+      }
     }
   }
 }
