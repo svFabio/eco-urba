@@ -225,8 +225,8 @@ def _query_gemini_suggestion(district, interventions: list[InterventionPoint]) -
         ]
     )
 
-    prompt = f"""Sos el motor de IA de EcoUrba, una plataforma satelital de resiliencia microclimática para Cochabamba (Cercado).
-Analizá la telemetría viva de la NASA para el siguiente distrito:
+    prompt = f"""Eres el motor de IA de EcoUrba, una plataforma satelital de resiliencia microclimática para Cochabamba (Cercado).
+Analiza la telemetría viva de la NASA para el siguiente distrito:
 - Distrito: {district.name} ({district.zone})
 - Superficie Oficial: {district.area_km2} km²
 - Temperatura Superficial Terrestre (NASA MODIS/Landsat LST): {temp} °C
@@ -238,11 +238,11 @@ Topografía y puntos preliminares (NASA ASTER/SRTM):
 {topography_context}
 
 Instrucciones:
-1. Generá una recomendación de intervención urbanística y bioclimática profesional, viva, dinámica, SIN frases cliché ni plantillas repetitivas (máximo 3 o 4 oraciones).
-2. Justificá técnicamente por qué se recomienda cada acción (por ejemplo, laderas altas >15% requieren especies nativas como Kewiña/Kiswara para frenar torrentes y estabilizar suelos, descartando hospitales por accesibilidad de ambulancias; mientras que planicies con alta LST requieren arbolado de sombra densa como Molle/Jacarandá y son aptas para centros de salud).
-3. Podés ajustar o refinar las descripciones y razones de los puntos de intervención para que sean precisos.
+1. Genera una recomendación de intervención urbanística y bioclimática profesional, viva, dinámica, SIN frases cliché ni plantillas repetitivas (máximo 3 o 4 oraciones).
+2. Justifica técnicamente por qué se recomienda cada acción (por ejemplo, laderas altas >15% requieren especies nativas como Kewiña/Kiswara para frenar torrentes y estabilizar suelos, descartando hospitales por accesibilidad de ambulancias; mientras que planicies con alta LST requieren arbolado de sombra densa como Molle/Jacarandá y son aptas para centros de salud).
+3. Puedes ajustar o refinar las descripciones y razones de los puntos de intervención para que sean precisos.
 
-Respondé OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
+Responde OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
 {{
   "suggestion_text": "Texto completo y dinámico del diagnóstico y recomendación...",
   "available_areas_hint": "Descripción de predios públicos o franjas donde actuar...",
