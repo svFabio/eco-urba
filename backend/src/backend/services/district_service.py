@@ -98,14 +98,17 @@ def _load_districts() -> list[District]:
             hotspot_pct = round(float(nasa_p.get("hotspot_2024_pct_valido", 0.0)), 1)
             hotspot_km2 = round(float(nasa_p.get("hotspot_2024_km2", 0.0)), 3)
 
-            # Clasificación bioclimática objetiva derivada de telemetría NASA
-            # Basada en umbrales de isla de calor real para el valle de Cochabamba
-            if hotspot_pct >= 25.0 or surface_temp >= 32.0:
+            # Clasificación bioclimática objetiva calibrada para el Valle de Cochabamba:
+            # 1. Crítico: Ambos indicadores extremos (LST >= 31°C y Hotspot >= 20%) o LST extrema >= 32°C
+            if (surface_temp >= 31.0 and hotspot_pct >= 20.0) or surface_temp >= 32.0:
                 risk = "Crítico"
-            elif hotspot_pct >= 15.0 or surface_temp >= 30.5:
+            # 2. Alto: Calor severo LST >= 30.5°C o (LST >= 29.8°C y Hotspot >= 15%)
+            elif surface_temp >= 30.5 or (surface_temp >= 29.8 and hotspot_pct >= 15.0):
                 risk = "Alto"
-            elif hotspot_pct >= 5.0 or (surface_temp >= 29.5 and hotspot_pct >= 4.0):
+            # 3. Moderado: Temperatura urbana 29°C - 30.5°C con isla térmica, o Hotspot >= 15%
+            elif (surface_temp >= 29.0 and hotspot_pct >= 5.0) or surface_temp >= 29.5 or (surface_temp >= 28.5 and hotspot_pct >= 15.0):
                 risk = "Moderado"
+            # 4. Bajo: Laderas y zonas amortiguadas (LST < 29°C y Hotspot < 5%)
             else:
                 risk = "Bajo"
 

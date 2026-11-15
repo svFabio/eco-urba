@@ -1,0 +1,2562 @@
+[
+  {
+    "id": "pub-10-1",
+    "name": "Plaza del Cementerio General de Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40941,
+    "lon": -66.15944,
+    "category": "park",
+    "dist_to_hospital_m": 449.9
+  },
+  {
+    "id": "pub-10-2",
+    "name": "Fuente Plaza del Cementerio General de Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40935,
+    "lon": -66.15937,
+    "category": "fountain",
+    "dist_to_hospital_m": 457.1
+  },
+  {
+    "id": "pub-10-3",
+    "name": "Plaza de Comidas Estación Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40416,
+    "lon": -66.15423,
+    "category": "food_court",
+    "dist_to_hospital_m": 314.6
+  },
+  {
+    "id": "pub-10-4",
+    "name": "Edificio Federación de Trabajadores Fabriles de Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.3933,
+    "lon": -66.1564,
+    "category": "commercial",
+    "dist_to_hospital_m": 207.6
+  },
+  {
+    "id": "pub-11-5",
+    "name": "Fuente Plazuela Carlos Quintanilla",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.3822,
+    "lon": -66.15178,
+    "category": "water",
+    "dist_to_hospital_m": 180.4
+  },
+  {
+    "id": "pub-10-6",
+    "name": "Plazuela Francisco María del Granado",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39035,
+    "lon": -66.1578,
+    "category": "square",
+    "dist_to_hospital_m": 312.8
+  },
+  {
+    "id": "pub-2-7",
+    "name": "Plazuela Historiador Josep María Bardanas",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36252,
+    "lon": -66.1502,
+    "category": "park",
+    "dist_to_hospital_m": 890.3
+  },
+  {
+    "id": "pub-11-8",
+    "name": "Urbanización Plazuela Ciega",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.37998,
+    "lon": -66.14942,
+    "category": "residential",
+    "dist_to_hospital_m": 379.3
+  },
+  {
+    "id": "pub-11-9",
+    "name": "Plazuela General Federico Román",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39604,
+    "lon": -66.14259,
+    "category": "park",
+    "dist_to_hospital_m": 307.5
+  },
+  {
+    "id": "pub-11-10",
+    "name": "Plazuela Carlos Quintanilla",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.38224,
+    "lon": -66.15178,
+    "category": "park",
+    "dist_to_hospital_m": 180.4
+  },
+  {
+    "id": "pub-10-11",
+    "name": "Bosquecillo Plazuela Carlos Quintanilla",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38219,
+    "lon": -66.15205,
+    "category": "forest",
+    "dist_to_hospital_m": 151.7
+  },
+  {
+    "id": "pub-10-12",
+    "name": "Plazuela Los Incas",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40609,
+    "lon": -66.16825,
+    "category": "park",
+    "dist_to_hospital_m": 673.4
+  },
+  {
+    "id": "pub-12-13",
+    "name": "Plazuela Aranjuez",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37543,
+    "lon": -66.14782,
+    "category": "park",
+    "dist_to_hospital_m": 447.6
+  },
+  {
+    "id": "pub-2-14",
+    "name": "Plazuela Atahuallpa",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35936,
+    "lon": -66.16029,
+    "category": "park",
+    "dist_to_hospital_m": 236.2
+  },
+  {
+    "id": "pub-10-15",
+    "name": "Plazuela Guzmán Quitón",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39325,
+    "lon": -66.16152,
+    "category": "park",
+    "dist_to_hospital_m": 226.7
+  },
+  {
+    "id": "pub-11-16",
+    "name": "Bosquecillo Plazuela Ciega",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.37998,
+    "lon": -66.14908,
+    "category": "forest",
+    "dist_to_hospital_m": 377.7
+  },
+  {
+    "id": "pub-4-17",
+    "name": "Plazuela Doctor Luis Villarroel Blanco",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.39327,
+    "lon": -66.20535,
+    "category": "grass",
+    "dist_to_hospital_m": 100.6
+  },
+  {
+    "id": "pub-11-18",
+    "name": "Plazuela Capitán Jorge Ayala C.",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.37997,
+    "lon": -66.14902,
+    "category": "park",
+    "dist_to_hospital_m": 379.1
+  },
+  {
+    "id": "pub-10-19",
+    "name": "Plazuela Carlos Montenegro para las Américas",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38227,
+    "lon": -66.1598,
+    "category": "park",
+    "dist_to_hospital_m": 510.7
+  },
+  {
+    "id": "pub-6-20",
+    "name": "Plazuela Pedro Salazar Ovando",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.39887,
+    "lon": -66.13582,
+    "category": "park",
+    "dist_to_hospital_m": 667.0
+  },
+  {
+    "id": "pub-2-21",
+    "name": "Plazuela Escritor Oscar Uzín Fernández",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36097,
+    "lon": -66.15283,
+    "category": "park",
+    "dist_to_hospital_m": 577.8
+  },
+  {
+    "id": "pub-14-22",
+    "name": "Plazuela Venezuela",
+    "district_id": 14,
+    "district_name": "Distrito 14",
+    "lat": -17.44527,
+    "lon": -66.10691,
+    "category": "park",
+    "dist_to_hospital_m": 944.9
+  },
+  {
+    "id": "pub-10-23",
+    "name": "Plazuela Carlos Medinacelli",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.3884,
+    "lon": -66.16401,
+    "category": "grass",
+    "dist_to_hospital_m": 333.1
+  },
+  {
+    "id": "pub-10-24",
+    "name": "Plazuela de San Sebastián",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39941,
+    "lon": -66.15962,
+    "category": "park",
+    "dist_to_hospital_m": 311.9
+  },
+  {
+    "id": "pub-12-25",
+    "name": "Plazuela Club de Leones Villa Ingavi",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.39175,
+    "lon": -66.16877,
+    "category": "park",
+    "dist_to_hospital_m": 140.9
+  },
+  {
+    "id": "pub-12-26",
+    "name": "Plazuela Potosí",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37863,
+    "lon": -66.15043,
+    "category": "park",
+    "dist_to_hospital_m": 419.5
+  },
+  {
+    "id": "pub-4-27",
+    "name": "Plazuela OTB Gran Chaco",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40067,
+    "lon": -66.17606,
+    "category": "park",
+    "dist_to_hospital_m": 446.3
+  },
+  {
+    "id": "pub-9-28",
+    "name": "Plazuela 22 de Enero",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.44575,
+    "lon": -66.14526,
+    "category": "park",
+    "dist_to_hospital_m": 179.0
+  },
+  {
+    "id": "pub-11-29",
+    "name": "Plazuela José Lino Márquez",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.37916,
+    "lon": -66.1407,
+    "category": "park",
+    "dist_to_hospital_m": 130.2
+  },
+  {
+    "id": "pub-3-30",
+    "name": "Plazuela Villa Mercedes",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.38653,
+    "lon": -66.18936,
+    "category": "park",
+    "dist_to_hospital_m": 943.9
+  },
+  {
+    "id": "pub-11-31",
+    "name": "Plazuela Mercedes Torres de Rivero",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.38019,
+    "lon": -66.14068,
+    "category": "park",
+    "dist_to_hospital_m": 86.1
+  },
+  {
+    "id": "pub-12-32",
+    "name": "Plazuela San Pablo",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37144,
+    "lon": -66.14403,
+    "category": "park",
+    "dist_to_hospital_m": 293.4
+  },
+  {
+    "id": "pub-12-33",
+    "name": "Plazuela 7 de Noviembre",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37765,
+    "lon": -66.15127,
+    "category": "park",
+    "dist_to_hospital_m": 319.6
+  },
+  {
+    "id": "pub-12-34",
+    "name": "Plazuela Adela Zamudio",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37507,
+    "lon": -66.1623,
+    "category": "park",
+    "dist_to_hospital_m": 373.4
+  },
+  {
+    "id": "pub-10-35",
+    "name": "Plaza Cristobal Colón",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38821,
+    "lon": -66.15573,
+    "category": "park",
+    "dist_to_hospital_m": 210.5
+  },
+  {
+    "id": "pub-12-36",
+    "name": "Plaza Charles de Gaulle",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.3729,
+    "lon": -66.15685,
+    "category": "park",
+    "dist_to_hospital_m": 120.9
+  },
+  {
+    "id": "pub-12-37",
+    "name": "Pasaje Plazuela Aranjuez",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37527,
+    "lon": -66.14779,
+    "category": "residential",
+    "dist_to_hospital_m": 439.0
+  },
+  {
+    "id": "pub-12-38",
+    "name": "Plazuela Jose Rivera Luna",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37556,
+    "lon": -66.14425,
+    "category": "residential",
+    "dist_to_hospital_m": 170.7
+  },
+  {
+    "id": "pub-11-39",
+    "name": "Calle Juan Rivero Torrez",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.38019,
+    "lon": -66.14081,
+    "category": "residential",
+    "dist_to_hospital_m": 71.8
+  },
+  {
+    "id": "pub-11-40",
+    "name": "Calle Juan de la Cruz Torrez",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.3803,
+    "lon": -66.14059,
+    "category": "residential",
+    "dist_to_hospital_m": 97.6
+  },
+  {
+    "id": "pub-10-41",
+    "name": "Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.3864,
+    "lon": -66.15988,
+    "category": "interior_decoration",
+    "dist_to_hospital_m": 158.8
+  },
+  {
+    "id": "pub-6-42",
+    "name": "Cancha de Fútbol A",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.41679,
+    "lon": -66.1375,
+    "category": "pitch",
+    "dist_to_hospital_m": 591.8
+  },
+  {
+    "id": "pub-6-43",
+    "name": "Cancha de Fútbol B",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.41637,
+    "lon": -66.1384,
+    "category": "pitch",
+    "dist_to_hospital_m": 578.4
+  },
+  {
+    "id": "pub-6-44",
+    "name": "Cancha de Fúbol Barrio Minero Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.42045,
+    "lon": -66.13664,
+    "category": "pitch",
+    "dist_to_hospital_m": 210.5
+  },
+  {
+    "id": "pub-5-45",
+    "name": "Cancha de Fútbol Tercera Villa Sud",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.42086,
+    "lon": -66.16537,
+    "category": "pitch",
+    "dist_to_hospital_m": 499.2
+  },
+  {
+    "id": "pub-1-46",
+    "name": "Cancha Complejo Pacata",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.36927,
+    "lon": -66.11958,
+    "category": "pitch",
+    "dist_to_hospital_m": 2615.9
+  },
+  {
+    "id": "pub-9-47",
+    "name": "Cancha Villa Sajama",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.47582,
+    "lon": -66.15001,
+    "category": "pitch",
+    "dist_to_hospital_m": 920.8
+  },
+  {
+    "id": "pub-2-48",
+    "name": "Cancha Fútbol Franklin Delano Roosevelt",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36144,
+    "lon": -66.1734,
+    "category": "pitch",
+    "dist_to_hospital_m": 140.3
+  },
+  {
+    "id": "pub-2-49",
+    "name": "Cancha Sintética Franklin Delano Roosevelt",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36213,
+    "lon": -66.17219,
+    "category": "pitch",
+    "dist_to_hospital_m": 290.5
+  },
+  {
+    "id": "pub-7-50",
+    "name": "Cancha Norte Urbanización Exaltación",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41784,
+    "lon": -66.12563,
+    "category": "pitch",
+    "dist_to_hospital_m": 867.1
+  },
+  {
+    "id": "pub-11-51",
+    "name": "Cancha Norte Parque del Maestro",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.3957,
+    "lon": -66.13848,
+    "category": "pitch",
+    "dist_to_hospital_m": 514.9
+  },
+  {
+    "id": "pub-4-52",
+    "name": "Cancha de Fútbol Urbanización Doctor José Daza Cardenas",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40965,
+    "lon": -66.18256,
+    "category": "pitch",
+    "dist_to_hospital_m": 432.3
+  },
+  {
+    "id": "pub-10-53",
+    "name": "Cancha de Fútbol Club Olympic",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38422,
+    "lon": -66.16256,
+    "category": "pitch",
+    "dist_to_hospital_m": 365.2
+  },
+  {
+    "id": "pub-2-54",
+    "name": "Cancha Señor de Mayo",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35636,
+    "lon": -66.16826,
+    "category": "pitch",
+    "dist_to_hospital_m": 819.7
+  },
+  {
+    "id": "pub-12-55",
+    "name": "Cancha Tupuraya",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37274,
+    "lon": -66.14008,
+    "category": "pitch",
+    "dist_to_hospital_m": 426.8
+  },
+  {
+    "id": "pub-2-56",
+    "name": "Cancha Urbanización Adela Jordan",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34873,
+    "lon": -66.18235,
+    "category": "pitch",
+    "dist_to_hospital_m": 775.3
+  },
+  {
+    "id": "pub-10-57",
+    "name": "Cancha 1",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38151,
+    "lon": -66.15845,
+    "category": "pitch",
+    "dist_to_hospital_m": 401.8
+  },
+  {
+    "id": "pub-10-58",
+    "name": "Cancha Estación Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40559,
+    "lon": -66.15437,
+    "category": "pitch",
+    "dist_to_hospital_m": 225.1
+  },
+  {
+    "id": "pub-6-59",
+    "name": "Cancha San Miguel Norte",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40223,
+    "lon": -66.14954,
+    "category": "pitch",
+    "dist_to_hospital_m": 405.7
+  },
+  {
+    "id": "pub-2-60",
+    "name": "Cancha Franklin Delano Roosevelt",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36123,
+    "lon": -66.17386,
+    "category": "pitch",
+    "dist_to_hospital_m": 87.8
+  },
+  {
+    "id": "pub-5-61",
+    "name": "Cancha Barrio Fuerza Aérea",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.42018,
+    "lon": -66.17373,
+    "category": "pitch",
+    "dist_to_hospital_m": 1192.3
+  },
+  {
+    "id": "pub-5-62",
+    "name": "Cancha Marcelo Quiroga Santa Cruz",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.41497,
+    "lon": -66.16264,
+    "category": "pitch",
+    "dist_to_hospital_m": 226.2
+  },
+  {
+    "id": "pub-1-63",
+    "name": "Cancha 10 de Diciembre",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.36803,
+    "lon": -66.12193,
+    "category": "pitch",
+    "dist_to_hospital_m": 2421.1
+  },
+  {
+    "id": "pub-6-64",
+    "name": "Cancha San Miguel Alto",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40484,
+    "lon": -66.14755,
+    "category": "pitch",
+    "dist_to_hospital_m": 546.3
+  },
+  {
+    "id": "pub-10-65",
+    "name": "Cancha 0",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.3816,
+    "lon": -66.15875,
+    "category": "pitch",
+    "dist_to_hospital_m": 418.7
+  },
+  {
+    "id": "pub-11-66",
+    "name": "Cancha Este Parque del Maestro",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39611,
+    "lon": -66.1383,
+    "category": "pitch",
+    "dist_to_hospital_m": 501.5
+  },
+  {
+    "id": "pub-2-67",
+    "name": "Cancha Iglesia Virgen de Guadalupe",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34972,
+    "lon": -66.18136,
+    "category": "pitch",
+    "dist_to_hospital_m": 667.0
+  },
+  {
+    "id": "pub-4-68",
+    "name": "Cancha Urbanización Doctor José Daza Cardenas",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40909,
+    "lon": -66.18248,
+    "category": "pitch",
+    "dist_to_hospital_m": 369.8
+  },
+  {
+    "id": "pub-15-69",
+    "name": "Cancha Jacarandá 27 de Octubre",
+    "district_id": 15,
+    "district_name": "Distrito 15",
+    "lat": -17.47336,
+    "lon": -66.1427,
+    "category": "pitch",
+    "dist_to_hospital_m": 1472.9
+  },
+  {
+    "id": "pub-11-70",
+    "name": "Cancha Oeste Parque del Maestro",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39618,
+    "lon": -66.1385,
+    "category": "pitch",
+    "dist_to_hospital_m": 480.0
+  },
+  {
+    "id": "pub-9-71",
+    "name": "Cancha San Salvador",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.47094,
+    "lon": -66.15017,
+    "category": "pitch",
+    "dist_to_hospital_m": 640.8
+  },
+  {
+    "id": "pub-6-72",
+    "name": "Cancha Pachamama",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40484,
+    "lon": -66.14754,
+    "category": "pitch",
+    "dist_to_hospital_m": 547.1
+  },
+  {
+    "id": "pub-10-73",
+    "name": "Cancha Beach Volleyball Club Olympic",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38328,
+    "lon": -66.1623,
+    "category": "pitch",
+    "dist_to_hospital_m": 438.0
+  },
+  {
+    "id": "pub-5-74",
+    "name": "Cancha Guillermo Killman",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.40963,
+    "lon": -66.17321,
+    "category": "pitch",
+    "dist_to_hospital_m": 956.5
+  },
+  {
+    "id": "pub-6-75",
+    "name": "Cancha Parque Cervantes",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40033,
+    "lon": -66.14692,
+    "category": "pitch",
+    "dist_to_hospital_m": 449.9
+  },
+  {
+    "id": "pub-7-76",
+    "name": "Cancha Sur Urbanización Exaltación",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41895,
+    "lon": -66.12676,
+    "category": "pitch",
+    "dist_to_hospital_m": 705.2
+  },
+  {
+    "id": "pub-12-77",
+    "name": "Cancha Facundo Quiroga S.",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37277,
+    "lon": -66.13966,
+    "category": "pitch",
+    "dist_to_hospital_m": 467.4
+  },
+  {
+    "id": "pub-12-78",
+    "name": "Cancha de Basketball Tuparaya",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37266,
+    "lon": -66.1407,
+    "category": "pitch",
+    "dist_to_hospital_m": 368.9
+  },
+  {
+    "id": "pub-6-79",
+    "name": "Cancha Bomberos",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40074,
+    "lon": -66.14544,
+    "category": "pitch",
+    "dist_to_hospital_m": 414.5
+  },
+  {
+    "id": "pub-6-80",
+    "name": "Cancha 9 de Abril",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40055,
+    "lon": -66.14445,
+    "category": "pitch",
+    "dist_to_hospital_m": 316.5
+  },
+  {
+    "id": "pub-4-81",
+    "name": "Cancha Magisterio Rural Villa Busch",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40322,
+    "lon": -66.19825,
+    "category": "pitch",
+    "dist_to_hospital_m": 1158.0
+  },
+  {
+    "id": "pub-9-82",
+    "name": "Cancha Sur San Salvador",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.47158,
+    "lon": -66.14822,
+    "category": "pitch",
+    "dist_to_hospital_m": 858.0
+  },
+  {
+    "id": "pub-15-83",
+    "name": "Cancha Alto Anzaldo",
+    "district_id": 15,
+    "district_name": "Distrito 15",
+    "lat": -17.47845,
+    "lon": -66.14315,
+    "category": "pitch",
+    "dist_to_hospital_m": 1669.6
+  },
+  {
+    "id": "pub-1-84",
+    "name": "Cancha Teniente Coronel Adrián Patiño Carpio",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.36814,
+    "lon": -66.14597,
+    "category": "pitch",
+    "dist_to_hospital_m": 696.5
+  },
+  {
+    "id": "pub-6-85",
+    "name": "Cancha Huayra K'asa",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.4102,
+    "lon": -66.14376,
+    "category": "pitch",
+    "dist_to_hospital_m": 530.1
+  },
+  {
+    "id": "pub-1-86",
+    "name": "Cancha Urbanización ENTEL",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.37253,
+    "lon": -66.1201,
+    "category": "pitch",
+    "dist_to_hospital_m": 2419.1
+  },
+  {
+    "id": "pub-12-87",
+    "name": "Cancha Franz Tamayo",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37506,
+    "lon": -66.16704,
+    "category": "pitch",
+    "dist_to_hospital_m": 460.0
+  },
+  {
+    "id": "pub-12-88",
+    "name": "Cancha Jorge Trigo Andia",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37056,
+    "lon": -66.14411,
+    "category": "pitch",
+    "dist_to_hospital_m": 391.1
+  },
+  {
+    "id": "pub-6-89",
+    "name": "Cancha Jaime Zudañez",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.42082,
+    "lon": -66.13347,
+    "category": "pitch",
+    "dist_to_hospital_m": 97.3
+  },
+  {
+    "id": "pub-8-90",
+    "name": "Coliseo",
+    "district_id": 8,
+    "district_name": "Distrito 8",
+    "lat": -17.45223,
+    "lon": -66.13274,
+    "category": "sports_hall",
+    "dist_to_hospital_m": 898.1
+  },
+  {
+    "id": "pub-10-91",
+    "name": "Coliseo",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39034,
+    "lon": -66.16134,
+    "category": "sports_hall",
+    "dist_to_hospital_m": 266.6
+  },
+  {
+    "id": "pub-4-92",
+    "name": "Coliseo",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.39582,
+    "lon": -66.16891,
+    "category": "sports_hall",
+    "dist_to_hospital_m": 592.0
+  },
+  {
+    "id": "pub-12-93",
+    "name": "Coliseo",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37378,
+    "lon": -66.16404,
+    "category": "sports_hall",
+    "dist_to_hospital_m": 392.7
+  },
+  {
+    "id": "pub-10-94",
+    "name": "Camino Coliseo - Cementerio",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40655,
+    "lon": -66.15945,
+    "category": "service",
+    "dist_to_hospital_m": 745.1
+  },
+  {
+    "id": "pub-3-95",
+    "name": "Ingreso Coliseo",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36967,
+    "lon": -66.1765,
+    "category": "service",
+    "dist_to_hospital_m": 619.7
+  },
+  {
+    "id": "pub-12-96",
+    "name": "PoliDeportivo Villa Galindo",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.39186,
+    "lon": -66.16798,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 163.0
+  },
+  {
+    "id": "pub-6-97",
+    "name": "Country Club Cochabamba",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40261,
+    "lon": -66.1273,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 1628.0
+  },
+  {
+    "id": "pub-6-98",
+    "name": "Complejo Deportivo Wilstermann",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40465,
+    "lon": -66.13134,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 1315.9
+  },
+  {
+    "id": "pub-10-99",
+    "name": "Club de Tenis Cochabamba",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38153,
+    "lon": -66.15801,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 399.2
+  },
+  {
+    "id": "pub-9-100",
+    "name": "Complejo del Colegio de Auditores Cochabamba",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.40474,
+    "lon": -66.21053,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 1209.7
+  },
+  {
+    "id": "pub-12-101",
+    "name": "Asociación Nacional de Suboficiales y Sargentos de las Fuerzas Armadas del Estado Cochabamba",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37461,
+    "lon": -66.14152,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 254.5
+  },
+  {
+    "id": "pub-3-102",
+    "name": "Parque Mercado Cruce Taquiña",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.35698,
+    "lon": -66.18776,
+    "category": "park",
+    "dist_to_hospital_m": 911.3
+  },
+  {
+    "id": "pub-11-103",
+    "name": "Construcción Nuevo Mercado Papa Paulo",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.38388,
+    "lon": -66.14777,
+    "category": "construction",
+    "dist_to_hospital_m": 120.1
+  },
+  {
+    "id": "pub-2-104",
+    "name": "Calle M. Mercado",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36455,
+    "lon": -66.17685,
+    "category": "residential",
+    "dist_to_hospital_m": 254.6
+  },
+  {
+    "id": "pub-1-105",
+    "name": "Calle José Manuel Mercado",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.37444,
+    "lon": -66.1191,
+    "category": "residential",
+    "dist_to_hospital_m": 2456.7
+  },
+  {
+    "id": "pub-3-106",
+    "name": "Calle Noel Kempff Mercado",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.38527,
+    "lon": -66.19506,
+    "category": "residential",
+    "dist_to_hospital_m": 1188.5
+  },
+  {
+    "id": "pub-8-107",
+    "name": "Calle René Zabaleta Mercado",
+    "district_id": 8,
+    "district_name": "Distrito 8",
+    "lat": -17.43215,
+    "lon": -66.1424,
+    "category": "residential",
+    "dist_to_hospital_m": 1115.5
+  },
+  {
+    "id": "pub-10-108",
+    "name": "Ciclovía Ecuador - Mercado Ingavi",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.38997,
+    "lon": -66.15652,
+    "category": "cycleway",
+    "dist_to_hospital_m": 359.7
+  },
+  {
+    "id": "pub-10-109",
+    "name": "Calle Teniente Coronel German Jordán",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39605,
+    "lon": -66.16047,
+    "category": "residential",
+    "dist_to_hospital_m": 140.9
+  },
+  {
+    "id": "pub-10-110",
+    "name": "Pasaje Guillermo Aldunate",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.39448,
+    "lon": -66.15456,
+    "category": "footway",
+    "dist_to_hospital_m": 315.9
+  },
+  {
+    "id": "pub-10-111",
+    "name": "Mercado La Pampa",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40361,
+    "lon": -66.15209,
+    "category": "marketplace",
+    "dist_to_hospital_m": 301.7
+  },
+  {
+    "id": "pub-10-112",
+    "name": "Mercado Asociación 15 de Agosto",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40555,
+    "lon": -66.1549,
+    "category": "mall",
+    "dist_to_hospital_m": 278.5
+  },
+  {
+    "id": "pub-2-113",
+    "name": "Parque OTB Moisés Asbún",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35857,
+    "lon": -66.15467,
+    "category": "park",
+    "dist_to_hospital_m": 411.7
+  },
+  {
+    "id": "pub-8-114",
+    "name": "Sede de Reuniones de la OTB",
+    "district_id": 8,
+    "district_name": "Distrito 8",
+    "lat": -17.47333,
+    "lon": -66.0893,
+    "category": "grass",
+    "dist_to_hospital_m": 1594.2
+  },
+  {
+    "id": "pub-8-115",
+    "name": "Rotonda Petrolera y Río Bermejo",
+    "district_id": 8,
+    "district_name": "Distrito 8",
+    "lat": -17.43792,
+    "lon": -66.14551,
+    "category": "grass",
+    "dist_to_hospital_m": 1030.0
+  },
+  {
+    "id": "pub-9-116",
+    "name": "Comunidad Higuerani",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.46958,
+    "lon": -66.22825,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 2476.9
+  },
+  {
+    "id": "pub-15-117",
+    "name": "OTB P'halta Orko",
+    "district_id": 15,
+    "district_name": "Distrito 15",
+    "lat": -17.47321,
+    "lon": -66.12242,
+    "category": "community_centre",
+    "dist_to_hospital_m": 963.8
+  },
+  {
+    "id": "pub-6-118",
+    "name": "OTB Barrio Petrolero",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.41111,
+    "lon": -66.14838,
+    "category": "association",
+    "dist_to_hospital_m": 656.9
+  },
+  {
+    "id": "pub-9-119",
+    "name": "Centro de lectura Otb. Barrio Bolivar Encañada",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.44747,
+    "lon": -66.15237,
+    "category": "community_centre",
+    "dist_to_hospital_m": 401.1
+  },
+  {
+    "id": "pub-2-120",
+    "name": "OTB Barrio Colquiri",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35681,
+    "lon": -66.18167,
+    "category": "community_centre",
+    "dist_to_hospital_m": 411.4
+  },
+  {
+    "id": "pub-6-121",
+    "name": "Centro Cultural OTB Jaime Zudañez",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.41833,
+    "lon": -66.13156,
+    "category": "community_centre",
+    "dist_to_hospital_m": 375.6
+  },
+  {
+    "id": "pub-2-122",
+    "name": "Cancha OTB Ferrocaja",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35672,
+    "lon": -66.1647,
+    "category": "pitch",
+    "dist_to_hospital_m": 785.2
+  },
+  {
+    "id": "pub-3-123",
+    "name": "Polifuncional OTB “San Jose”",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.38475,
+    "lon": -66.18728,
+    "category": "playground",
+    "dist_to_hospital_m": 956.3
+  },
+  {
+    "id": "pub-3-124",
+    "name": "OTB Junta Vecinal El Carmen",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.35404,
+    "lon": -66.19026,
+    "category": "community_centre",
+    "dist_to_hospital_m": 1307.7
+  },
+  {
+    "id": "pub-3-125",
+    "name": "Casa Comunal OTB San Rafael",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37568,
+    "lon": -66.20015,
+    "category": "public",
+    "dist_to_hospital_m": 2089.3
+  },
+  {
+    "id": "pub-15-126",
+    "name": "OTB Nueva Belén",
+    "district_id": 15,
+    "district_name": "Distrito 15",
+    "lat": -17.48279,
+    "lon": -66.11788,
+    "category": "community_centre",
+    "dist_to_hospital_m": 1343.0
+  },
+  {
+    "id": "pub-5-127",
+    "name": "Bienvenido OTB Jorge Wilstermann",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.41064,
+    "lon": -66.16725,
+    "category": "board",
+    "dist_to_hospital_m": 836.8
+  },
+  {
+    "id": "pub-5-128",
+    "name": "OTB Universitario",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.44017,
+    "lon": -66.14437,
+    "category": "tram_stop",
+    "dist_to_hospital_m": 772.9
+  },
+  {
+    "id": "pub-5-129",
+    "name": "OTB Jaihuayco",
+    "district_id": 5,
+    "district_name": "Distrito 5",
+    "lat": -17.41203,
+    "lon": -66.16563,
+    "category": "community_centre",
+    "dist_to_hospital_m": 617.1
+  },
+  {
+    "id": "pub-11-130",
+    "name": "OTB Martín Cárdenas",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.38125,
+    "lon": -66.14182,
+    "category": "board",
+    "dist_to_hospital_m": 124.5
+  },
+  {
+    "id": "pub-10-131",
+    "name": "OTB Villa Coronilla",
+    "district_id": 10,
+    "district_name": "Distrito 10",
+    "lat": -17.40031,
+    "lon": -66.16548,
+    "category": "community_centre",
+    "dist_to_hospital_m": 574.7
+  },
+  {
+    "id": "pub-11-132",
+    "name": "OTB Parque Universitario",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39544,
+    "lon": -66.14327,
+    "category": "board",
+    "dist_to_hospital_m": 389.4
+  },
+  {
+    "id": "pub-11-133",
+    "name": "OTB General Román",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39706,
+    "lon": -66.14504,
+    "category": "board",
+    "dist_to_hospital_m": 214.2
+  },
+  {
+    "id": "pub-3-134",
+    "name": "OTB Mariscal Sucre",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.38509,
+    "lon": -66.19514,
+    "category": "community_centre",
+    "dist_to_hospital_m": 1210.1
+  },
+  {
+    "id": "pub-9-135",
+    "name": "OTB 24 de Junio",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.45514,
+    "lon": -66.15723,
+    "category": "community_centre",
+    "dist_to_hospital_m": 280.8
+  },
+  {
+    "id": "pub-7-136",
+    "name": "Sede Social OTB Villa Brasilia",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41965,
+    "lon": -66.11737,
+    "category": "community_centre",
+    "dist_to_hospital_m": 1282.6
+  },
+  {
+    "id": "pub-9-137",
+    "name": "OTB San José de la Banda",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.45802,
+    "lon": -66.15517,
+    "category": "community_centre",
+    "dist_to_hospital_m": 129.4
+  },
+  {
+    "id": "pub-7-138",
+    "name": "Bienvenidos OTB Eucaliptos Norte",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42326,
+    "lon": -66.12363,
+    "category": "board",
+    "dist_to_hospital_m": 516.7
+  },
+  {
+    "id": "pub-2-139",
+    "name": "OTB Temporal de Cala Cala",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36407,
+    "lon": -66.16465,
+    "category": "board",
+    "dist_to_hospital_m": 799.1
+  },
+  {
+    "id": "pub-3-140",
+    "name": "OTB San Rafael",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37569,
+    "lon": -66.20016,
+    "category": "community_centre",
+    "dist_to_hospital_m": 2087.7
+  },
+  {
+    "id": "pub-12-141",
+    "name": "OTB Queru Queru Central",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36882,
+    "lon": -66.15042,
+    "category": "community_centre",
+    "dist_to_hospital_m": 825.4
+  },
+  {
+    "id": "pub-13-142",
+    "name": "OTB Taquiña Norte",
+    "district_id": 13,
+    "district_name": "Distrito 13",
+    "lat": -17.33028,
+    "lon": -66.18427,
+    "category": "community_centre",
+    "dist_to_hospital_m": 2078.5
+  },
+  {
+    "id": "pub-3-143",
+    "name": "OTB Municipal Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37935,
+    "lon": -66.17639,
+    "category": "board",
+    "dist_to_hospital_m": 182.3
+  },
+  {
+    "id": "pub-3-144",
+    "name": "Módulo Policial 19 OTB Hallein",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36723,
+    "lon": -66.19111,
+    "category": "police",
+    "dist_to_hospital_m": 1290.0
+  },
+  {
+    "id": "pub-1-145",
+    "name": "OTB Villa Jarkas",
+    "district_id": 1,
+    "district_name": "Distrito 1",
+    "lat": -17.37295,
+    "lon": -66.11385,
+    "category": "board",
+    "dist_to_hospital_m": 3037.2
+  },
+  {
+    "id": "pub-11-146",
+    "name": "OTB Parque Univeristario",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39822,
+    "lon": -66.14849,
+    "category": "board",
+    "dist_to_hospital_m": 274.4
+  },
+  {
+    "id": "pub-4-147",
+    "name": "OTB Villa Paraíso",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40883,
+    "lon": -66.17474,
+    "category": "board",
+    "dist_to_hospital_m": 807.2
+  },
+  {
+    "id": "pub-6-148",
+    "name": "Parque Infantil",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40385,
+    "lon": -66.12894,
+    "category": "playground",
+    "dist_to_hospital_m": 1507.3
+  },
+  {
+    "id": "pub-7-149",
+    "name": "Valle Hermoso",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42419,
+    "lon": -66.11946,
+    "category": "administrative",
+    "dist_to_hospital_m": 845.3
+  },
+  {
+    "id": "pub-6-150",
+    "name": "Sección Hípica Country Club Cochabamba",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40135,
+    "lon": -66.13093,
+    "category": "horse_riding",
+    "dist_to_hospital_m": 1219.6
+  },
+  {
+    "id": "pub-6-151",
+    "name": "Sauna Country Club Cochabamba",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40499,
+    "lon": -66.12865,
+    "category": "sauna",
+    "dist_to_hospital_m": 1586.1
+  },
+  {
+    "id": "pub-6-152",
+    "name": "Asociación Departamental de Aeromodelismo de Cochabamba",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40451,
+    "lon": -66.13146,
+    "category": "sport",
+    "dist_to_hospital_m": 1297.3
+  },
+  {
+    "id": "pub-6-153",
+    "name": "Gimnasio Country Club Cochabamba",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40488,
+    "lon": -66.12865,
+    "category": "fitness_centre",
+    "dist_to_hospital_m": 1581.2
+  },
+  {
+    "id": "pub-7-154",
+    "name": "Country Club La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41075,
+    "lon": -66.12509,
+    "category": "residential",
+    "dist_to_hospital_m": 1449.8
+  },
+  {
+    "id": "pub-7-155",
+    "name": "Parque Central Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.4215,
+    "lon": -66.1223,
+    "category": "park",
+    "dist_to_hospital_m": 756.3
+  },
+  {
+    "id": "pub-7-156",
+    "name": "Parque Country Club La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41026,
+    "lon": -66.12513,
+    "category": "park",
+    "dist_to_hospital_m": 1492.2
+  },
+  {
+    "id": "pub-7-157",
+    "name": "Parque Sureste Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42256,
+    "lon": -66.1193,
+    "category": "park",
+    "dist_to_hospital_m": 934.1
+  },
+  {
+    "id": "pub-7-158",
+    "name": "Plaza Country Club La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.40818,
+    "lon": -66.12676,
+    "category": "park",
+    "dist_to_hospital_m": 1613.5
+  },
+  {
+    "id": "pub-7-159",
+    "name": "Parque Suroeste Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42287,
+    "lon": -66.12413,
+    "category": "park",
+    "dist_to_hospital_m": 515.7
+  },
+  {
+    "id": "pub-7-160",
+    "name": "Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42158,
+    "lon": -66.12245,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 739.5
+  },
+  {
+    "id": "pub-7-161",
+    "name": "Senda a la Urbanización La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41879,
+    "lon": -66.12119,
+    "category": "path",
+    "dist_to_hospital_m": 1066.5
+  },
+  {
+    "id": "pub-7-162",
+    "name": "Cancha Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42149,
+    "lon": -66.12226,
+    "category": "pitch",
+    "dist_to_hospital_m": 760.1
+  },
+  {
+    "id": "pub-7-163",
+    "name": "Juegos Infantiles Barrio Magisterio La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42232,
+    "lon": -66.12329,
+    "category": "playground",
+    "dist_to_hospital_m": 619.6
+  },
+  {
+    "id": "pub-7-164",
+    "name": "Ex Casa de Hacienda La Rinconada",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41122,
+    "lon": -66.12549,
+    "category": "house",
+    "dist_to_hospital_m": 1382.1
+  },
+  {
+    "id": "pub-6-165",
+    "name": "Mirador de aves La Rinconada",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.41391,
+    "lon": -66.1265,
+    "category": "bird_hide",
+    "dist_to_hospital_m": 1077.7
+  },
+  {
+    "id": "pub-7-166",
+    "name": "Iglesia Nuestra Señora de la Salette",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42588,
+    "lon": -66.12292,
+    "category": "place_of_worship",
+    "dist_to_hospital_m": 442.5
+  },
+  {
+    "id": "pub-9-167",
+    "name": "Itocta",
+    "district_id": 9,
+    "district_name": "Distrito 9",
+    "lat": -17.46276,
+    "lon": -66.20095,
+    "category": "administrative",
+    "dist_to_hospital_m": 803.4
+  },
+  {
+    "id": "pub-15-168",
+    "name": "K'ara K'ara",
+    "district_id": 15,
+    "district_name": "Distrito 15",
+    "lat": -17.47111,
+    "lon": -66.12788,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 628.6
+  },
+  {
+    "id": "pub-3-169",
+    "name": "Condebamba",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36121,
+    "lon": -66.18973,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 1020.0
+  },
+  {
+    "id": "pub-2-170",
+    "name": "Mineros Huanuni Condebamba",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.3399,
+    "lon": -66.17333,
+    "category": "administrative",
+    "dist_to_hospital_m": 771.3
+  },
+  {
+    "id": "pub-3-171",
+    "name": "Sebas",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36555,
+    "lon": -66.18549,
+    "category": "convenience",
+    "dist_to_hospital_m": 669.4
+  },
+  {
+    "id": "pub-12-172",
+    "name": "Fuente Oeste Parque Abraham Lincoln",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36972,
+    "lon": -66.1719,
+    "category": "water",
+    "dist_to_hospital_m": 366.8
+  },
+  {
+    "id": "pub-3-173",
+    "name": "Fuente Parque Victor Jimenez Garcia",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36928,
+    "lon": -66.18142,
+    "category": "water",
+    "dist_to_hospital_m": 554.3
+  },
+  {
+    "id": "pub-2-174",
+    "name": "Parque del Bicentenario",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34911,
+    "lon": -66.18654,
+    "category": "park",
+    "dist_to_hospital_m": 1216.6
+  },
+  {
+    "id": "pub-3-175",
+    "name": "Parque de las Etnias",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.375,
+    "lon": -66.18829,
+    "category": "park",
+    "dist_to_hospital_m": 1301.2
+  },
+  {
+    "id": "pub-3-176",
+    "name": "Parque El Carmen",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.35536,
+    "lon": -66.19021,
+    "category": "park",
+    "dist_to_hospital_m": 1224.6
+  },
+  {
+    "id": "pub-2-177",
+    "name": "Parque de Madera",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35853,
+    "lon": -66.17163,
+    "category": "park",
+    "dist_to_hospital_m": 389.0
+  },
+  {
+    "id": "pub-2-178",
+    "name": "Parque Libertad de Prensa",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36148,
+    "lon": -66.16378,
+    "category": "park",
+    "dist_to_hospital_m": 600.1
+  },
+  {
+    "id": "pub-12-179",
+    "name": "Parque Salomón Klein",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37406,
+    "lon": -66.17159,
+    "category": "park",
+    "dist_to_hospital_m": 152.3
+  },
+  {
+    "id": "pub-2-180",
+    "name": "Parque Japonés",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36556,
+    "lon": -66.16619,
+    "category": "park",
+    "dist_to_hospital_m": 914.7
+  },
+  {
+    "id": "pub-13-181",
+    "name": "Parque Prefectural",
+    "district_id": 13,
+    "district_name": "Distrito 13",
+    "lat": -17.35275,
+    "lon": -66.15637,
+    "category": "park",
+    "dist_to_hospital_m": 839.6
+  },
+  {
+    "id": "pub-2-182",
+    "name": "Parque Urbanización Adela Jordan",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34919,
+    "lon": -66.18266,
+    "category": "park",
+    "dist_to_hospital_m": 804.7
+  },
+  {
+    "id": "pub-2-183",
+    "name": "Parque Homero",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35873,
+    "lon": -66.15827,
+    "category": "park",
+    "dist_to_hospital_m": 152.4
+  },
+  {
+    "id": "pub-2-184",
+    "name": "Parque Ticti Norte",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34838,
+    "lon": -66.17086,
+    "category": "park",
+    "dist_to_hospital_m": 413.4
+  },
+  {
+    "id": "pub-2-185",
+    "name": "Parque Jefferson",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36416,
+    "lon": -66.17449,
+    "category": "park",
+    "dist_to_hospital_m": 383.0
+  },
+  {
+    "id": "pub-2-186",
+    "name": "Parque Señor de Mayo",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35425,
+    "lon": -66.1679,
+    "category": "park",
+    "dist_to_hospital_m": 929.5
+  },
+  {
+    "id": "pub-2-187",
+    "name": "Parque Rafael Mendoza Castellón",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34948,
+    "lon": -66.17571,
+    "category": "park",
+    "dist_to_hospital_m": 66.9
+  },
+  {
+    "id": "pub-3-188",
+    "name": "Parque José Martí",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37362,
+    "lon": -66.17833,
+    "category": "park",
+    "dist_to_hospital_m": 500.8
+  },
+  {
+    "id": "pub-12-189",
+    "name": "Parque Santa Ana de Cala Cala",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36778,
+    "lon": -66.16198,
+    "category": "park",
+    "dist_to_hospital_m": 485.9
+  },
+  {
+    "id": "pub-3-190",
+    "name": "Parque Norte Urbanización El Profesional",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36604,
+    "lon": -66.18496,
+    "category": "park",
+    "dist_to_hospital_m": 624.1
+  },
+  {
+    "id": "pub-3-191",
+    "name": "Parque Ima Sumaj",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36988,
+    "lon": -66.1772,
+    "category": "park",
+    "dist_to_hospital_m": 610.0
+  },
+  {
+    "id": "pub-2-192",
+    "name": "Parque Sur Prefectural",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35649,
+    "lon": -66.15597,
+    "category": "park",
+    "dist_to_hospital_m": 465.9
+  },
+  {
+    "id": "pub-3-193",
+    "name": "Parque Franklin Anaya",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36891,
+    "lon": -66.1854,
+    "category": "park",
+    "dist_to_hospital_m": 801.1
+  },
+  {
+    "id": "pub-2-194",
+    "name": "Parque Norte Urbanización Adela Jordan",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34856,
+    "lon": -66.17784,
+    "category": "park",
+    "dist_to_hospital_m": 308.2
+  },
+  {
+    "id": "pub-3-195",
+    "name": "Parque Ñustas",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36683,
+    "lon": -66.1771,
+    "category": "park",
+    "dist_to_hospital_m": 323.9
+  },
+  {
+    "id": "pub-3-196",
+    "name": "Parque Victor Jimenez Garcia",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36937,
+    "lon": -66.18142,
+    "category": "park",
+    "dist_to_hospital_m": 563.8
+  },
+  {
+    "id": "pub-2-197",
+    "name": "Parque Norte Villa Taquiña",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.34544,
+    "lon": -66.18026,
+    "category": "park",
+    "dist_to_hospital_m": 589.4
+  },
+  {
+    "id": "pub-2-198",
+    "name": "Parque Eduardo Plaza",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36192,
+    "lon": -66.16,
+    "category": "park",
+    "dist_to_hospital_m": 261.1
+  },
+  {
+    "id": "pub-2-199",
+    "name": "Parque Los Ceibos",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35002,
+    "lon": -66.16702,
+    "category": "park",
+    "dist_to_hospital_m": 453.0
+  },
+  {
+    "id": "pub-2-200",
+    "name": "Parque Magisterio IV Centenario",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35953,
+    "lon": -66.15813,
+    "category": "park",
+    "dist_to_hospital_m": 64.0
+  },
+  {
+    "id": "pub-3-201",
+    "name": "Parque La CampanaPeriodista",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36612,
+    "lon": -66.18314,
+    "category": "park",
+    "dist_to_hospital_m": 441.2
+  },
+  {
+    "id": "pub-3-202",
+    "name": "Parque Hallein",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36589,
+    "lon": -66.19042,
+    "category": "park",
+    "dist_to_hospital_m": 1193.3
+  },
+  {
+    "id": "pub-2-203",
+    "name": "Parque Sur Barrio Jardín Taquiña",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35478,
+    "lon": -66.17759,
+    "category": "park",
+    "dist_to_hospital_m": 258.2
+  },
+  {
+    "id": "pub-2-204",
+    "name": "Parque Sureste Ernesto Pereira",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36146,
+    "lon": -66.16906,
+    "category": "park",
+    "dist_to_hospital_m": 581.9
+  },
+  {
+    "id": "pub-3-205",
+    "name": "PArque Oeste La Promotora",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36499,
+    "lon": -66.183,
+    "category": "park",
+    "dist_to_hospital_m": 399.5
+  },
+  {
+    "id": "pub-12-206",
+    "name": "Estanque Central Parque Abraham Lincoln",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37017,
+    "lon": -66.16909,
+    "category": "basin",
+    "dist_to_hospital_m": 355.4
+  },
+  {
+    "id": "pub-12-207",
+    "name": "Parque Abraham Lincoln",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36963,
+    "lon": -66.17307,
+    "category": "square",
+    "dist_to_hospital_m": 428.3
+  },
+  {
+    "id": "pub-2-208",
+    "name": "Parque Franklin Delano Roosevelt",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36216,
+    "lon": -66.172,
+    "category": "park",
+    "dist_to_hospital_m": 309.0
+  },
+  {
+    "id": "pub-12-209",
+    "name": "Parque Wiracocha",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.3665,
+    "lon": -66.17302,
+    "category": "square",
+    "dist_to_hospital_m": 661.4
+  },
+  {
+    "id": "pub-12-210",
+    "name": "Parque Sebastian de Irigoyen",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36712,
+    "lon": -66.16969,
+    "category": "park",
+    "dist_to_hospital_m": 652.0
+  },
+  {
+    "id": "pub-12-211",
+    "name": "Parque Jorge Rojas Tardio",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36695,
+    "lon": -66.15708,
+    "category": "park",
+    "dist_to_hospital_m": 682.8
+  },
+  {
+    "id": "pub-12-212",
+    "name": "Parque Franz Tamayo",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.37537,
+    "lon": -66.16719,
+    "category": "park",
+    "dist_to_hospital_m": 441.2
+  },
+  {
+    "id": "pub-2-213",
+    "name": "Parque Joaquin Espada",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.36431,
+    "lon": -66.15475,
+    "category": "park",
+    "dist_to_hospital_m": 586.0
+  },
+  {
+    "id": "pub-2-214",
+    "name": "Rotonda Circunvalación Beijing y Avenida Centenario",
+    "district_id": 2,
+    "district_name": "Distrito 2",
+    "lat": -17.35038,
+    "lon": -66.18451,
+    "category": "grass",
+    "dist_to_hospital_m": 1007.0
+  },
+  {
+    "id": "pub-12-215",
+    "name": "Santa Ana de Cala Cala",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36917,
+    "lon": -66.16387,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 450.9
+  },
+  {
+    "id": "pub-12-216",
+    "name": "Cala Cala",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.36893,
+    "lon": -66.1639,
+    "category": "kiosk",
+    "dist_to_hospital_m": 472.1
+  },
+  {
+    "id": "pub-3-217",
+    "name": "Condominio Valle Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37626,
+    "lon": -66.19893,
+    "category": "residential",
+    "dist_to_hospital_m": 2053.9
+  },
+  {
+    "id": "pub-3-218",
+    "name": "Parque Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37918,
+    "lon": -66.181,
+    "category": "park",
+    "dist_to_hospital_m": 519.2
+  },
+  {
+    "id": "pub-3-219",
+    "name": "Sarco Central",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.3781,
+    "lon": -66.18288,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 692.9
+  },
+  {
+    "id": "pub-3-220",
+    "name": "Municipal Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37935,
+    "lon": -66.17899,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 332.7
+  },
+  {
+    "id": "pub-3-221",
+    "name": "Cooperativa de Ahorro y Crédito Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37138,
+    "lon": -66.17681,
+    "category": "bank",
+    "dist_to_hospital_m": 651.1
+  },
+  {
+    "id": "pub-3-222",
+    "name": "Edificio Cooperativa de Ahorro y Crédito Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37139,
+    "lon": -66.1768,
+    "category": "office",
+    "dist_to_hospital_m": 649.7
+  },
+  {
+    "id": "pub-3-223",
+    "name": "Fuente Parque Sarco",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.37915,
+    "lon": -66.181,
+    "category": "fountain",
+    "dist_to_hospital_m": 517.7
+  },
+  {
+    "id": "pub-3-224",
+    "name": "Complejo de Squash",
+    "district_id": 3,
+    "district_name": "Distrito 3",
+    "lat": -17.36965,
+    "lon": -66.17615,
+    "category": "sports_hall",
+    "dist_to_hospital_m": 636.4
+  },
+  {
+    "id": "pub-4-225",
+    "name": "Parque Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40324,
+    "lon": -66.17922,
+    "category": "park",
+    "dist_to_hospital_m": 389.9
+  },
+  {
+    "id": "pub-4-226",
+    "name": "Plaza Sur Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40667,
+    "lon": -66.18016,
+    "category": "park",
+    "dist_to_hospital_m": 185.4
+  },
+  {
+    "id": "pub-4-227",
+    "name": "Chimba Grande",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40468,
+    "lon": -66.18168,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 130.1
+  },
+  {
+    "id": "pub-4-228",
+    "name": "Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40536,
+    "lon": -66.17811,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 383.1
+  },
+  {
+    "id": "pub-4-229",
+    "name": "Área Deportiva Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40667,
+    "lon": -66.17941,
+    "category": "sports_centre",
+    "dist_to_hospital_m": 257.1
+  },
+  {
+    "id": "pub-4-230",
+    "name": "Centro de Salud Chimba",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40585,
+    "lon": -66.18168,
+    "category": "clinic",
+    "dist_to_hospital_m": 0.5
+  },
+  {
+    "id": "pub-4-231",
+    "name": "Cancha Norte Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40312,
+    "lon": -66.17914,
+    "category": "pitch",
+    "dist_to_hospital_m": 406.1
+  },
+  {
+    "id": "pub-4-232",
+    "name": "Cancha Sur Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40671,
+    "lon": -66.17936,
+    "category": "pitch",
+    "dist_to_hospital_m": 263.8
+  },
+  {
+    "id": "pub-4-233",
+    "name": "Juegos Infantiles Chimba Central",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40644,
+    "lon": -66.18012,
+    "category": "playground",
+    "dist_to_hospital_m": 177.9
+  },
+  {
+    "id": "pub-4-234",
+    "name": "Iglesia Pentecostal de Cbba - Chimba",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.39747,
+    "lon": -66.18316,
+    "category": "place_of_worship",
+    "dist_to_hospital_m": 376.1
+  },
+  {
+    "id": "pub-4-235",
+    "name": "OTB Chimba Grande",
+    "district_id": 4,
+    "district_name": "Distrito 4",
+    "lat": -17.40134,
+    "lon": -66.18224,
+    "category": "board",
+    "dist_to_hospital_m": 504.5
+  },
+  {
+    "id": "pub-12-236",
+    "name": "Casa Solariega de Gil de Gumucio",
+    "district_id": 12,
+    "district_name": "Distrito 12",
+    "lat": -17.38809,
+    "lon": -66.16525,
+    "category": "attraction",
+    "dist_to_hospital_m": 211.7
+  },
+  {
+    "id": "pub-6-237",
+    "name": "Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.4081,
+    "lon": -66.13896,
+    "category": "lake",
+    "dist_to_hospital_m": 912.6
+  },
+  {
+    "id": "pub-6-238",
+    "name": "Canal Río Rocha - Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40325,
+    "lon": -66.12544,
+    "category": "canal",
+    "dist_to_hospital_m": 1837.2
+  },
+  {
+    "id": "pub-7-239",
+    "name": "Compuerta Sur Laguna Alalay",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41239,
+    "lon": -66.12492,
+    "category": "lock_gate",
+    "dist_to_hospital_m": 1314.6
+  },
+  {
+    "id": "pub-11-240",
+    "name": "Compuerta Norte Laguna Alalay",
+    "district_id": 11,
+    "district_name": "Distrito 11",
+    "lat": -17.39961,
+    "lon": -66.13347,
+    "category": "lock_gate",
+    "dist_to_hospital_m": 921.7
+  },
+  {
+    "id": "pub-6-241",
+    "name": "Compuerta Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40619,
+    "lon": -66.14465,
+    "category": "flow_control",
+    "dist_to_hospital_m": 825.8
+  },
+  {
+    "id": "pub-6-242",
+    "name": "Canal Norte La Angostura-Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.39998,
+    "lon": -66.13397,
+    "category": "drain",
+    "dist_to_hospital_m": 873.4
+  },
+  {
+    "id": "pub-7-243",
+    "name": "Canal Sur La Angostura-Laguna Alalay",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41251,
+    "lon": -66.12561,
+    "category": "drain",
+    "dist_to_hospital_m": 1258.7
+  },
+  {
+    "id": "pub-6-244",
+    "name": "Franja de Seguridad Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40915,
+    "lon": -66.12749,
+    "category": "grassland",
+    "dist_to_hospital_m": 1483.1
+  },
+  {
+    "id": "pub-7-245",
+    "name": "Campo Ferial Alalay",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.42003,
+    "lon": -66.12948,
+    "category": "exhibition_centre",
+    "dist_to_hospital_m": 392.3
+  },
+  {
+    "id": "pub-8-246",
+    "name": "Cementerio Privado de Valle Hermoso - Alalay",
+    "district_id": 8,
+    "district_name": "Distrito 8",
+    "lat": -17.43513,
+    "lon": -66.12825,
+    "category": "cemetery",
+    "dist_to_hospital_m": 957.5
+  },
+  {
+    "id": "pub-6-247",
+    "name": "Parque 24 de Junio",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.42071,
+    "lon": -66.13636,
+    "category": "park",
+    "dist_to_hospital_m": 202.5
+  },
+  {
+    "id": "pub-7-248",
+    "name": "Plaza del Recinto Ferial Alalay",
+    "district_id": 7,
+    "district_name": "Distrito 7",
+    "lat": -17.41793,
+    "lon": -66.1296,
+    "category": "park",
+    "dist_to_hospital_m": 524.2
+  },
+  {
+    "id": "pub-6-249",
+    "name": "Barrio Minero Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.42003,
+    "lon": -66.13706,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 237.6
+  },
+  {
+    "id": "pub-14-250",
+    "name": "Alalay Alto Mirador",
+    "district_id": 14,
+    "district_name": "Distrito 14",
+    "lat": -17.45557,
+    "lon": -66.11116,
+    "category": "neighbourhood",
+    "dist_to_hospital_m": 686.7
+  },
+  {
+    "id": "pub-6-251",
+    "name": "Área de Protección Ambiental Laguna Alalay",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40915,
+    "lon": -66.13492,
+    "category": "protected_area",
+    "dist_to_hospital_m": 1130.3
+  },
+  {
+    "id": "pub-6-252",
+    "name": "Avenida Circuito Bolivia",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.4182,
+    "lon": -66.13631,
+    "category": "primary",
+    "dist_to_hospital_m": 455.1
+  },
+  {
+    "id": "pub-6-253",
+    "name": "Rotonda Circuito Bolivia y Juan Bautista Oquendo",
+    "district_id": 6,
+    "district_name": "Distrito 6",
+    "lat": -17.40199,
+    "lon": -66.14754,
+    "category": "trunk",
+    "dist_to_hospital_m": 605.6
+  },
+  {
+    "id": "pub-13-sch-school-osm-770578752",
+    "name": "Entorno Comunitario Colegio Jose Carlos Carrillo",
+    "district_id": 13,
+    "district_name": "Distrito 13",
+    "lat": -17.34429,
+    "lon": -66.15694,
+    "category": "school_perimeter",
+    "dist_to_hospital_m": 945.7
+  },
+  {
+    "id": "pub-14-sch-school-osm-4279681434",
+    "name": "Entorno Comunitario Unidad Educativa Fe y Alegría Sebastián Pagador",
+    "district_id": 14,
+    "district_name": "Distrito 14",
+    "lat": -17.43972,
+    "lon": -66.11795,
+    "category": "school_perimeter",
+    "dist_to_hospital_m": 296.7
+  },
+  {
+    "id": "pub-14-sch-school-osm-146831938",
+    "name": "Entorno Comunitario Unidad Educativa Juan Lechin Oquendo",
+    "district_id": 14,
+    "district_name": "Distrito 14",
+    "lat": -17.45203,
+    "lon": -66.11703,
+    "category": "school_perimeter",
+    "dist_to_hospital_m": 365.4
+  }
+]
