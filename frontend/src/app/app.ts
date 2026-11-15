@@ -379,7 +379,7 @@ export class App implements OnInit, AfterViewInit {
 
     this.geoJsonLayer = L.geoJSON(geoData, {
       style: (feature) => {
-        const risk = feature?.properties?.heat_island_risk as string | undefined;
+        const risk = (feature?.properties?.heat_island_risk || feature?.properties?.microclimate?.heat_island_risk) as string | undefined;
         const fillColor = risk ? this.getDistrictColor(risk) : '#8b5cf6';
         return {
           ...this.defaultPolygonStyle,
