@@ -218,6 +218,26 @@ export class App implements OnInit, AfterViewInit {
     this.initMap();
   }
 
+  private readonly CACHE_KEY_DISTRICTS = 'ecourba_districts_cache';
+  private readonly CACHE_KEY_GEOJSON = 'ecourba_geojson_cache';
+
+  private getCachedItem<T>(key: string): T | null {
+    try {
+      const raw = sessionStorage.getItem(key);
+      return raw ? (JSON.parse(raw) as T) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private setCachedItem<T>(key: string, data: T): void {
+    try {
+      sessionStorage.setItem(key, JSON.stringify(data));
+    } catch {
+      // Quota or storage restriction fallback
+    }
+  }
+
   private checkHealth(): void {
     this.http.get<{ status: string }>(`${this.API_BASE}/health`).subscribe({
       next: (res) => this.backendHealthy.set(res.status === 'healthy'),
@@ -226,16 +246,29 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private loadDistricts(): void {
+    // 1. Instant hydration from sessionStorage (0ms Stale-While-Revalidate)
+    const cached = this.getCachedItem<District[]>(this.CACHE_KEY_DISTRICTS);
+    if (cached && cached.length > 0) {
+      this.districts.set(cached);
+      this.isLoading.set(false);
+      this.renderDistrictsOnMap(cached);
+      this.loadDistrictsGeoJson();
+    }
+
+    // 2. Background revalidation from backend API
     this.http.get<District[]>(`${this.API_BASE}/districts`).subscribe({
       next: (data) => {
+        this.setCachedItem(this.CACHE_KEY_DISTRICTS, data);
         this.districts.set(data);
         this.isLoading.set(false);
         this.renderDistrictsOnMap(data);
         this.loadDistrictsGeoJson();
       },
       error: (err) => {
-        console.error('Failed to load districts from backend:', err);
-        this.isLoading.set(false);
+        if (!cached) {
+          console.error('Failed to load districts from backend:', err);
+          this.isLoading.set(false);
+        }
       },
     });
   }
@@ -243,12 +276,22 @@ export class App implements OnInit, AfterViewInit {
   private loadDistrictsGeoJson(): void {
     if (!this.map) return;
 
+    // 1. Instant hydration from sessionStorage (0ms Stale-While-Revalidate)
+    const cachedGeo = this.getCachedItem<any>(this.CACHE_KEY_GEOJSON);
+    if (cachedGeo && !this.geoJsonLayer) {
+      this.renderGeoJsonDistricts(cachedGeo);
+    }
+
+    // 2. Background revalidation from backend API
     this.http.get<any>(`${this.API_BASE}/districts/geojson`).subscribe({
       next: (geoData) => {
+        this.setCachedItem(this.CACHE_KEY_GEOJSON, geoData);
         this.renderGeoJsonDistricts(geoData);
       },
       error: (err) => {
-        console.error('Failed to load districts GeoJSON:', err);
+        if (!cachedGeo) {
+          console.error('Failed to load districts GeoJSON:', err);
+        }
       },
     });
   }
@@ -518,10 +561,24 @@ export class App implements OnInit, AfterViewInit {
       },
     }).addTo(this.map);
 
-    // Encuadre inicial estricto sobre los 15 distritos de Cercado
-    this.map.fitBounds(this.geoJsonLayer.getBounds(), {
-      padding: [20, 20],
-    });
+    // Re-highlight selected district if one is already active, else initial fitBounds
+    const selected = this.selectedDistrict();
+    if (selected) {
+      const activePoly = this.polygonMap.get(selected.id);
+      if (activePoly) {
+        const fill = this.getFillColorForFeature((activePoly as any).feature?.properties);
+        activePoly.setStyle({ ...this.selectedPolygonStyle, fillColor: fill });
+        this.activePolygon = activePoly;
+        activePoly.bringToFront();
+        const elem = (activePoly as any).getElement?.();
+        elem?.classList.add('district-selected');
+      }
+    } else {
+      // Encuadre inicial estricto sobre los 15 distritos de Cercado
+      this.map.fitBounds(this.geoJsonLayer.getBounds(), {
+        padding: [20, 20],
+      });
+    }
 
     // Bring markers to front so centroids stay clickable
     this.districtLayer?.eachLayer((l: any) => l.bringToFront?.());
