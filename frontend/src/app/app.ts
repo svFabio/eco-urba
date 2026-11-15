@@ -178,6 +178,91 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     2025: { ndvi: 0.2773, lst: 26.10, n: 327874 },
   };
 
+  readonly CERCADO_10YR_SERIES = [
+    { year: 2016, lst: 31.80, ndvi: 0.2364 },
+    { year: 2017, lst: 30.59, ndvi: 0.2379 },
+    { year: 2018, lst: 27.24, ndvi: 0.2641 },
+    { year: 2019, lst: 30.65, ndvi: 0.2420 },
+    { year: 2020, lst: 31.37, ndvi: 0.2532 },
+    { year: 2021, lst: 30.15, ndvi: 0.2622 },
+    { year: 2022, lst: 30.56, ndvi: 0.2525 },
+    { year: 2023, lst: 32.81, ndvi: 0.2272 },
+    { year: 2024, lst: 29.81, ndvi: 0.2408 },
+    { year: 2025, lst: 29.32, ndvi: 0.2709 },
+  ];
+
+  comparatorChartCollapsed = signal<boolean>(false);
+
+  toggleComparatorChart(): void {
+    this.comparatorChartCollapsed.set(!this.comparatorChartCollapsed());
+  }
+
+  comparatorChartPoints = computed(() => {
+    const v = this.comparatorVariable();
+    const trend = this.districtTrend();
+    let pts: Array<{ year: number; val: number }> = [];
+
+    if (trend && trend.history && trend.history.length > 0) {
+      pts = trend.history.map((h) => ({
+        year: h.year,
+        val: v === 'lst' ? h.surface_temp_c : h.ndvi_index,
+      }));
+    } else {
+      pts = this.CERCADO_10YR_SERIES.map((h) => ({
+        year: h.year,
+        val: v === 'lst' ? h.lst : h.ndvi,
+      }));
+    }
+
+    if (!pts.length) {
+      return {
+        points: [] as Array<{ year: number; val: number; x: number; y: number; isYearA: boolean; isYearB: boolean }>,
+        polyline: '',
+        area: '',
+        min: 0,
+        max: 0,
+        ticks: [] as Array<{ y: number; val: number }>,
+      };
+    }
+
+    const vals = pts.map((p) => p.val);
+    let min = Math.min(...vals);
+    let max = Math.max(...vals);
+    const pad = (max - min) * 0.18 || 0.5;
+    min = Math.floor((min - pad) * 10) / 10;
+    max = Math.ceil((max + pad) * 10) / 10;
+
+    const width = 560;
+    const height = 95;
+    const paddingX = 40;
+    const paddingY = 16;
+    const plotW = width - paddingX * 2;
+    const plotH = height - paddingY * 2;
+
+    const mapped = pts.map((p, idx) => {
+      const x = paddingX + (idx / (pts.length - 1)) * plotW;
+      const y = paddingY + plotH - ((p.val - min) / (max - min || 1)) * plotH;
+      return {
+        ...p,
+        x: Math.round(x * 10) / 10,
+        y: Math.round(y * 10) / 10,
+        isYearA: p.year === this.comparatorYearA(),
+        isYearB: p.year === this.comparatorYearB(),
+      };
+    });
+
+    const polyline = mapped.map((p) => `${p.x},${p.y}`).join(' ');
+    const area = `${mapped[0].x},${height - 4} ${polyline} ${mapped[mapped.length - 1].x},${height - 4}`;
+
+    const ticks = [
+      { y: paddingY, val: max },
+      { y: paddingY + plotH / 2, val: Math.round(((min + max) / 2) * 100) / 100 },
+      { y: paddingY + plotH, val: min },
+    ];
+
+    return { points: mapped, polyline, area, min, max, ticks };
+  });
+
   comparatorDelta = computed(() => {
     const v = this.comparatorVariable();
     const a = this.comparatorYearA();
@@ -1090,10 +1175,10 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.suggestionLoading.set(false);
     this.interventionsLayer.clearLayers();
 
-    // Fetch NASA Trend Detective analysis
+    // Fetch NASA Trend Detective analysis (full 10-year historical series 2016-2025)
     this.trendLoading.set(true);
     this.trendSub = this.http
-      .get<TrendAnalysisResult>(`${this.API_BASE}/districts/${district.id}/trends`)
+      .get<TrendAnalysisResult>(`${this.API_BASE}/districts/${district.id}/trends?start_year=2016`)
       .subscribe({
         next: (res) => {
           this.districtTrend.set(res);

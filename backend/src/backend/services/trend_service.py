@@ -32,7 +32,7 @@ class TrendService:
                     pass
         return self._indicators_cache.get(district_id)
 
-    def get_district_trend(self, district_id: int) -> TrendAnalysisResult | None:
+    def get_district_trend(self, district_id: int, start_year: int = 2018) -> TrendAnalysisResult | None:
         district = next((d for d in COCHABAMBA_DISTRICTS if d.id == district_id), None)
         if not district:
             return None
@@ -45,7 +45,7 @@ class TrendService:
 
         history: list[TrendPoint] = []
         if nasa_props and "serie_anual" in nasa_props:
-            raw_series = [s for s in nasa_props["serie_anual"] if s.get("anio", 0) >= 2018]
+            raw_series = [s for s in nasa_props["serie_anual"] if s.get("anio", 0) >= start_year]
             raw_series.sort(key=lambda s: s["anio"])
 
             curr_ndvi = raw_series[-1]["ndvi_media"] if raw_series else 0.3
@@ -68,7 +68,7 @@ class TrendService:
             # Fallback seguro si el archivo satelital no está disponible
             base_temp = mc.surface_temp_c if mc else 28.0
             base_ndvi = mc.ndvi_index if mc else 0.30
-            years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+            years = [y for y in range(start_year, 2026)]
             for idx, y in enumerate(years):
                 offset = (y - 2025) / 10.0
                 history.append(
@@ -80,6 +80,58 @@ class TrendService:
                     )
                 )
 
+        return self._compute_trend_result(
+            district_id=district.id,
+            district_name=district.name,
+            sensor_fusion_type="Estación MÓNICA Calibrada" if is_monica else "Sensado Virtual de IA (NASA Earthdata)",
+            history=history,
+        )
+
+    def get_cercado_trend(self, start_year: int = 2016) -> TrendAnalysisResult:
+        if self._indicators_cache is None:
+            self._get_district_nasa_props(1)
+
+        years = [y for y in range(start_year, 2026)]
+        yearly_stats = {y: {"lst": [], "ndvi": []} for y in years}
+        if self._indicators_cache:
+            for props in self._indicators_cache.values():
+                for pt in props.get("serie_anual", []):
+                    y = pt.get("anio")
+                    if y in yearly_stats:
+                        if pt.get("lst_media_c") is not None:
+                            yearly_stats[y]["lst"].append(pt["lst_media_c"])
+                        if pt.get("ndvi_media") is not None:
+                            yearly_stats[y]["ndvi"].append(pt["ndvi_media"])
+
+        history: list[TrendPoint] = []
+        for y in sorted(years):
+            lsts = yearly_stats[y]["lst"]
+            ndvis = yearly_stats[y]["ndvi"]
+            avg_lst = round(sum(lsts) / len(lsts), 1) if lsts else 29.5
+            avg_ndvi = round(sum(ndvis) / len(ndvis), 2) if ndvis else 0.25
+            history.append(
+                TrendPoint(
+                    year=y,
+                    surface_temp_c=avg_lst,
+                    ndvi_index=avg_ndvi,
+                    canopy_pct=17.5,
+                )
+            )
+
+        return self._compute_trend_result(
+            district_id=0,
+            district_name="Cochabamba (Cercado) - Promedio Municipal",
+            sensor_fusion_type="Sensado Virtual de IA (NASA Earthdata)",
+            history=history,
+        )
+
+    def _compute_trend_result(
+        self,
+        district_id: int,
+        district_name: str,
+        sensor_fusion_type: str,
+        history: list[TrendPoint],
+    ) -> TrendAnalysisResult:
         # Regresión lineal por mínimos cuadrados sobre observaciones reales
         years = [pt.year for pt in history]
         temps = [pt.surface_temp_c for pt in history]
@@ -99,9 +151,9 @@ class TrendService:
         denom = math.sqrt(ss_xx * ss_yy)
         r = (ss_xy / denom) if denom > 0 else 0.0
         r_clamped = max(-0.999, min(0.999, r))
-        t_stat = r_clamped * math.sqrt((n - 2) / (1.0 - r_clamped**2))
+        t_stat = r_clamped * math.sqrt((n - 2) / (1.0 - r_clamped**2)) if (1.0 - r_clamped**2) > 0 else 0.0
 
-        # Aproximación empírica robusta de p-value para n=8 gl=6
+        # Aproximación empírica robusta de p-value
         p_val = round(max(0.001, min(0.999, 2.0 / (1.0 + math.exp(0.85 * abs(t_stat))))), 3)
         is_significant = p_val < 0.05
 
@@ -121,9 +173,9 @@ class TrendService:
             diagnosis = f"Amortiguamiento térmico ({warming_rate}°C/década) favorecido por cercanía a serranías o áreas de recarga hídrica."
 
         return TrendAnalysisResult(
-            district_id=district.id,
-            district_name=district.name,
-            sensor_fusion_type="Estación MÓNICA Calibrada" if is_monica else "Sensado Virtual de IA (NASA Earthdata)",
+            district_id=district_id,
+            district_name=district_name,
+            sensor_fusion_type=sensor_fusion_type,
             baseline_temp_c=history[0].surface_temp_c,
             current_temp_c=history[-1].surface_temp_c,
             warming_rate_c_per_decade=warming_rate,

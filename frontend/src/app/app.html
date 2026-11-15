@@ -388,6 +388,149 @@
           </div>
         </div>
 
+        <!-- Floating Time-Series Trend Chart (Bottom Center, as requested in comparator) -->
+        <div class="split-timeline-card" [class.collapsed]="comparatorChartCollapsed()">
+          <div class="timeline-card-header">
+            <div class="card-title-group">
+              <span class="card-icon" [class.lst]="comparatorVariable() === 'lst'" [class.ndvi]="comparatorVariable() === 'ndvi'">
+                @if (comparatorVariable() === 'lst') {
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                  </svg>
+                } @else {
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                  </svg>
+                }
+              </span>
+              <div class="title-texts">
+                <strong>Evolución Satelital NASA (2016–2025)</strong>
+                <span class="card-subtext">
+                  @if (selectedDistrict(); as sel) {
+                    Distrito {{ sel.id }} ({{ sel.name }}) · {{ comparatorVariable() === 'lst' ? 'Temperatura Superficial (LST °C)' : 'Índice de Vegetación (NDVI)' }}
+                  } @else {
+                    Promedio Municipal Cercado · {{ comparatorVariable() === 'lst' ? 'Temperatura Superficial (LST °C)' : 'Índice de Vegetación (NDVI)' }}
+                  }
+                </span>
+              </div>
+            </div>
+
+            <div class="card-header-actions">
+              <div class="comparator-sync-pills">
+                <span class="sync-pill a-pill" title="Año cargado en el mapa izquierdo">
+                  <small>IZQ</small> <strong>{{ comparatorYearA() }}</strong>: {{ comparatorDelta().aVal }}
+                </span>
+                <span class="sync-pill b-pill" title="Año cargado en el mapa derecho">
+                  <small>DER</small> <strong>{{ comparatorYearB() }}</strong>: {{ comparatorDelta().bVal }}
+                </span>
+                <span class="sync-pill delta-pill" [class.negative]="comparatorDelta().isReduction">
+                  <strong>Δ</strong> {{ comparatorDelta().diff }}
+                </span>
+              </div>
+              <button
+                type="button"
+                class="btn-toggle-chart"
+                (click)="toggleComparatorChart()"
+                [title]="comparatorChartCollapsed() ? 'Mostrar gráfico de serie temporal' : 'Minimizar gráfico'"
+                aria-label="Alternar gráfico"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  @if (comparatorChartCollapsed()) {
+                    <polyline points="18 15 12 9 6 15"/>
+                  } @else {
+                    <polyline points="6 9 12 15 18 9"/>
+                  }
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          @if (!comparatorChartCollapsed()) {
+            <div class="timeline-svg-container">
+              <svg class="timeline-svg" viewBox="0 0 560 95" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lstGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0.02"/>
+                  </linearGradient>
+                  <linearGradient id="ndviGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- Grid lines -->
+                @for (t of comparatorChartPoints().ticks; track t.y) {
+                  <line x1="38" [attr.y1]="t.y" x2="530" [attr.y2]="t.y" stroke="#334155" stroke-dasharray="3 5" stroke-width="1"/>
+                  <text x="33" [attr.y]="t.y + 3" text-anchor="end" fill="#94a3b8" font-size="9" font-family="monospace">
+                    {{ comparatorVariable() === 'lst' ? t.val.toFixed(1) + '°' : t.val.toFixed(2) }}
+                  </text>
+                }
+
+                <!-- Area Fill -->
+                <polygon
+                  [attr.points]="comparatorChartPoints().area"
+                  [attr.fill]="comparatorVariable() === 'lst' ? 'url(#lstGradient)' : 'url(#ndviGradient)'"
+                />
+
+                <!-- Polyline curve -->
+                <polyline
+                  [attr.points]="comparatorChartPoints().polyline"
+                  fill="none"
+                  [attr.stroke]="comparatorVariable() === 'lst' ? '#f87171' : '#34d399'"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <!-- Points & Labels for all 10 years -->
+                @for (pt of comparatorChartPoints().points; track pt.year) {
+                  <!-- Marker dot -->
+                  <circle
+                    [attr.cx]="pt.x"
+                    [attr.cy]="pt.y"
+                    [attr.r]="pt.isYearA || pt.isYearB ? 5.5 : 3.5"
+                    [attr.fill]="pt.isYearA ? '#38bdf8' : (pt.isYearB ? '#fbbf24' : (comparatorVariable() === 'lst' ? '#ef4444' : '#10b981'))"
+                    stroke="#0f172a"
+                    stroke-width="2"
+                    class="timeline-dot"
+                    [class.active-pt]="pt.isYearA || pt.isYearB"
+                  >
+                    <title>{{ pt.year }}: {{ comparatorVariable() === 'lst' ? pt.val + ' °C' : pt.val }}</title>
+                  </circle>
+
+                  <!-- Year tag at bottom -->
+                  <text
+                    [attr.x]="pt.x"
+                    y="91"
+                    font-size="9"
+                    font-weight="600"
+                    text-anchor="middle"
+                    [attr.fill]="pt.isYearA ? '#38bdf8' : (pt.isYearB ? '#fbbf24' : '#94a3b8')"
+                  >
+                    {{ pt.year.toString().slice(2) }}
+                  </text>
+
+                  <!-- Value badge on selected years -->
+                  @if (pt.isYearA || pt.isYearB) {
+                    <text
+                      [attr.x]="pt.x"
+                      [attr.y]="pt.y - 7"
+                      font-size="8.5"
+                      font-weight="700"
+                      text-anchor="middle"
+                      [attr.fill]="pt.isYearA ? '#38bdf8' : '#fbbf24'"
+                    >
+                      {{ comparatorVariable() === 'lst' ? pt.val.toFixed(1) + '°' : pt.val.toFixed(3) }}
+                    </text>
+                  }
+                }
+              </svg>
+            </div>
+          }
+        </div>
+
         <!-- Legend Bottom Bar -->
         <footer class="split-legend-footer">
           <div class="legend-scale-row">

@@ -26,6 +26,24 @@ def test_get_district_trend_calibrated_sensor():
     assert data["sensor_fusion_type"] == "Estación MÓNICA Calibrada"
 
 
+def test_get_district_trend_10_years():
+    response = client.get("/api/v1/districts/1/trends?start_year=2016")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["history"]) == 10
+    assert data["history"][0]["year"] == 2016
+    assert data["history"][-1]["year"] == 2025
+
+
+def test_get_cercado_municipal_trend():
+    response = client.get("/api/v1/districts/0/trends?start_year=2016")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["district_id"] == 0
+    assert "Cochabamba (Cercado)" in data["district_name"]
+    assert len(data["history"]) == 10
+
+
 def test_get_district_trend_not_found():
     response = client.get("/api/v1/districts/999/trends")
     assert response.status_code == 404
