@@ -218,8 +218,8 @@ export class App implements OnInit, AfterViewInit {
     this.initMap();
   }
 
-  private readonly CACHE_KEY_DISTRICTS = 'ecourba_districts_cache';
-  private readonly CACHE_KEY_GEOJSON = 'ecourba_geojson_cache';
+  private readonly CACHE_KEY_DISTRICTS = 'ecourba_districts_cache_v2';
+  private readonly CACHE_KEY_GEOJSON = 'ecourba_geojson_cache_v2';
 
   private getCachedItem<T>(key: string): T | null {
     try {
@@ -345,16 +345,16 @@ export class App implements OnInit, AfterViewInit {
     const el = this.mapElement()?.nativeElement;
     if (!el) return;
 
-    // Límite territorial estricto para Cercado (Cochabamba)
+    // Límite territorial con margen suficiente para vuelo y padding lateral
     const cercadoBounds = L.latLngBounds(
-      L.latLng(-17.56, -66.32),
-      L.latLng(-17.25, -66.03)
+      L.latLng(-17.65, -66.40),
+      L.latLng(-17.18, -65.90)
     );
 
     this.map = L.map(el, {
       maxBounds: cercadoBounds,
-      maxBoundsViscosity: 1.0, // Bloqueo rígido: no permite arrastrar el mapa fuera de Cercado
-      minZoom: 11,            // No permite alejarse hacia el resto de Bolivia o el mundo
+      maxBoundsViscosity: 0.7, // Permite elasticidad para encuadrar distritos periféricos con drawer abierto
+      minZoom: 10,
       maxZoom: 18,
       scrollWheelZoom: false, // Mapa tranquilo: evita zoom descontrolado al hacer scroll
       doubleClickZoom: false, // Zoom controlado por clics en distritos
@@ -620,6 +620,7 @@ export class App implements OnInit, AfterViewInit {
 
     // Cancela cualquier animación previa inmediatamente para evitar tirones o carreras
     this.map.stop();
+    this.map.closePopup();
 
     // Cancela cualquier petición HTTP de sugerencia en vuelo
     this.suggestionSub?.unsubscribe();
@@ -657,13 +658,13 @@ export class App implements OnInit, AfterViewInit {
         // Transición de vuelo cinemática con margen para el drawer derecho
         this.map.flyToBounds(bounds, {
           paddingTopLeft: [40, 40],
-          paddingBottomRight: [450, 40],
-          maxZoom: 15,
+          paddingBottomRight: [430, 40],
+          maxZoom: 14,
           duration: 0.85,
           easeLinearity: 0.25,
         });
       } else {
-        this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+        this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 13.5, {
           duration: 0.85,
           easeLinearity: 0.25,
         });
