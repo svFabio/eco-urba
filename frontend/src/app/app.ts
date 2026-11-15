@@ -30,6 +30,8 @@ export interface MicroclimateProfile {
   heat_island_risk: 'Crítico' | 'Alto' | 'Moderado' | 'Bajo';
   tree_canopy_pct: number;
   resilience_action: string;
+  hotspot_2024_pct?: number | null;
+  hotspot_2024_km2?: number | null;
 }
 
 export interface District {

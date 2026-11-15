@@ -275,6 +275,32 @@
                   </div>
                 </div>
 
+                <!-- Hotspot Térmico Satelital 2024 (NASA) -->
+                @if (mc.hotspot_2024_pct !== null && mc.hotspot_2024_pct !== undefined) {
+                  <div class="indicator-card">
+                    <div class="indicator-header">
+                      <span class="indicator-name">
+                        <svg class="ui-icon-indicator" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/>
+                          <path d="m4.93 4.93 4.24 4.24"/>
+                          <path d="m14.83 9.17 4.24-4.24"/>
+                          <path d="m14.83 14.83 4.24 4.24"/>
+                          <path d="m9.17 14.83-4.24 4.24"/>
+                          <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                        Hotspot Térmico Crítico (2024)
+                      </span>
+                      <span class="indicator-val" [class.hot]="mc.hotspot_2024_pct > 15">{{ mc.hotspot_2024_pct }} %</span>
+                    </div>
+                    <div class="progress-bar">
+                      <div class="progress-fill" [class.hot]="mc.hotspot_2024_pct > 15" [style.width.%]="mc.hotspot_2024_pct"></div>
+                    </div>
+                    <small class="indicator-sub">
+                      Superficie en estrés térmico severo: <strong>{{ mc.hotspot_2024_km2 }} km²</strong> (NASA)
+                    </small>
+                  </div>
+                }
+
                 <!-- Acción de Mitigación -->
                 <div class="action-card">
                   <span class="action-tag">Estrategia de Resiliencia Municipal</span>

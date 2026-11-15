@@ -13,6 +13,8 @@ class MicroclimateProfile(BaseModel):
     heat_island_risk: Literal["Crítico", "Alto", "Moderado", "Bajo"]
     tree_canopy_pct: float = Field(description="Estimated urban tree canopy percentage")
     resilience_action: str = Field(description="Recommended climate resilience action for the district")
+    hotspot_2024_pct: float | None = Field(default=None, description="Percentage of district area categorized as extreme thermal hotspot (NASA 2024)")
+    hotspot_2024_km2: float | None = Field(default=None, description="Surface area in km² identified as thermal hotspot (NASA 2024)")
 
 
 class District(BaseModel):
@@ -43,6 +45,8 @@ class DistrictGeoJSONProperties(BaseModel):
     municipio: str = "Cochabamba (Cercado)"
     heat_island_risk: str | None = None
     tree_canopy_pct: float | None = None
+    hotspot_2024_pct: float | None = None
+    hotspot_2024_km2: float | None = None
     microclimate: MicroclimateProfile | None = None
 
 

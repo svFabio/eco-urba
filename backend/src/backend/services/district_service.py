@@ -18,6 +18,26 @@ DOCS_DIR = Path(__file__).resolve().parents[4] / "docs" / "distritos"
 
 PERIMETER_GEOJSON_FILE = DATA_DIR / "perimetro_cercado.geojson"
 PERIMETER_DOCS_FILE = DOCS_DIR / "perimetro_cercado.geojson"
+INDICATORS_FILE = DATA_DIR / "cocha360_distritos_indicadores.geojson"
+
+
+def _load_nasa_hotspots() -> dict[int, tuple[float, float]]:
+    hotspots: dict[int, tuple[float, float]] = {}
+    if INDICATORS_FILE.exists():
+        try:
+            with open(INDICATORS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for feat in data.get("features", []):
+                p = feat.get("properties", {})
+                d_str = p.get("distrito", "")
+                if d_str.startswith("D"):
+                    num = int(d_str[1:])
+                    pct = float(p.get("hotspot_2024_pct_valido", 0.0))
+                    km2 = float(p.get("hotspot_2024_km2", 0.0))
+                    hotspots[num] = (pct, km2)
+        except Exception:
+            pass
+    return hotspots
 
 
 def resolve_geojson_path() -> Path | None:
@@ -232,6 +252,7 @@ _DISTRICT_METADATA: dict[int, dict] = {
 def _load_districts() -> list[District]:
     districts: list[District] = []
     geojson_path = resolve_geojson_path()
+    nasa_hotspots = _load_nasa_hotspots()
 
     if geojson_path and geojson_path.exists():
         with open(geojson_path, "r", encoding="utf-8") as f:
@@ -252,6 +273,11 @@ def _load_districts() -> list[District]:
             area_km2 = float(props.get("area_km2", 0.0))
 
             meta = _DISTRICT_METADATA[d_id]
+            meta_mc = meta["microclimate"].model_copy()
+            if d_id in nasa_hotspots:
+                meta_mc.hotspot_2024_pct = nasa_hotspots[d_id][0]
+                meta_mc.hotspot_2024_km2 = nasa_hotspots[d_id][1]
+
             districts.append(
                 District(
                     id=d_id,
@@ -262,7 +288,7 @@ def _load_districts() -> list[District]:
                     centroid=centroid,
                     bbox=bbox,
                     area_km2=area_km2,
-                    microclimate=meta["microclimate"],
+                    microclimate=meta_mc,
                 )
             )
 
@@ -318,6 +344,8 @@ class DistrictService:
                     "municipio": props.get("municipio", "Cochabamba (Cercado)"),
                     "heat_island_risk": district.microclimate.heat_island_risk if district and district.microclimate else None,
                     "tree_canopy_pct": district.microclimate.tree_canopy_pct if district and district.microclimate else None,
+                    "hotspot_2024_pct": district.microclimate.hotspot_2024_pct if district and district.microclimate else None,
+                    "hotspot_2024_km2": district.microclimate.hotspot_2024_km2 if district and district.microclimate else None,
                     "microclimate": district.microclimate.model_dump() if district and district.microclimate else None,
                 }
 
