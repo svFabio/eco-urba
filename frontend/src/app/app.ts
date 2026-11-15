@@ -319,6 +319,21 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 18,
     }).addTo(this.map);
 
+    // Mapa Topográfico Real de Cochabamba (Esri World Topo: relieve real sin ruido)
+    const esriTopo = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: '&copy; Esri, USGS, NOAA | Relieve Topográfico Oficial',
+        maxZoom: 18,
+      }
+    );
+
+    // Mapa de Curvas de Nivel y Montaña (OpenTopoMap)
+    const openTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenTopoMap (CC-BY-SA) | Curvas de Nivel',
+      maxZoom: 17,
+    });
+
     // Capas oficiales del GAMC (Alcaldía de Cochabamba)
     const distritosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: '',
@@ -443,25 +458,16 @@ export class App implements OnInit, AfterViewInit {
       gMarker.addTo(greenAreasLayer);
     });
 
-    // Relieve Topográfico y Modelo Digital de Elevación NASA ASTER GDEM
-    const nasaAsterRelief = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {
-      layers: 'ASTER_GDEM_Color_Shaded_Relief',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      opacity: 0.65,
-      attribution: '&copy; NASA EOSDIS GIBS · ASTER GDEM Relieve y Pendientes',
-    });
-
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control.layers(
       {
-        'OpenStreetMap (Contexto Urbano)': osmBase,
+        'OpenStreetMap (Urbano Limpio)': osmBase,
+        'Relieve y Topografía Real (Esri Topo)': esriTopo,
+        'Curvas de Nivel (OpenTopoMap)': openTopo,
         'Solo Cercado (Fondo Limpio)': darkCanvas,
       },
       {
-        'Relieve y Pendientes NASA (ASTER GDEM)': nasaAsterRelief,
         'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
         'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
