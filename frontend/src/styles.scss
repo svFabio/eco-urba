@@ -22,6 +22,10 @@ body {
 }
 
 // Global Leaflet map styling (ElevenLabs Clean Style)
+.leaflet-top.leaflet-left {
+  top: 60px !important; // Desplaza [+] [-] para no superponer con botones superiores
+}
+
 .poi-custom-container {
   background: transparent !important;
   border: none !important;
