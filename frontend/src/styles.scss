@@ -1,15 +1,19 @@
-@import "leaflet/dist/leaflet.css";
+@import 'leaflet/dist/leaflet.css';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: #09090b;
   background-color: #ffffff;
   overflow: hidden;
@@ -56,7 +60,9 @@ html, body {
   font-size: 0.72rem !important;
   font-weight: 700 !important;
   color: #09090b !important;
-  text-shadow: 0 0 3px #ffffff, 0 0 6px #ffffff;
+  text-shadow:
+    0 0 3px #ffffff,
+    0 0 6px #ffffff;
   padding: 0 !important;
   pointer-events: none;
   text-align: center !important;
@@ -155,6 +161,40 @@ html, body {
         svg {
           stroke: #ffffff;
         }
+
+        .pill-source-tag {
+          &.nasa {
+            background: rgba(59, 130, 246, 0.25);
+            color: #93c5fd;
+            border-color: rgba(147, 197, 253, 0.35);
+          }
+          &.gamc {
+            background: rgba(34, 197, 94, 0.25);
+            color: #86efac;
+            border-color: rgba(134, 239, 172, 0.35);
+          }
+        }
+      }
+
+      .pill-source-tag {
+        font-size: 0.58rem;
+        font-weight: 700;
+        padding: 0.05rem 0.35rem;
+        border-radius: 4px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        margin-left: 0.15rem;
+
+        &.nasa {
+          background: #eff6ff;
+          color: #1d4ed8;
+          border: 1px solid #bfdbfe;
+        }
+        &.gamc {
+          background: #f0fdf4;
+          color: #15803d;
+          border: 1px solid #bbf7d0;
+        }
       }
     }
   }
@@ -231,9 +271,15 @@ html, body {
           color: #71717a;
         }
 
-        &.hot { color: #dc2626; }
-        &.down { color: #b91c1c; }
-        &.sig { color: #047857; }
+        &.hot {
+          color: #dc2626;
+        }
+        &.down {
+          color: #b91c1c;
+        }
+        &.sig {
+          color: #047857;
+        }
       }
     }
   }
@@ -353,21 +399,39 @@ html, body {
 }
 
 @keyframes pulse-ring-green {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 @keyframes pulse-ring-red {
-  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-  70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
 }
 
 @keyframes pulse-ring-cyan {
-  0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
-  70% { box-shadow: 0 0 0 14px rgba(6, 182, 212, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(6, 182, 212, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
 }
 
 .intervention-popup-box {
@@ -386,9 +450,18 @@ html, body {
       padding: 0.15rem 0.45rem;
       border-radius: 9999px;
 
-      &.tree_planting { background: #dcfce7; color: #15803d; }
-      &.health_center { background: #fee2e2; color: #b91c1c; }
-      &.pocket_park { background: #e0f2fe; color: #0369a1; }
+      &.tree_planting {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      &.health_center {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      &.pocket_park {
+        background: #e0f2fe;
+        color: #0369a1;
+      }
     }
 
     .popup-prio {
@@ -419,10 +492,18 @@ html, body {
       display: flex;
       justify-content: space-between;
 
-      .m-label { color: #64748b; }
-      .m-val { font-weight: 600; }
-      .m-val.steep { color: #d97706; }
-      .m-val.flat { color: #16a34a; }
+      .m-label {
+        color: #64748b;
+      }
+      .m-val {
+        font-weight: 600;
+      }
+      .m-val.steep {
+        color: #d97706;
+      }
+      .m-val.flat {
+        color: #16a34a;
+      }
     }
   }
 
@@ -462,9 +543,15 @@ html, body {
       border-color: #cbd5e1;
     }
 
-    &.tree { border-left: 3px solid #10b981; }
-    &.health { border-left: 3px solid #ef4444; }
-    &.park { border-left: 3px solid #06b6d4; }
+    &.tree {
+      border-left: 3px solid #10b981;
+    }
+    &.health {
+      border-left: 3px solid #ef4444;
+    }
+    &.park {
+      border-left: 3px solid #06b6d4;
+    }
 
     .mini-card-top {
       display: flex;
@@ -563,7 +650,9 @@ html, body {
     font-size: 0.76rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease;
+    transition:
+      background 0.15s ease,
+      transform 0.1s ease;
 
     &:hover:not(:disabled) {
       background: #27272a;
@@ -665,15 +754,18 @@ html, body {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Smooth vector transitions and levitation glow for districts
 path.leaflet-interactive {
-  transition: stroke 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              stroke-width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              fill-opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    stroke 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    stroke-width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    fill-opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .district-selected,
@@ -681,16 +773,19 @@ path.district-selected,
 .district-selected path {
   stroke: #ffffff !important;
   stroke-width: 3.5px !important;
-  fill-opacity: 0.55 !important;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 18px rgba(255, 255, 255, 0.7)) !important;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 18px rgba(255, 255, 255, 0.7)) !important;
   animation: districtLevitate 2.5s infinite ease-in-out;
 }
 
 @keyframes districtLevitate {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.55));
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 14px rgba(255, 255, 255, 0.55));
   }
   50% {
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.85));
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1))
+      drop-shadow(0 0 24px rgba(255, 255, 255, 0.85));
   }
 }
