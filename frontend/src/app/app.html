@@ -462,8 +462,8 @@
 
                 <!-- Grid lines -->
                 @for (t of comparatorChartPoints().ticks; track t.y) {
-                  <line x1="38" [attr.y1]="t.y" x2="530" [attr.y2]="t.y" stroke="#334155" stroke-dasharray="3 5" stroke-width="1"/>
-                  <text x="33" [attr.y]="t.y + 3" text-anchor="end" fill="#94a3b8" font-size="9" font-family="monospace">
+                  <line x1="38" [attr.y1]="t.y" x2="530" [attr.y2]="t.y" stroke="#e2e8f0" stroke-dasharray="3 5" stroke-width="1"/>
+                  <text x="33" [attr.y]="t.y + 3" text-anchor="end" fill="#64748b" font-size="9" font-family="monospace">
                     {{ comparatorVariable() === 'lst' ? t.val.toFixed(1) + '°' : t.val.toFixed(2) }}
                   </text>
                 }
@@ -478,7 +478,7 @@
                 <polyline
                   [attr.points]="comparatorChartPoints().polyline"
                   fill="none"
-                  [attr.stroke]="comparatorVariable() === 'lst' ? '#f87171' : '#34d399'"
+                  [attr.stroke]="comparatorVariable() === 'lst' ? '#ef4444' : '#10b981'"
                   stroke-width="2.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -491,8 +491,8 @@
                     [attr.cx]="pt.x"
                     [attr.cy]="pt.y"
                     [attr.r]="pt.isYearA || pt.isYearB ? 5.5 : 3.5"
-                    [attr.fill]="pt.isYearA ? '#38bdf8' : (pt.isYearB ? '#fbbf24' : (comparatorVariable() === 'lst' ? '#ef4444' : '#10b981'))"
-                    stroke="#0f172a"
+                    [attr.fill]="pt.isYearA ? '#0284c7' : (pt.isYearB ? '#f59e0b' : (comparatorVariable() === 'lst' ? '#ef4444' : '#10b981'))"
+                    stroke="#ffffff"
                     stroke-width="2"
                     class="timeline-dot"
                     [class.active-pt]="pt.isYearA || pt.isYearB"
@@ -507,7 +507,7 @@
                     font-size="9"
                     font-weight="600"
                     text-anchor="middle"
-                    [attr.fill]="pt.isYearA ? '#38bdf8' : (pt.isYearB ? '#fbbf24' : '#94a3b8')"
+                    [attr.fill]="pt.isYearA ? '#0284c7' : (pt.isYearB ? '#b45309' : '#64748b')"
                   >
                     {{ pt.year.toString().slice(2) }}
                   </text>
@@ -520,7 +520,7 @@
                       font-size="8.5"
                       font-weight="700"
                       text-anchor="middle"
-                      [attr.fill]="pt.isYearA ? '#38bdf8' : '#fbbf24'"
+                      [attr.fill]="pt.isYearA ? '#0284c7' : '#b45309'"
                     >
                       {{ comparatorVariable() === 'lst' ? pt.val.toFixed(1) + '°' : pt.val.toFixed(3) }}
                     </text>
@@ -1213,24 +1213,6 @@
                 </div>
 
                 <p class="trend-diagnosis-text">{{ tr.earth_system_diagnosis }}</p>
-              </div>
-            }
-
-            @if (suggestion()) {
-              <div class="goal-badge" [class.meets]="suggestion()!.meets_goal">
-                @if (suggestion()!.meets_goal) {
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="m9 12 2 2 4-4"/>
-                  </svg>
-                  <span>Meta 44% (Alcaldía GAMC): Cumple</span>
-                } @else {
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="m15 9-6 6M9 9l6 6"/>
-                  </svg>
-                  <span>Meta 44% (Alcaldía GAMC): No cumple</span>
-                }
               </div>
             }
 
