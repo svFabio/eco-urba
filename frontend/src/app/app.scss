@@ -21,27 +21,7 @@
   .header-left {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-
-    .btn-header-menu {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #f4f4f5;
-      border: 1px solid #eaecf0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #18181b;
-      cursor: pointer;
-      transition: all 0.15s ease;
-
-      &:hover {
-        background: #e4e4e7;
-        color: #09090b;
-        transform: scale(1.05);
-      }
-    }
+    gap: 1rem;
 
     .brand-box {
       display: flex;
@@ -88,43 +68,6 @@
     margin-left: -360px;
     opacity: 0;
     pointer-events: none;
-  }
-
-  .sidebar-top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.65rem 1rem;
-    border-bottom: 1px solid #eaecf0;
-    background: #ffffff;
-
-    .sidebar-top-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #52525b;
-    }
-
-    .btn-sidebar-collapse {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #f4f4f5;
-      border: 1px solid #eaecf0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #18181b;
-      cursor: pointer;
-      transition: all 0.15s ease;
-
-      &:hover {
-        background: #e4e4e7;
-        color: #09090b;
-        transform: scale(1.05);
-      }
-    }
   }
 
   .rankings-panel {

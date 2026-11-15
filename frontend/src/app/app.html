@@ -2,20 +2,6 @@
   <!-- Top Navigation Header (ElevenLabs Clean Style) -->
   <header class="app-header">
     <div class="header-left">
-      <button
-        type="button"
-        class="btn-header-menu"
-        (click)="toggleSidebar()"
-        [attr.aria-expanded]="!sidebarCollapsed()"
-        [title]="sidebarCollapsed() ? 'Mostrar panel de distritos' : 'Ocultar panel lateral'"
-        aria-label="Alternar panel lateral"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"/>
-          <line x1="4" x2="20" y1="6" y2="6"/>
-          <line x1="4" x2="20" y1="18" y2="18"/>
-        </svg>
-      </button>
       <div class="brand-box">
         <h1 class="brand-title">EcoUrba</h1>
         <span class="brand-divider">/</span>
@@ -28,22 +14,6 @@
   <main class="main-content">
     <!-- Sidebar: District Selector & Analytics Summary -->
     <aside class="sidebar" [class.collapsed]="sidebarCollapsed()">
-      <div class="sidebar-top-bar">
-        <span class="sidebar-top-title">Explorador de Distritos</span>
-        <button
-          type="button"
-          class="btn-sidebar-collapse"
-          (click)="toggleSidebar()"
-          title="Ocultar panel lateral (☰)"
-          aria-label="Ocultar panel lateral"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" x2="20" y1="12" y2="12"/>
-            <line x1="4" x2="20" y1="6" y2="6"/>
-            <line x1="4" x2="20" y1="18" y2="18"/>
-          </svg>
-        </button>
-      </div>
       <!-- Top Section: Rankings Top 5 -->
       <section class="rankings-panel" aria-label="Ranking de Distritos">
         <div class="rankings-header">
