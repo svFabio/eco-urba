@@ -383,15 +383,16 @@ export class App implements OnInit, AfterViewInit {
       maxZoom: 17,
     });
 
-    // Capas oficiales del GAMC (Alcaldía de Cochabamba)
-    const cuencasGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: 'cuencas_principales',
+    // Capa oficial WMS del GAMC (Alcaldía de Cochabamba): Radio Urbano Homologado
+    // Ficha técnica GAMC: El proxy municipal asigna la capa según service_id (LAYERS se envía vacío)
+    const radioUrbanoGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
+      layers: '',
       format: 'image/png',
       transparent: true,
       version: '1.1.1',
       maxZoom: 19,
-      opacity: 0.7,
-      attribution: '&copy; GAMC · Cuencas Principales',
+      opacity: 0.35,
+      attribution: '&copy; GAMC · Límite del Radio Urbano Oficial',
     });
 
     // Real Cota 2750 Contour Line (Cargada dinámicamente vía GeoJSON oficial)
@@ -466,7 +467,7 @@ export class App implements OnInit, AfterViewInit {
         'Cobertura Forestal y Parques': greenAreasLayer,
         'Escuelas': this.schoolsLayer,
         'Hospitales': this.hospitalsLayer,
-        'Cuencas y Torrentes Tunari (GAMC)': cuencasGamcWms,
+        'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
         'Cota 2750 Parque Tunari': cota2750Line,
         'Distritos y Estaciones MÓNICA': this.districtLayer,
       },

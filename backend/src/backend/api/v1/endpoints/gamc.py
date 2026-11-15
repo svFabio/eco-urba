@@ -6,6 +6,7 @@ from backend.core.config import settings
 router = APIRouter()
 
 AVAILABLE_LAYERS = [
+    {"name": "limite_urbano", "title": "Límite del Radio Urbano Oficial (GAMC)", "service_id": "fd77d463-9729-4c66-b686-23dccbb4ab8f"},
     {"name": "limite_distritos", "title": "Límites Distritales Oficiales"},
     {"name": "areas_verdes", "title": "Áreas Verdes y Parques"},
     {"name": "cota_2750", "title": "Cota 2750 (Parque Tunari)"},
