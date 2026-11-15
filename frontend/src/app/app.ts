@@ -587,29 +587,32 @@ export class App implements OnInit, AfterViewInit {
       poly.setStyle({ ...this.selectedPolygonStyle, fillColor: currentFill });
       this.activePolygon = poly;
 
+      // Bring selected polygon to front so glow & border are prominent
+      poly.bringToFront();
+
       const elem = (poly as any).getElement?.();
       elem?.classList.add('district-selected');
 
       const bounds = (poly as any).getBounds?.();
       if (bounds) {
-        // Transición suave, rápida y precisa sin salto parabólico brusco
-        this.map.fitBounds(bounds, {
-          paddingTopLeft: [30, 30],
-          paddingBottomRight: [430, 30],
+        // Transición de vuelo cinemática con margen para el drawer derecho
+        this.map.flyToBounds(bounds, {
+          paddingTopLeft: [40, 40],
+          paddingBottomRight: [450, 40],
           maxZoom: 15,
-          animate: true,
-          duration: 0.35,
+          duration: 0.85,
+          easeLinearity: 0.25,
         });
       } else {
-        this.map.panTo([district.centroid.latitude, district.centroid.longitude], {
-          animate: true,
-          duration: 0.35,
+        this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+          duration: 0.85,
+          easeLinearity: 0.25,
         });
       }
     } else {
-      this.map.panTo([district.centroid.latitude, district.centroid.longitude], {
-        animate: true,
-        duration: 0.35,
+      this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+        duration: 0.85,
+        easeLinearity: 0.25,
       });
     }
 
@@ -692,10 +695,10 @@ export class App implements OnInit, AfterViewInit {
       this.activePolygon = undefined;
     }
     if (this.geoJsonLayer && this.map) {
-      this.map.fitBounds(this.geoJsonLayer.getBounds(), {
-        padding: [20, 20],
-        animate: true,
-        duration: 0.35,
+      this.map.flyToBounds(this.geoJsonLayer.getBounds(), {
+        padding: [30, 30],
+        duration: 0.75,
+        easeLinearity: 0.25,
       });
     }
   }

@@ -345,6 +345,7 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      animation: fadeInDrawerContent 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
       .stat-grid {
         display: grid;
@@ -606,4 +607,28 @@
 @keyframes slideInRight {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInDrawerContent {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.district-selected,
+path.district-selected,
+.district-selected path {
+  stroke: #2563eb !important;
+  stroke-width: 3.5px !important;
+  fill-opacity: 0.45 !important;
+  filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.8)) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)) !important;
+  animation: districtLevitate 2.5s infinite ease-in-out;
+}
+
+@keyframes districtLevitate {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(37, 99, 235, 0.95)) drop-shadow(0 0 26px rgba(59, 130, 246, 0.6));
+  }
 }
