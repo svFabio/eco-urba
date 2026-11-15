@@ -618,18 +618,18 @@
 .district-selected,
 path.district-selected,
 .district-selected path {
-  stroke: #10b981 !important;
+  stroke: #ffffff !important;
   stroke-width: 3.5px !important;
-  fill-opacity: 0.45 !important;
-  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.85)) drop-shadow(0 0 20px rgba(5, 150, 105, 0.4)) !important;
+  fill-opacity: 0.55 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 18px rgba(255, 255, 255, 0.7)) !important;
   animation: districtLevitate 2.5s infinite ease-in-out;
 }
 
 @keyframes districtLevitate {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.7)) drop-shadow(0 0 16px rgba(5, 150, 105, 0.3));
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.55));
   }
   50% {
-    filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.95)) drop-shadow(0 0 24px rgba(16, 185, 129, 0.55));
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.85));
   }
 }

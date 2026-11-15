@@ -203,7 +203,7 @@ export class App implements OnInit, AfterViewInit {
   };
 
   private readonly selectedPolygonStyle: L.PathOptions = {
-    color: '#09090b',
+    color: '#ffffff',
     weight: 3.5,
     opacity: 1,
     fillOpacity: 0.6,
