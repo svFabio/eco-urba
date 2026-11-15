@@ -129,6 +129,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
   legendCollapsed = signal(false);
 
+  // Comparador Temporal NASA (2016 - 2025)
+  showComparator = signal<boolean>(false);
+  comparatorVariable = signal<'ndvi' | 'lst'>('lst');
+  comparatorMode = signal<'single' | 'delta'>('single');
+  comparatorYear = signal<number>(2025);
+  comparatorOpacity = signal<number>(0.85);
+  private comparatorOverlayLayer?: L.ImageOverlay;
+
   top5Districts = computed(() =>
     [...this.districts()]
       .sort((a, b) => {
@@ -534,6 +542,42 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     loadGreenPOIs('park', '#10b981', 7);
     loadGreenPOIs('green_area', '#059669', 8);
 
+    // Rásters Satelitales Oficiales de la NASA (842 x 1032 px georreferenciados)
+    const defaultRasterBounds: L.LatLngBoundsExpression = [
+      [-17.547539808818485, -66.29457894571759],
+      [-17.264661664569346, -66.05274190721205],
+    ];
+    const hotspotRasterBounds: L.LatLngBoundsExpression = [
+      [-17.535737717665434, -66.28312707797097],
+      [-17.276771630866786, -66.06619722598597],
+    ];
+
+    const lst2025Raster = L.imageOverlay(
+      `${this.API_BASE}/rasters/lst_2025.png`,
+      defaultRasterBounds,
+      { opacity: 0.82, interactive: false }
+    );
+    const ndvi2025Raster = L.imageOverlay(
+      `${this.API_BASE}/rasters/ndvi_2025.png`,
+      defaultRasterBounds,
+      { opacity: 0.82, interactive: false }
+    );
+    const deltaLstRaster = L.imageOverlay(
+      `${this.API_BASE}/rasters/delta_lst.png`,
+      defaultRasterBounds,
+      { opacity: 0.85, interactive: false }
+    );
+    const deltaNdviRaster = L.imageOverlay(
+      `${this.API_BASE}/rasters/delta_ndvi.png`,
+      defaultRasterBounds,
+      { opacity: 0.85, interactive: false }
+    );
+    const hotspotsRaster = L.imageOverlay(
+      `${this.API_BASE}/rasters/hotspots_2024.png`,
+      hotspotRasterBounds,
+      { opacity: 0.9, interactive: false }
+    );
+
     this.districtLayer = L.layerGroup().addTo(this.map);
 
     L.control
@@ -552,8 +596,13 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
           'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
           'Cota 2750 Parque Tunari': cota2750Line,
           'Distritos y Estaciones MÓNICA': this.districtLayer,
+          '🛰️ NASA Térmico Píxel a Píxel (LST 2025)': lst2025Raster,
+          '🌿 NASA Vegetación Píxel a Píxel (NDVI 2025)': ndvi2025Raster,
+          '🔥 NASA Hotspots Térmicos 2024': hotspotsRaster,
+          '📉 Cambio Térmico 2016 ➔ 2025 (Delta LST)': deltaLstRaster,
+          '🌱 Cambio Vegetal 2016 ➔ 2025 (Delta NDVI)': deltaNdviRaster,
         },
-        { position: 'topright', collapsed: false },
+        { position: 'topright', collapsed: false }
       )
       .addTo(this.map);
 
@@ -977,5 +1026,87 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
       marker.addTo(this.interventionsLayer);
     });
+  }
+
+  toggleComparator(): void {
+    const nextState = !this.showComparator();
+    this.showComparator.set(nextState);
+    this.updateComparatorLayer();
+  }
+
+  setComparatorVariable(v: 'ndvi' | 'lst'): void {
+    this.comparatorVariable.set(v);
+    this.updateComparatorLayer();
+  }
+
+  setComparatorMode(m: 'single' | 'delta'): void {
+    this.comparatorMode.set(m);
+    this.updateComparatorLayer();
+  }
+
+  setComparatorYear(y: number): void {
+    this.comparatorYear.set(y);
+    this.updateComparatorLayer();
+  }
+
+  onOpacityChange(event: Event): void {
+    const val = Number((event.target as HTMLInputElement).value) / 100;
+    this.comparatorOpacity.set(val);
+    if (this.comparatorOverlayLayer) {
+      this.comparatorOverlayLayer.setOpacity(val);
+    }
+  }
+
+  updateComparatorLayer(): void {
+    if (!this.map) return;
+    if (this.comparatorOverlayLayer) {
+      this.map.removeLayer(this.comparatorOverlayLayer);
+      this.comparatorOverlayLayer = undefined;
+    }
+
+    if (!this.showComparator()) {
+      if (this.geoJsonLayer) {
+        this.geoJsonLayer.eachLayer((layer: any) => {
+          if (layer.setStyle) {
+            const props = layer.feature?.properties || {};
+            const fillColor = this.getFillColorForFeature(props);
+            layer.setStyle({ fillOpacity: this.activePolygon === layer ? 0.6 : 0.5, fillColor });
+          }
+        });
+      }
+      return;
+    }
+
+    const variable = this.comparatorVariable();
+    const mode = this.comparatorMode();
+    const year = this.comparatorYear();
+    const opacity = this.comparatorOpacity();
+
+    const rasterId = mode === 'delta' ? `delta_${variable}` : `${variable}_${year}`;
+    const bounds: L.LatLngBoundsExpression = [
+      [-17.547539808818485, -66.29457894571759],
+      [-17.264661664569346, -66.05274190721205],
+    ];
+
+    this.comparatorOverlayLayer = L.imageOverlay(
+      `${this.API_BASE}/rasters/${rasterId}.png`,
+      bounds,
+      { opacity, interactive: false }
+    ).addTo(this.map);
+
+    if (this.geoJsonLayer) {
+      this.geoJsonLayer.eachLayer((layer: any) => {
+        if (layer.setStyle) {
+          layer.setStyle({ fillOpacity: 0.15, weight: 2, color: '#ffffff' });
+        }
+        layer.bringToFront?.();
+      });
+    }
+    if (this.districtLayer) {
+      this.districtLayer.eachLayer((layer: any) => layer.bringToFront?.());
+    }
+    if (this.interventionsLayer) {
+      this.interventionsLayer.eachLayer((layer: any) => layer.bringToFront?.());
+    }
   }
 }

@@ -152,8 +152,187 @@
             <span>Meta 44%</span>
             <span class="pill-source-tag gamc">Alcaldía</span>
           </button>
+
+          <div class="toolbar-separator"></div>
+
+          <button
+            type="button"
+            class="metric-pill-btn comp-trigger-btn"
+            [class.active]="showComparator()"
+            (click)="toggleComparator()"
+            title="Abrir Comparador Temporal NASA (2016 vs 2025)"
+          >
+            <svg class="ui-icon-xs" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"/>
+              <path d="M12 3v18"/>
+            </svg>
+            <span>◫ Comparador NASA</span>
+          </button>
         </div>
       </nav>
+
+      <!-- Floating NASA Temporal Comparator Widget -->
+      @if (showComparator()) {
+        <section class="comparator-floating-card" aria-label="Comparador Temporal Satelital">
+          <div class="comp-header">
+            <div class="comp-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/>
+                <path d="M12 3v18"/>
+              </svg>
+              <strong>Comparador Satelital NASA</strong>
+              <span class="comp-badge">2016 – 2025</span>
+            </div>
+            <button type="button" class="comp-close-btn" (click)="toggleComparator()" title="Cerrar comparador">✕</button>
+          </div>
+
+          <div class="comp-body">
+            <!-- Variable Selector -->
+            <div class="comp-group">
+              <span class="comp-group-label">Variable:</span>
+              <div class="comp-toggle-group">
+                <button
+                  type="button"
+                  class="comp-toggle-btn"
+                  [class.active]="comparatorVariable() === 'lst'"
+                  (click)="setComparatorVariable('lst')"
+                >
+                  🌡️ Temperatura (LST)
+                </button>
+                <button
+                  type="button"
+                  class="comp-toggle-btn"
+                  [class.active]="comparatorVariable() === 'ndvi'"
+                  (click)="setComparatorVariable('ndvi')"
+                >
+                  🌿 Vegetación (NDVI)
+                </button>
+              </div>
+            </div>
+
+            <!-- Mode Selector -->
+            <div class="comp-group">
+              <span class="comp-group-label">Modo:</span>
+              <div class="comp-toggle-group">
+                <button
+                  type="button"
+                  class="comp-toggle-btn"
+                  [class.active]="comparatorMode() === 'single'"
+                  (click)="setComparatorMode('single')"
+                >
+                  Año Individual
+                </button>
+                <button
+                  type="button"
+                  class="comp-toggle-btn"
+                  [class.active]="comparatorMode() === 'delta'"
+                  (click)="setComparatorMode('delta')"
+                >
+                  Mapa de Cambio (Δ)
+                </button>
+              </div>
+            </div>
+
+            <!-- Year Selector (Only when single) -->
+            @if (comparatorMode() === 'single') {
+              <div class="comp-group">
+                <span class="comp-group-label">Año Satelital:</span>
+                <div class="comp-toggle-group years-group">
+                  <button
+                    type="button"
+                    class="comp-toggle-btn year-btn"
+                    [class.active]="comparatorYear() === 2016"
+                    (click)="setComparatorYear(2016)"
+                  >
+                    2016
+                  </button>
+                  <button
+                    type="button"
+                    class="comp-toggle-btn year-btn"
+                    [class.active]="comparatorYear() === 2020"
+                    (click)="setComparatorYear(2020)"
+                  >
+                    2020
+                  </button>
+                  <button
+                    type="button"
+                    class="comp-toggle-btn year-btn"
+                    [class.active]="comparatorYear() === 2025"
+                    (click)="setComparatorYear(2025)"
+                  >
+                    2025
+                  </button>
+                </div>
+              </div>
+            }
+
+            <!-- Opacity Slider -->
+            <div class="comp-group opacity-group">
+              <div class="opacity-label-row">
+                <span class="comp-group-label">Opacidad Ráster:</span>
+                <span class="opacity-val">{{ (comparatorOpacity() * 100).toFixed(0) }}%</span>
+              </div>
+              <input
+                type="range"
+                min="20"
+                max="100"
+                step="5"
+                [value]="comparatorOpacity() * 100"
+                (input)="onOpacityChange($event)"
+                class="comp-range-input"
+              />
+            </div>
+
+            <!-- Telemetry Stats Pill -->
+            <div class="comp-stat-box">
+              @if (comparatorMode() === 'single') {
+                <div class="stat-main-row">
+                  <span class="stat-tag">NASA {{ comparatorYear() }}</span>
+                  <span class="stat-reading">
+                    {{ comparatorVariable() === 'lst' ? (comparatorYear() === 2016 ? '29.43 °C' : comparatorYear() === 2020 ? '26.82 °C' : '26.10 °C') : (comparatorYear() === 2016 ? '0.2395' : comparatorYear() === 2020 ? '0.2563' : '0.2773') }}
+                    <small>{{ comparatorVariable() === 'lst' ? 'promedio' : 'NDVI' }}</small>
+                  </span>
+                </div>
+                <p class="stat-subtext">Compuesto satelital de estación seca libre de nubes (Landsat/MODIS).</p>
+              } @else {
+                <div class="stat-main-row highlight">
+                  <span class="stat-tag delta">Diferencia 2016 ➔ 2025</span>
+                  <span class="stat-reading delta">
+                    {{ comparatorVariable() === 'lst' ? 'Δ −3.33 °C' : 'Δ +0.0378' }}
+                  </span>
+                </div>
+                <p class="stat-subtext">Cálculo diferencial matricial sobre 327.874 píxeles válidos del valle.</p>
+              }
+            </div>
+
+            <!-- Legend Scale -->
+            <div class="comp-legend-box">
+              <div
+                class="legend-gradient"
+                [class.lst]="comparatorVariable() === 'lst' && comparatorMode() === 'single'"
+                [class.ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'single'"
+                [class.delta-lst]="comparatorVariable() === 'lst' && comparatorMode() === 'delta'"
+                [class.delta-ndvi]="comparatorVariable() === 'ndvi' && comparatorMode() === 'delta'"
+              ></div>
+              <div class="legend-labels">
+                @if (comparatorMode() === 'delta') {
+                  <span>{{ comparatorVariable() === 'lst' ? '−7 °C (Enfriamiento)' : '−0.25 (Pérdida)' }}</span>
+                  <span>0 (Sin cambio)</span>
+                  <span>{{ comparatorVariable() === 'lst' ? '+7 °C (Calor severo)' : '+0.25 (Ganancia)' }}</span>
+                } @else if (comparatorVariable() === 'lst') {
+                  <span>15 °C (Templado)</span>
+                  <span>28 °C</span>
+                  <span>40 °C (Calor extremo)</span>
+                } @else {
+                  <span>−0.10 (Suelo árido)</span>
+                  <span>0.30</span>
+                  <span>0.75 (Bosque denso)</span>
+                }
+              </div>
+            </div>
+          </div>
+        </section>
+      }
 
       <div #mapContainer class="map-container"></div>
 
