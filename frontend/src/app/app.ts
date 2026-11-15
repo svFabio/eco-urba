@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import * as L from 'leaflet';
 
 export interface Centroid {
@@ -62,6 +63,7 @@ export class App implements OnInit, AfterViewInit {
   private geoJsonLayer?: L.GeoJSON;
   private polygonMap = new Map<number, L.Path>();
   private activePolygon?: L.Path;
+  private suggestionSub?: Subscription;
 
   districts = signal<District[]>([]);
   selectedDistrict = signal<District | null>(null);
@@ -534,8 +536,16 @@ export class App implements OnInit, AfterViewInit {
   }
 
   selectDistrict(district: District): void {
-    this.selectedDistrict.set(district);
     if (!this.map) return;
+    if (this.selectedDistrict()?.id === district.id) return;
+
+    // Cancela cualquier animación previa inmediatamente para evitar tirones o carreras
+    this.map.stop();
+
+    // Cancela cualquier petición HTTP de sugerencia en vuelo
+    this.suggestionSub?.unsubscribe();
+
+    this.selectedDistrict.set(district);
 
     // Reset previous active polygon style & remove selected class
     if (this.activePolygon) {
@@ -543,7 +553,12 @@ export class App implements OnInit, AfterViewInit {
       prevElem?.classList.remove('district-selected');
       const prevProps = (this.activePolygon as any).feature?.properties;
       const prevFillColor = this.getFillColorForFeature(prevProps);
-      this.activePolygon.setStyle({ ...this.defaultPolygonStyle, fillColor: prevFillColor, fillOpacity: 0.5, weight: 1.5 });
+      this.activePolygon.setStyle({
+        ...this.defaultPolygonStyle,
+        fillColor: prevFillColor,
+        fillOpacity: 0.5,
+        weight: 1.5,
+      });
     }
 
     const poly = this.polygonMap.get(district.id);
@@ -557,27 +572,30 @@ export class App implements OnInit, AfterViewInit {
 
       const bounds = (poly as any).getBounds?.();
       if (bounds) {
-        // Deja espacio en la derecha para el panel lateral desplegable
-        this.map.flyToBounds(bounds, {
-          paddingTopLeft: [40, 40],
-          paddingBottomRight: [440, 40],
+        // Transición suave, rápida y precisa sin salto parabólico brusco
+        this.map.fitBounds(bounds, {
+          paddingTopLeft: [30, 30],
+          paddingBottomRight: [430, 30],
           maxZoom: 14,
-          duration: 1.0,
+          animate: true,
+          duration: 0.35,
         });
       } else {
-        this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
-          duration: 1.0,
+        this.map.panTo([district.centroid.latitude, district.centroid.longitude], {
+          animate: true,
+          duration: 0.35,
         });
       }
     } else {
-      this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
-        duration: 1.0,
+      this.map.panTo([district.centroid.latitude, district.centroid.longitude], {
+        animate: true,
+        duration: 0.35,
       });
     }
 
     // Fetch suggestion for the selected district
     this.suggestionLoading.set(true);
-    this.http
+    this.suggestionSub = this.http
       .get<SuggestionResult>(`${this.API_BASE}/districts/${district.id}/suggestion`)
       .subscribe({
         next: (result) => {
@@ -592,6 +610,12 @@ export class App implements OnInit, AfterViewInit {
   }
 
   clearSelection(): void {
+    if (!this.selectedDistrict()) return;
+    if (this.map) {
+      this.map.stop();
+    }
+    this.suggestionSub?.unsubscribe();
+
     this.selectedDistrict.set(null);
     this.suggestion.set(null);
     this.suggestionLoading.set(false);
@@ -601,16 +625,20 @@ export class App implements OnInit, AfterViewInit {
       prevElem?.classList.remove('district-selected');
       const prevProps = (this.activePolygon as any).feature?.properties;
       const prevFillColor = this.getFillColorForFeature(prevProps);
-      this.activePolygon.setStyle({ ...this.defaultPolygonStyle, fillColor: prevFillColor, fillOpacity: 0.5, weight: 1.5 });
+      this.activePolygon.setStyle({
+        ...this.defaultPolygonStyle,
+        fillColor: prevFillColor,
+        fillOpacity: 0.5,
+        weight: 1.5,
+      });
       this.activePolygon = undefined;
     }
-    if (this.geoJsonLayer) {
-      this.map?.flyToBounds(this.geoJsonLayer.getBounds(), {
+    if (this.geoJsonLayer && this.map) {
+      this.map.fitBounds(this.geoJsonLayer.getBounds(), {
         padding: [20, 20],
-        duration: 0.8,
+        animate: true,
+        duration: 0.35,
       });
-    } else {
-      this.map?.flyTo([-17.406, -66.174], 12, { duration: 0.8 });
     }
   }
 }
