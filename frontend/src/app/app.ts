@@ -138,13 +138,22 @@ export class App implements OnInit, AfterViewInit {
 
   private readonly API_BASE = (() => {
     if (typeof window !== 'undefined') {
-      const customApi = (window as unknown as { __API_BASE__?: string }).__API_BASE__;
+      let customApi = (window as unknown as { __API_BASE__?: string }).__API_BASE__;
       if (customApi) {
-        return customApi;
+        // Corrección de host interno privado de Render (eco-urba-api sin sufijo onrender.com)
+        if (customApi.includes('://eco-urba-api/') || customApi.endsWith('://eco-urba-api')) {
+          customApi = customApi.replace('://eco-urba-api', '://eco-urba-api.onrender.com');
+        }
+        if (customApi.trim()) {
+          return customApi;
+        }
       }
       const host = window.location.hostname;
       if (host === 'localhost' || host === '127.0.0.1') {
         return 'http://localhost:8000/api/v1';
+      }
+      if (host.includes('onrender.com')) {
+        return 'https://eco-urba-api.onrender.com/api/v1';
       }
     }
     return '/api/v1';

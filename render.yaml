@@ -32,7 +32,7 @@ services:
     name: eco-urba
     env: static
     rootDir: frontend
-    buildCommand: npm install && npm run build && echo "window.__API_BASE__='https://${BACKEND_HOST}/api/v1';" > dist/frontend/browser/env.js
+    buildCommand: npm install && npm run build && echo "window.__API_BASE__='https://eco-urba-api.onrender.com/api/v1';" > dist/frontend/browser/env.js
     staticPublishPath: dist/frontend/browser
     routes:
       - type: rewrite
