@@ -187,15 +187,79 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     }
   });
 
-  top5Districts = computed(() =>
-    [...this.districts()]
+  top5Subtitle = computed(() => {
+    const metric = this.activeMetric();
+    switch (metric) {
+      case 'risk':
+        return 'Mayor severidad térmica (NASA LST)';
+      case 'vegetation':
+        return 'Mayor índice vegetal (NASA NDVI)';
+      case 'goal':
+      default:
+        return 'Mayor cobertura arbórea (Alcaldía · GAMC)';
+    }
+  });
+
+  top5Districts = computed(() => {
+    const metric = this.activeMetric();
+    const list = [...this.districts()];
+
+    if (metric === 'risk') {
+      return list
+        .sort((a, b) => {
+          const aTemp = a.microclimate?.surface_temp_c ?? 0;
+          const bTemp = b.microclimate?.surface_temp_c ?? 0;
+          return bTemp - aTemp;
+        })
+        .slice(0, 5);
+    }
+
+    if (metric === 'vegetation') {
+      return list
+        .sort((a, b) => {
+          const aNdvi = a.microclimate?.ndvi_index ?? 0;
+          const bNdvi = b.microclimate?.ndvi_index ?? 0;
+          return bNdvi - aNdvi;
+        })
+        .slice(0, 5);
+    }
+
+    return list
       .sort((a, b) => {
         const aVal = a.tree_canopy_pct ?? a.microclimate?.tree_canopy_pct ?? 0;
         const bVal = b.tree_canopy_pct ?? b.microclimate?.tree_canopy_pct ?? 0;
         return bVal - aVal;
       })
-      .slice(0, 5),
-  );
+      .slice(0, 5);
+  });
+
+  getTop5Value(d: District): string {
+    const metric = this.activeMetric();
+    if (metric === 'risk') {
+      const temp = d.microclimate?.surface_temp_c;
+      return temp != null ? `${temp.toFixed(1)} °C` : '--';
+    }
+    if (metric === 'vegetation') {
+      const ndvi = d.microclimate?.ndvi_index;
+      return ndvi != null ? `${ndvi.toFixed(2)} NDVI` : '--';
+    }
+    return `${this.getCanopyPct(d)}%`;
+  }
+
+  getTop5BadgeClass(d: District): string {
+    const metric = this.activeMetric();
+    if (metric === 'risk') {
+      const risk = d.heat_island_risk || d.microclimate?.heat_island_risk;
+      if (risk === 'Crítico') return 'ranking-badge-pill risk-critical';
+      if (risk === 'Alto') return 'ranking-badge-pill risk-high';
+      if (risk === 'Moderado') return 'ranking-badge-pill risk-medium';
+      return 'ranking-badge-pill risk-low';
+    }
+    if (metric === 'vegetation') {
+      return 'ranking-badge-pill vegetation-badge';
+    }
+    return 'canopy-badge';
+  }
 
   private readonly API_BASE = (() => {
     if (typeof window !== 'undefined') {

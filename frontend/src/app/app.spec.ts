@@ -33,7 +33,7 @@ describe('App', () => {
     expect(app.getDistrictColor('Crítico')).toBe('#f44336');
   });
 
-  it('should compute top5Districts sorted by tree_canopy_pct descending', () => {
+  it('should compute top5Districts dynamically based on activeMetric', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     app.districts.set([
@@ -45,12 +45,37 @@ describe('App', () => {
       { id: 6, name: 'D6', zone: 'N', has_fixed_sensor: false, centroid: { latitude: 0, longitude: 0 }, bbox: [0,0,0,0], microclimate: { ndvi_index: 0.3, surface_temp_c: 24, heat_island_risk: 'Bajo', tree_canopy_pct: 40, resilience_action: '' } },
     ]);
 
-    const top5 = app.top5Districts();
+    // 1. Goal (Canopy % descending)
+    app.activeMetric.set('goal');
+    let top5 = app.top5Districts();
     expect(top5.length).toBe(5);
     expect(top5[0].id).toBe(6); // 40%
     expect(top5[1].id).toBe(2); // 35%
     expect(top5[2].id).toBe(5); // 25%
     expect(top5[3].id).toBe(3); // 20%
     expect(top5[4].id).toBe(1); // 10%
+    expect(app.top5Subtitle()).toContain('Mayor cobertura arbórea');
+
+    // 2. Risk (Surface Temp °C descending)
+    app.activeMetric.set('risk');
+    top5 = app.top5Districts();
+    expect(top5.length).toBe(5);
+    expect(top5[0].id).toBe(4); // 35°C
+    expect(top5[1].id).toBe(1); // 30°C
+    expect(top5[2].id).toBe(3); // 28°C
+    expect(top5[3].id).toBe(5); // 27°C
+    expect(top5[4].id).toBe(2); // 25°C
+    expect(app.top5Subtitle()).toContain('Mayor severidad térmica');
+
+    // 3. Vegetation (NDVI descending)
+    app.activeMetric.set('vegetation');
+    top5 = app.top5Districts();
+    expect(top5.length).toBe(5);
+    expect(top5[0].id).toBe(6); // 0.30 NDVI
+    expect(top5[1].id).toBe(2); // 0.20 NDVI
+    expect(top5[2].id).toBe(5); // 0.18 NDVI
+    expect(top5[3].id).toBe(3); // 0.15 NDVI
+    expect(top5[4].id).toBe(1); // 0.10 NDVI
+    expect(app.top5Subtitle()).toContain('Mayor índice vegetal');
   });
 });

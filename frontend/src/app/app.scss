@@ -152,7 +152,8 @@
           }
         }
 
-        .canopy-badge {
+        .canopy-badge,
+        .ranking-badge-pill {
           font-size: 0.7rem;
           font-weight: 600;
           padding: 0.12rem 0.45rem;
@@ -160,6 +161,38 @@
           background: #f4f4f5;
           color: #18181b;
           border: 1px solid #e4e4e7;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+
+          &.risk-critical {
+            background: rgba(239, 68, 68, 0.12);
+            color: #dc2626;
+            border-color: rgba(239, 68, 68, 0.25);
+          }
+
+          &.risk-high {
+            background: rgba(249, 115, 22, 0.12);
+            color: #ea580c;
+            border-color: rgba(249, 115, 22, 0.25);
+          }
+
+          &.risk-medium {
+            background: rgba(234, 179, 8, 0.12);
+            color: #ca8a04;
+            border-color: rgba(234, 179, 8, 0.25);
+          }
+
+          &.risk-low {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+            border-color: rgba(16, 185, 129, 0.25);
+          }
+
+          &.vegetation-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+            border-color: rgba(16, 185, 129, 0.25);
+          }
         }
       }
     }

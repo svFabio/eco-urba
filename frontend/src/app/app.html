@@ -28,7 +28,7 @@
             </svg>
             <h3>Top 5 Distritos</h3>
           </div>
-          <span class="rankings-subtitle">Mayor cobertura arbórea (Alcaldía · GAMC)</span>
+          <span class="rankings-subtitle">{{ top5Subtitle() }}</span>
         </div>
         <div class="rankings-list">
           @for (d of top5Districts(); track d.id; let idx = $index) {
@@ -45,7 +45,7 @@
                 <span class="ranking-name">{{ d.name }}</span>
               </div>
               <div class="ranking-badge">
-                <span class="canopy-badge">{{ getCanopyPct(d) }}%</span>
+                <span [class]="getTop5BadgeClass(d)">{{ getTop5Value(d) }}</span>
               </div>
             </button>
           }
@@ -277,6 +277,20 @@
               />
               <span class="slider-val">{{ (comparatorOpacity() * 100).toFixed(0) }}%</span>
             </div>
+
+            <!-- Integrated Difference Badge in Toolbar -->
+            <div class="split-telemetry-inline">
+              @if (comparatorMode() === 'dual') {
+                <span class="telemetry-item delta" [class.negative]="comparatorDelta().isReduction">
+                  <strong>Δ Diferencia:</strong> {{ comparatorDelta().diff }}
+                </span>
+              } @else {
+                <span class="telemetry-item delta">
+                  <strong>Cambio Satelital:</strong>
+                  {{ comparatorVariable() === 'lst' ? 'Δ −3.33 °C' : 'Δ +0.0378' }}
+                </span>
+              }
+            </div>
           </div>
 
           <!-- Close / Back Button -->
@@ -293,33 +307,6 @@
             <span>Volver al Visor</span>
           </button>
         </header>
-
-        <!-- Difference Stats Pill (Center floating) -->
-        <div class="split-telemetry-banner">
-          @if (comparatorMode() === 'dual') {
-            <div class="telemetry-pill">
-              <span class="telemetry-item">
-                <strong>Año {{ comparatorYearA() }}:</strong> {{ comparatorDelta().aVal }}
-              </span>
-              <span class="telemetry-divider">vs</span>
-              <span class="telemetry-item">
-                <strong>Año {{ comparatorYearB() }}:</strong> {{ comparatorDelta().bVal }}
-              </span>
-              <span class="telemetry-divider">→</span>
-              <span class="telemetry-item delta" [class.negative]="comparatorDelta().isReduction">
-                <strong>Diferencia:</strong> {{ comparatorDelta().diff }}
-              </span>
-            </div>
-          } @else {
-            <div class="telemetry-pill">
-              <span class="telemetry-item delta">
-                <strong>Cambio Satelital Píxel a Píxel (2016 → 2025):</strong>
-                {{ comparatorVariable() === 'lst' ? 'Δ −3.33 °C' : 'Δ +0.0378' }}
-              </span>
-              <span class="telemetry-sub">Cálculo diferencial sobre 327.874 píxeles del valle</span>
-            </div>
-          }
-        </div>
 
         <!-- Maps Split Grid -->
         <div class="split-maps-grid" [class.single-view]="comparatorMode() === 'delta'">
