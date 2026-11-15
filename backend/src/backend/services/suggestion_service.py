@@ -43,7 +43,9 @@ _GOAL_PCT = 44.0
 
 _ZONE_HINTS: dict[str, str] = {
     "Norte (Parque Tunari)": "Áreas de cesión y franjas de amortiguamiento de la Cota 2750 en el Parque Tunari",
-    "Norte Urbano": "Terrenos municipales de cesión, retiros obligatorios y plazas duras en avenidas principales",
+    "Norte": "Franjas de amortiguamiento en faldas del Tunari y corredores verdes en avenidas colectoras",
+    "Norte Urbano": "Retiros municipales, aceras anchas y predios contiguos al Jardín Botánico Martín Cárdenas y Cala Cala",
+    "Oeste Urbano": "Plazas duras, retiros obligatorios y avenidas principales como Av. Beijing y Capitán Víctor Ustariz",
     "Noreste": "Áreas de cesión periurbanas y corredores biológicos hacia la serranía este",
     "Noreste Urbano": "Retiros municipales, aceras anchas y predios contiguos al Jardín Botánico Martín Cárdenas",
     "Noroeste": "Áreas de cesión en urbanizaciones recientes, torrenteras y ciclovías colectoras",

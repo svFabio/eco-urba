@@ -31,8 +31,8 @@ COCHABAMBA_DISTRICTS: list[District] = [
     ),
     District(
         id=2,
-        name="Distrito 2 - Muyurina",
-        zone="Noreste",
+        name="Distrito 2 - Tunari",
+        zone="Norte",
         has_fixed_sensor=False,
         centroid=Centroid(latitude=-17.3750, longitude=-66.1400),
         bbox=[-66.1600, -17.3900, -66.1200, -17.3600],
@@ -63,8 +63,8 @@ COCHABAMBA_DISTRICTS: list[District] = [
     ),
     District(
         id=4,
-        name="Distrito 4 - Cala Cala",
-        zone="Norte Urbano",
+        name="Distrito 4 - Molle",
+        zone="Oeste Urbano",
         has_fixed_sensor=False,
         centroid=Centroid(latitude=-17.3680, longitude=-66.1620),
         bbox=[-66.1800, -17.3850, -66.1440, -17.3510],
@@ -192,8 +192,8 @@ COCHABAMBA_DISTRICTS: list[District] = [
     ),
     District(
         id=12,
-        name="Distrito 12 - Queru Queru",
-        zone="Noreste Urbano",
+        name="Distrito 12 - Cala Cala / Queru Queru",
+        zone="Norte Urbano",
         has_fixed_sensor=True,
         station_name="Av. Circunvalación (Red MÓNICA)",
         centroid=Centroid(latitude=-17.3620, longitude=-66.1490),

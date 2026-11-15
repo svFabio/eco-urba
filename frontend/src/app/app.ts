@@ -529,7 +529,9 @@ export class App implements OnInit, AfterViewInit {
           ? `<br><span style="color:#059669;font-weight:600">Sensor MÓNICA: ${props.station_name}</span>`
           : '<br><span style="color:#71717a;font-style:italic">Sensado Virtual</span>';
 
-        const areaText = props.area_km2 ? `<br>Superficie: <strong>${props.area_km2} km²</strong>` : '';
+        const areaText = props.area_km2
+          ? `<br>Superficie: <strong>${Number(props.area_km2).toFixed(2)} km²</strong>`
+          : '';
 
         layer.bindPopup(
           `<strong>${props.name}</strong><br><span style="color:#71717a">${props.zone}</span>${areaText}${sensorText}`
