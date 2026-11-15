@@ -41,6 +41,8 @@ class DistrictGeoJSONProperties(BaseModel):
     centroid: list[float]
     area_km2: float
     municipio: str = "Cochabamba (Cercado)"
+    heat_island_risk: str | None = None
+    tree_canopy_pct: float | None = None
     microclimate: MicroclimateProfile | None = None
 
 

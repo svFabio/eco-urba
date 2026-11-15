@@ -317,6 +317,8 @@ class DistrictService:
                     ),
                     "area_km2": float(props.get("area_km2", district.area_km2 if district else 0.0)),
                     "municipio": props.get("municipio", "Cochabamba (Cercado)"),
+                    "heat_island_risk": district.microclimate.heat_island_risk if district and district.microclimate else None,
+                    "tree_canopy_pct": district.microclimate.tree_canopy_pct if district and district.microclimate else None,
                     "microclimate": district.microclimate.model_dump() if district and district.microclimate else None,
                 }
 
@@ -357,6 +359,8 @@ class DistrictService:
                         "centroid": [d.centroid.longitude, d.centroid.latitude],
                         "area_km2": d.area_km2,
                         "municipio": "Cochabamba (Cercado)",
+                        "heat_island_risk": d.microclimate.heat_island_risk if d.microclimate else None,
+                        "tree_canopy_pct": d.microclimate.tree_canopy_pct if d.microclimate else None,
                         "microclimate": d.microclimate.model_dump() if d.microclimate else None,
                     },
                 )
