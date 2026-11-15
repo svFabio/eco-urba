@@ -1,18 +1,11 @@
+import json
+from pathlib import Path
+
 from backend.schemas.poi import POI, POIType
 
-_POIS: list[POI] = [
-    # Schools
-    POI(id="school-1", name="U.E. Simón Bolívar", type="school", lat=-17.3942, lng=-66.1572, district_id=10),
-    POI(id="school-2", name="U.E. Mariscal Sucre", type="school", lat=-17.3700, lng=-66.1610, district_id=4),
-    POI(id="school-3", name="U.E. Bolivia", type="school", lat=-17.3875, lng=-66.1448, district_id=11),
-    POI(id="school-4", name="Colegio La Salle", type="school", lat=-17.3630, lng=-66.1510, district_id=12),
-    POI(id="school-5", name="U.E. Ayacucho", type="school", lat=-17.3960, lng=-66.1555, district_id=10),
-    # Hospitals
-    POI(id="hospital-1", name="Hospital Viedma", type="hospital", lat=-17.3920, lng=-66.1540, district_id=10),
-    POI(id="hospital-2", name="Clínica Americana", type="hospital", lat=-17.3715, lng=-66.1590, district_id=4),
-    POI(id="hospital-3", name="Hospital del Niño", type="hospital", lat=-17.3948, lng=-66.1562, district_id=10),
-    POI(id="hospital-4", name="Hospital Cochabamba", type="hospital", lat=-17.4080, lng=-66.1500, district_id=5),
-    POI(id="hospital-5", name="Policlínico Central", type="hospital", lat=-17.3890, lng=-66.1430, district_id=11),
+_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+_PARKS_AND_GREEN: list[POI] = [
     # Parks & Green Spaces (Iconic Cochabamba Urban Reserves)
     POI(
         id="green-tunari",
@@ -127,7 +120,33 @@ _POIS: list[POI] = [
 ]
 
 
+def _build_pois() -> list[POI]:
+    pois: list[POI] = []
+
+    # 1. Real georeferenced schools in Cercado
+    schools_file = _DATA_DIR / "schools_cercado.json"
+    if schools_file.exists():
+        with open(schools_file, "r", encoding="utf-8") as f:
+            for item in json.load(f):
+                pois.append(POI(**item))
+
+    # 2. Real georeferenced hospitals and health centers in Cercado
+    hospitals_file = _DATA_DIR / "hospitals_cercado.json"
+    if hospitals_file.exists():
+        with open(hospitals_file, "r", encoding="utf-8") as f:
+            for item in json.load(f):
+                pois.append(POI(**item))
+
+    # 3. Add urban parks and green reserves
+    pois.extend(_PARKS_AND_GREEN)
+    return pois
+
+
+_POIS: list[POI] = _build_pois()
+
+
 def get_pois(poi_type: POIType | None = None) -> list[POI]:
     if poi_type is None:
         return _POIS
     return [p for p in _POIS if p.type == poi_type]
+

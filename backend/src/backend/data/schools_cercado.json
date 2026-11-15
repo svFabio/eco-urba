@@ -1,0 +1,2472 @@
+[
+  {
+    "id": "school-osm-293942220",
+    "name": "Colegio Federico Froebel",
+    "type": "school",
+    "lat": -17.36145,
+    "lng": -66.1468,
+    "district_id": 1,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 1 (Cercado)"
+  },
+  {
+    "id": "school-osm-153054922",
+    "name": "Unidad Educativa Cochabamba Cooperative School - Calvert",
+    "type": "school",
+    "lat": -17.37098,
+    "lng": -66.13233,
+    "district_id": 1,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 1 (Cercado)"
+  },
+  {
+    "id": "school-osm-465970785",
+    "name": "Unidad Educativa Edmundo Bojanowski",
+    "type": "school",
+    "lat": -17.37094,
+    "lng": -66.1238,
+    "district_id": 1,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 1 (Cercado)"
+  },
+  {
+    "id": "school-osm-5497843042",
+    "name": "Unidad Educativa Lía Rivera de Guzmán",
+    "type": "school",
+    "lat": -17.36601,
+    "lng": -66.14837,
+    "district_id": 1,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 1 (Cercado)"
+  },
+  {
+    "id": "school-osm-5565609741",
+    "name": "Unidad Educativa Melchor Guzmán Quitón",
+    "type": "school",
+    "lat": -17.36719,
+    "lng": -66.14717,
+    "district_id": 1,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 1 (Cercado)"
+  },
+  {
+    "id": "school-osm-358569183",
+    "name": "Colegio Maryland",
+    "type": "school",
+    "lat": -17.34986,
+    "lng": -66.17656,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-10765459087",
+    "name": "Unidad Educativa Club de Leones A",
+    "type": "school",
+    "lat": -17.3643,
+    "lng": -66.16522,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-8546994814",
+    "name": "Unidad Educativa Cochabamba A",
+    "type": "school",
+    "lat": -17.36377,
+    "lng": -66.17654,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-8546994815",
+    "name": "Unidad Educativa Cochabamba B",
+    "type": "school",
+    "lat": -17.36406,
+    "lng": -66.17688,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-10765459086",
+    "name": "Unidad Educativa Jesus Lara",
+    "type": "school",
+    "lat": -17.36468,
+    "lng": -66.16538,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-1159763224",
+    "name": "Unidad Educativa John Dewey",
+    "type": "school",
+    "lat": -17.3649,
+    "lng": -66.17379,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-1159763225",
+    "name": "Unidad Educativa John Dewey",
+    "type": "school",
+    "lat": -17.36483,
+    "lng": -66.17381,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-320862512",
+    "name": "Unidad Educativa Marista",
+    "type": "school",
+    "lat": -17.36212,
+    "lng": -66.16203,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-469898792",
+    "name": "Unidad Educativa Max Fernández",
+    "type": "school",
+    "lat": -17.34308,
+    "lng": -66.17838,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-175667936",
+    "name": "Unidad Educativa Nuestra Señora del Pilar",
+    "type": "school",
+    "lat": -17.35493,
+    "lng": -66.16747,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-547505536",
+    "name": "Unidad Educativa Otto Felipe Brawn",
+    "type": "school",
+    "lat": -17.35015,
+    "lng": -66.18625,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-8546994816",
+    "name": "Unidad Educativa Petrolero Sanandita",
+    "type": "school",
+    "lat": -17.36426,
+    "lng": -66.17653,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-529820011",
+    "name": "Unidad Educativa Santiago Marista",
+    "type": "school",
+    "lat": -17.34964,
+    "lng": -66.1651,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-469898798",
+    "name": "Unidad Educativa Taquiña Central",
+    "type": "school",
+    "lat": -17.34397,
+    "lng": -66.17785,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-316395439",
+    "name": "Unidad Educativa Temporal",
+    "type": "school",
+    "lat": -17.36109,
+    "lng": -66.15879,
+    "district_id": 2,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "school-osm-7956609162",
+    "name": "Colegio Albert Einstein",
+    "type": "school",
+    "lat": -17.38653,
+    "lng": -66.18729,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-581351795",
+    "name": "Colegio Cosmos",
+    "type": "school",
+    "lat": -17.35851,
+    "lng": -66.1839,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-4109586729",
+    "name": "U.E. Maria Montesorio",
+    "type": "school",
+    "lat": -17.36961,
+    "lng": -66.18517,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-1364975921",
+    "name": "UE Colegio Santo Domingo de Guzman",
+    "type": "school",
+    "lat": -17.37125,
+    "lng": -66.18859,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-426506131",
+    "name": "Unidad Educativa 14 de Septiembre",
+    "type": "school",
+    "lat": -17.36763,
+    "lng": -66.18049,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-10675462332",
+    "name": "Unidad Educativa Antofagasta",
+    "type": "school",
+    "lat": -17.38693,
+    "lng": -66.18495,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-1364970034",
+    "name": "Unidad Educativa Edgar Montaño",
+    "type": "school",
+    "lat": -17.37553,
+    "lng": -66.18648,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-1364970031",
+    "name": "Unidad Educativa Facundo Quiroga",
+    "type": "school",
+    "lat": -17.37438,
+    "lng": -66.18962,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-408164511",
+    "name": "Unidad Educativa Jorge Vasquez",
+    "type": "school",
+    "lat": -17.37357,
+    "lng": -66.18092,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-453155823",
+    "name": "Unidad Educativa Juan Antonio Cabrerizo",
+    "type": "school",
+    "lat": -17.35508,
+    "lng": -66.19013,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-10675462331",
+    "name": "Unidad Educativa Litoral",
+    "type": "school",
+    "lat": -17.38676,
+    "lng": -66.18532,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-5607875068",
+    "name": "Unidad Educativa Luis Quintin Vila A",
+    "type": "school",
+    "lat": -17.37512,
+    "lng": -66.18634,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-9279028366",
+    "name": "Unidad Educativa Luis Quintin Vila Nocturno",
+    "type": "school",
+    "lat": -17.37533,
+    "lng": -66.18641,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-426506146",
+    "name": "Unidad Educativa Mariscal Otto Felipe Braun",
+    "type": "school",
+    "lat": -17.36244,
+    "lng": -66.18896,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-5541515854",
+    "name": "Unidad Educativa Mayor Víctor Ustariz",
+    "type": "school",
+    "lat": -17.3746,
+    "lng": -66.18924,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-580598864",
+    "name": "Unidad Educativa San José",
+    "type": "school",
+    "lat": -17.38988,
+    "lng": -66.19298,
+    "district_id": 3,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "school-osm-70711401",
+    "name": "Colegio Nacional Avaroa",
+    "type": "school",
+    "lat": -17.39797,
+    "lng": -66.18119,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-577861479",
+    "name": "U.E Nuestra Se{ora de la Merced",
+    "type": "school",
+    "lat": -17.39739,
+    "lng": -66.20716,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-12077487683",
+    "name": "U.E. Geronimo de Osorio",
+    "type": "school",
+    "lat": -17.39647,
+    "lng": -66.18645,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13657580919",
+    "name": "Unidad Educativa Adela Zamudio A",
+    "type": "school",
+    "lat": -17.39625,
+    "lng": -66.1684,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-5354935125",
+    "name": "Unidad Educativa Cochabamba 3",
+    "type": "school",
+    "lat": -17.39726,
+    "lng": -66.19362,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-2477244618",
+    "name": "Unidad Educativa Eliodoro Villazón",
+    "type": "school",
+    "lat": -17.39938,
+    "lng": -66.16888,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-416838755",
+    "name": "Unidad Educativa Felix Capriles",
+    "type": "school",
+    "lat": -17.40826,
+    "lng": -66.18236,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13657580920",
+    "name": "Unidad Educativa Francisco Gonzales Prada",
+    "type": "school",
+    "lat": -17.39619,
+    "lng": -66.1692,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-732465642",
+    "name": "Unidad Educativa Fátima",
+    "type": "school",
+    "lat": -17.39878,
+    "lng": -66.17836,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13673322672",
+    "name": "Unidad Educativa Guillermo Urquidi",
+    "type": "school",
+    "lat": -17.39555,
+    "lng": -66.16816,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13673372610",
+    "name": "Unidad Educativa José Cupertino Caero Vides",
+    "type": "school",
+    "lat": -17.39584,
+    "lng": -66.16818,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-5541513898",
+    "name": "Unidad Educativa José Ignacio de Sanjines",
+    "type": "school",
+    "lat": -17.38503,
+    "lng": -66.20607,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-429427555",
+    "name": "Unidad Educativa Juan XXIII",
+    "type": "school",
+    "lat": -17.38963,
+    "lng": -66.20196,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-558863536",
+    "name": "Unidad Educativa Juancito Pinto",
+    "type": "school",
+    "lat": -17.38917,
+    "lng": -66.20342,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-5577418221",
+    "name": "Unidad Educativa Maria Cristina",
+    "type": "school",
+    "lat": -17.39777,
+    "lng": -66.20732,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-5515417418",
+    "name": "Unidad Educativa Nataniel Aguirre",
+    "type": "school",
+    "lat": -17.39909,
+    "lng": -66.16906,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-5577418321",
+    "name": "Unidad Educativa Nuestra Señora de la Merced A",
+    "type": "school",
+    "lat": -17.39736,
+    "lng": -66.2073,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13673372612",
+    "name": "Unidad Educativa Rene Crespo Rico",
+    "type": "school",
+    "lat": -17.39581,
+    "lng": -66.16884,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-13673372611",
+    "name": "Unidad Educativa República de México",
+    "type": "school",
+    "lat": -17.39552,
+    "lng": -66.16884,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-352179180",
+    "name": "Unidad Educativa Santa María Micaela",
+    "type": "school",
+    "lat": -17.407,
+    "lng": -66.17679,
+    "district_id": 4,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "school-osm-176055028",
+    "name": "Colegio Santo Domingo Savio",
+    "type": "school",
+    "lat": -17.42107,
+    "lng": -66.15913,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-5583407426",
+    "name": "U. E. Mariscal Santa Cruz",
+    "type": "school",
+    "lat": -17.41364,
+    "lng": -66.15697,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-523162527",
+    "name": "Unidad Educativa 6 de Agosto",
+    "type": "school",
+    "lat": -17.4395,
+    "lng": -66.16144,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-1085210271",
+    "name": "Unidad Educativa Boliviano Japón",
+    "type": "school",
+    "lat": -17.42684,
+    "lng": -66.16495,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-5125832556",
+    "name": "Unidad Educativa Católico Mixto San Francisco",
+    "type": "school",
+    "lat": -17.43277,
+    "lng": -66.15689,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-5125832557",
+    "name": "Unidad Educativa Católico Santa Clara de Asís",
+    "type": "school",
+    "lat": -17.43274,
+    "lng": -66.15656,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-581614581",
+    "name": "Unidad Educativa Eduardo López",
+    "type": "school",
+    "lat": -17.42723,
+    "lng": -66.17725,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-8048993267",
+    "name": "Unidad Educativa Fuerza Aérea",
+    "type": "school",
+    "lat": -17.42069,
+    "lng": -66.16742,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-686098790",
+    "name": "Unidad Educativa Madre de la Divina Providencia",
+    "type": "school",
+    "lat": -17.43934,
+    "lng": -66.14981,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-523150681",
+    "name": "Unidad Educativa Maria Auxiliadora",
+    "type": "school",
+    "lat": -17.43478,
+    "lng": -66.15957,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-323734687",
+    "name": "Unidad Educativa Sagrada Familia",
+    "type": "school",
+    "lat": -17.42512,
+    "lng": -66.16425,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-864010884",
+    "name": "Unidad Educativa San Francisco de Asis A",
+    "type": "school",
+    "lat": -17.41349,
+    "lng": -66.16796,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-8048993266",
+    "name": "Unidad Educativa Teniente Coronel Rafael Pabón Cuevas",
+    "type": "school",
+    "lat": -17.42182,
+    "lng": -66.16714,
+    "district_id": 5,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "school-osm-8945388399",
+    "name": "Unidad Educativa Alfalit Boliviano CEA",
+    "type": "school",
+    "lat": -17.41914,
+    "lng": -66.14505,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-348076413",
+    "name": "Unidad Educativa América del Sur",
+    "type": "school",
+    "lat": -17.42202,
+    "lng": -66.13816,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8945406830",
+    "name": "Unidad Educativa Buenas Nuevas A",
+    "type": "school",
+    "lat": -17.41995,
+    "lng": -66.14609,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8945406831",
+    "name": "Unidad Educativa Buenas Nuevas B",
+    "type": "school",
+    "lat": -17.41999,
+    "lng": -66.14528,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8945388397",
+    "name": "Unidad Educativa Buenas Nuevas C",
+    "type": "school",
+    "lat": -17.41906,
+    "lng": -66.146,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8945388398",
+    "name": "Unidad Educativa Buenas Nuevas D",
+    "type": "school",
+    "lat": -17.4191,
+    "lng": -66.14558,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-10720370002",
+    "name": "Unidad Educativa Doctor Darío Montaño",
+    "type": "school",
+    "lat": -17.42189,
+    "lng": -66.1353,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8433598050",
+    "name": "Unidad Educativa Fidel Aranibar",
+    "type": "school",
+    "lat": -17.40019,
+    "lng": -66.14625,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-580607660",
+    "name": "Unidad Educativa Jorge Cabrera Acuña",
+    "type": "school",
+    "lat": -17.41627,
+    "lng": -66.15112,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8433598049",
+    "name": "Unidad Educativa Ladislao Cabrera",
+    "type": "school",
+    "lat": -17.40044,
+    "lng": -66.14644,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-5290240515",
+    "name": "Unidad Educativa Liborio Cadima",
+    "type": "school",
+    "lat": -17.41991,
+    "lng": -66.13705,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-10720370003",
+    "name": "Unidad Educativa Luis Guzmán Araujo",
+    "type": "school",
+    "lat": -17.42142,
+    "lng": -66.13551,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-5290240514",
+    "name": "Unidad Educativa Martín Cardenas",
+    "type": "school",
+    "lat": -17.42001,
+    "lng": -66.13716,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-885780194",
+    "name": "Unidad Educativa Villa Santa Cruz A",
+    "type": "school",
+    "lat": -17.41498,
+    "lng": -66.15033,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-8433598048",
+    "name": "Unidad Educativa Walter Vallejos",
+    "type": "school",
+    "lat": -17.40026,
+    "lng": -66.14675,
+    "district_id": 6,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "school-osm-5375246621",
+    "name": "U. E. Nordico Boliviano",
+    "type": "school",
+    "lat": -17.42533,
+    "lng": -66.12354,
+    "district_id": 7,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 7 (Cercado)"
+  },
+  {
+    "id": "school-osm-6132343497",
+    "name": "U.E. Marcelo Quiroga Santa Cruz",
+    "type": "school",
+    "lat": -17.48559,
+    "lng": -66.09534,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-621875988",
+    "name": "U.E. San Vicente",
+    "type": "school",
+    "lat": -17.4803,
+    "lng": -66.10061,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-1282637656",
+    "name": "Unidad Educativa Compañía de Jesús",
+    "type": "school",
+    "lat": -17.46058,
+    "lng": -66.12455,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-862890728",
+    "name": "Unidad Educativa El Salvador",
+    "type": "school",
+    "lat": -17.44751,
+    "lng": -66.12085,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-351558673",
+    "name": "Unidad Educativa Maria Josefa Mujia",
+    "type": "school",
+    "lat": -17.42743,
+    "lng": -66.14338,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-356660914",
+    "name": "Unidad Educativa Nueva Vera Cruz",
+    "type": "school",
+    "lat": -17.46317,
+    "lng": -66.11745,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-262871568",
+    "name": "Unidad Educativa Obispo Anaya",
+    "type": "school",
+    "lat": -17.45276,
+    "lng": -66.12936,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-1541138632",
+    "name": "Unidad Educativa Tupac Katari",
+    "type": "school",
+    "lat": -17.43741,
+    "lng": -66.13562,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-622150489",
+    "name": "Unidad Educativa Técnico Humanístico",
+    "type": "school",
+    "lat": -17.48129,
+    "lng": -66.10486,
+    "district_id": 8,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "school-osm-578594267",
+    "name": "Complejo del Colegio de Auditores Cochabamba",
+    "type": "school",
+    "lat": -17.40474,
+    "lng": -66.21053,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-620645679",
+    "name": "Escuela",
+    "type": "school",
+    "lat": -17.46709,
+    "lng": -66.20385,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-5081905021",
+    "name": "Unidad Educativa 6 de Agosto",
+    "type": "school",
+    "lat": -17.44551,
+    "lng": -66.16497,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-5081905121",
+    "name": "Unidad Educativa Alcides Arguedas A",
+    "type": "school",
+    "lat": -17.44504,
+    "lng": -66.16481,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-890834114",
+    "name": "Unidad Educativa Antonio Diez",
+    "type": "school",
+    "lat": -17.47087,
+    "lng": -66.17937,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-13728929011",
+    "name": "Unidad Educativa Bartolina Sisa",
+    "type": "school",
+    "lat": -17.44812,
+    "lng": -66.15588,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-13728929010",
+    "name": "Unidad Educativa Carlos Medinacelli",
+    "type": "school",
+    "lat": -17.44734,
+    "lng": -66.15581,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-481487863",
+    "name": "Unidad Educativa Luz y Verdad",
+    "type": "school",
+    "lat": -17.44332,
+    "lng": -66.15326,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-971867011",
+    "name": "Unidad Educativa Padre Luis Dies del Pozo",
+    "type": "school",
+    "lat": -17.44375,
+    "lng": -66.19639,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-503478066",
+    "name": "Unidad Educativa San Antonio de Pucara",
+    "type": "school",
+    "lat": -17.45463,
+    "lng": -66.16636,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-6085871861",
+    "name": "Unidad Educativa Villa Alto Florida",
+    "type": "school",
+    "lat": -17.49032,
+    "lng": -66.1907,
+    "district_id": 9,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "school-osm-9181462627",
+    "name": "Auditorio Colegio de Abogados de Cochabamba",
+    "type": "school",
+    "lat": -17.39157,
+    "lng": -66.15624,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-821656778",
+    "name": "Centro Artístico Cultural Municipal Bicentenario",
+    "type": "school",
+    "lat": -17.39044,
+    "lng": -66.15843,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-1038909656",
+    "name": "Centro de Intermodalidad",
+    "type": "school",
+    "lat": -17.39521,
+    "lng": -66.15991,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-222267175",
+    "name": "Ciclovía Ecuador-Carlos Blanco Galindo",
+    "type": "school",
+    "lat": -17.39136,
+    "lng": -66.1657,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5371441320",
+    "name": "Colegio Anglo Japones",
+    "type": "school",
+    "lat": -17.39532,
+    "lng": -66.16312,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-12614210816",
+    "name": "Colegio Bioquímica y Farmacia",
+    "type": "school",
+    "lat": -17.38772,
+    "lng": -66.15321,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-4313264565",
+    "name": "Colegio Departamental de Auditores",
+    "type": "school",
+    "lat": -17.3955,
+    "lng": -66.15682,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-884640228",
+    "name": "Colegio Departamental de Contadores de Cochabamba",
+    "type": "school",
+    "lat": -17.39174,
+    "lng": -66.15991,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5645184894",
+    "name": "Colegio Hispano Boliviano",
+    "type": "school",
+    "lat": -17.39724,
+    "lng": -66.15136,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-986185976",
+    "name": "Colegio Médico Departamental de Cochabamba",
+    "type": "school",
+    "lat": -17.39117,
+    "lng": -66.15866,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2634812291",
+    "name": "Colegio Nacional Abaroa",
+    "type": "school",
+    "lat": -17.3951,
+    "lng": -66.15853,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2398944576",
+    "name": "Colegio Nacional Nocturno Franz Tamayo",
+    "type": "school",
+    "lat": -17.39516,
+    "lng": -66.15891,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-551184268",
+    "name": "Colegio San José",
+    "type": "school",
+    "lat": -17.40185,
+    "lng": -66.15463,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-550050545",
+    "name": "Colegio Santa Ana",
+    "type": "school",
+    "lat": -17.39322,
+    "lng": -66.15275,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-993778539",
+    "name": "Colegio de Abogados de Cochabamba",
+    "type": "school",
+    "lat": -17.39172,
+    "lng": -66.15618,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-1150603498",
+    "name": "Colegio de Arquitectos de Cochabamba",
+    "type": "school",
+    "lat": -17.39671,
+    "lng": -66.15941,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-1284842396",
+    "name": "Colegio de Odontólogos de Cochabamba",
+    "type": "school",
+    "lat": -17.38477,
+    "lng": -66.1622,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5117995216",
+    "name": "Colegio de Topógrafos de Bolivia",
+    "type": "school",
+    "lat": -17.38485,
+    "lng": -66.16125,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5296637072",
+    "name": "Colegio de Topógrafos de Bolivia",
+    "type": "school",
+    "lat": -17.38731,
+    "lng": -66.1536,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-265746996",
+    "name": "Colegio Ítalo Boliviano",
+    "type": "school",
+    "lat": -17.40389,
+    "lng": -66.1672,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-7383085",
+    "name": "Edficio Colegio Bolívar",
+    "type": "school",
+    "lat": -17.39351,
+    "lng": -66.15354,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-13039340",
+    "name": "Edficio Colegio Nacional Sucre",
+    "type": "school",
+    "lat": -17.39349,
+    "lng": -66.15311,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-388166865",
+    "name": "Escuela Militar de Ingeniería",
+    "type": "school",
+    "lat": -17.38369,
+    "lng": -66.15722,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-408701976",
+    "name": "Escuela Militar de Ingeniería",
+    "type": "school",
+    "lat": -17.38375,
+    "lng": -66.15686,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5319274467",
+    "name": "Escuela de Cocina",
+    "type": "school",
+    "lat": -17.38442,
+    "lng": -66.1572,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-926482154",
+    "name": "Federación de Juntas Vecinales Cochabamba",
+    "type": "school",
+    "lat": -17.3918,
+    "lng": -66.15831,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-1007437776",
+    "name": "Instituto Técnico Superior de Comercio Federico Alvarez Plata",
+    "type": "school",
+    "lat": -17.39587,
+    "lng": -66.15781,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-1563359166",
+    "name": "Instituto de Educación Bancaria",
+    "type": "school",
+    "lat": -17.39193,
+    "lng": -66.15633,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-11170605496",
+    "name": "Salon de eventos del Colegio Médico Cochabamba",
+    "type": "school",
+    "lat": -17.38849,
+    "lng": -66.15719,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-3719465028",
+    "name": "U. E. Catolica England Cristo Rey",
+    "type": "school",
+    "lat": -17.39783,
+    "lng": -66.15436,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2426356012",
+    "name": "U.E. 27 de Mayo",
+    "type": "school",
+    "lat": -17.39703,
+    "lng": -66.15705,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-4959224262",
+    "name": "U.E. CEA 27 de Mayo",
+    "type": "school",
+    "lat": -17.39709,
+    "lng": -66.15704,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-8964752763",
+    "name": "U.E. Julio Paz Terrazas",
+    "type": "school",
+    "lat": -17.39577,
+    "lng": -66.15425,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-8964752764",
+    "name": "U.E. María Josefa Mujía",
+    "type": "school",
+    "lat": -17.39559,
+    "lng": -66.15428,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-4959224260",
+    "name": "U.E. Nestor Galindo",
+    "type": "school",
+    "lat": -17.39716,
+    "lng": -66.15703,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-8964752762",
+    "name": "U.E. República Argentina",
+    "type": "school",
+    "lat": -17.39593,
+    "lng": -66.15421,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-4959224261",
+    "name": "U.E. Roberto Alvarado",
+    "type": "school",
+    "lat": -17.39725,
+    "lng": -66.15701,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-11639175",
+    "name": "Unidad Educativa Alemán Santa María",
+    "type": "school",
+    "lat": -17.3908,
+    "lng": -66.1527,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2630687675",
+    "name": "Unidad Educativa Bolivariano Nacional Sucre",
+    "type": "school",
+    "lat": -17.39362,
+    "lng": -66.15322,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-579368181",
+    "name": "Unidad Educativa Boliviano Argentino",
+    "type": "school",
+    "lat": -17.39162,
+    "lng": -66.1582,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-13663926855",
+    "name": "Unidad Educativa Cochabamba D",
+    "type": "school",
+    "lat": -17.39093,
+    "lng": -66.1587,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2630687676",
+    "name": "Unidad Educativa Daniel Sánchez Bustamante",
+    "type": "school",
+    "lat": -17.39293,
+    "lng": -66.15331,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-554371098",
+    "name": "Unidad Educativa Emanuel",
+    "type": "school",
+    "lat": -17.38636,
+    "lng": -66.15834,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-897742241",
+    "name": "Unidad Educativa Héroes de Boquerón",
+    "type": "school",
+    "lat": -17.38287,
+    "lng": -66.15498,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2634812293",
+    "name": "Unidad Educativa José Quintín Mendoza",
+    "type": "school",
+    "lat": -17.3861,
+    "lng": -66.15905,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-4675306302",
+    "name": "Unidad Educativa Juana Azurduy de Padilla",
+    "type": "school",
+    "lat": -17.39213,
+    "lng": -66.16054,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-918159750",
+    "name": "Unidad Educativa Kochapampa",
+    "type": "school",
+    "lat": -17.3854,
+    "lng": -66.16082,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-28436293",
+    "name": "Unidad Educativa La Salle",
+    "type": "school",
+    "lat": -17.38909,
+    "lng": -66.16118,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-9419724307",
+    "name": "Unidad Educativa La Salle A",
+    "type": "school",
+    "lat": -17.40422,
+    "lng": -66.16898,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-9419724308",
+    "name": "Unidad Educativa La Salle B",
+    "type": "school",
+    "lat": -17.40433,
+    "lng": -66.16836,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-9419724309",
+    "name": "Unidad Educativa La Salle C",
+    "type": "school",
+    "lat": -17.40458,
+    "lng": -66.16905,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-9419724310",
+    "name": "Unidad Educativa La Salle D",
+    "type": "school",
+    "lat": -17.40473,
+    "lng": -66.16845,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-8964752696",
+    "name": "Unidad Educativa Nacional Bolívar",
+    "type": "school",
+    "lat": -17.39365,
+    "lng": -66.15345,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-8964752697",
+    "name": "Unidad Educativa Nacional Junín",
+    "type": "school",
+    "lat": -17.39341,
+    "lng": -66.15349,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-5350197562",
+    "name": "Unidad Educativa Nocturno Ricardo Jaimes Freyre",
+    "type": "school",
+    "lat": -17.3873,
+    "lng": -66.15901,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-2354283168",
+    "name": "Unidad Educativa Ricardo Jaimes Freyre",
+    "type": "school",
+    "lat": -17.38743,
+    "lng": -66.15878,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-13753141784",
+    "name": "Unidad Educativa Santa María",
+    "type": "school",
+    "lat": -17.39063,
+    "lng": -66.15277,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-12888699964",
+    "name": "Unidad Educativa Vivir en Armonia",
+    "type": "school",
+    "lat": -17.38468,
+    "lng": -66.15484,
+    "district_id": 10,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "school-osm-895340128",
+    "name": "Bosquecillo Escuela Mercedes Candia",
+    "type": "school",
+    "lat": -17.39397,
+    "lng": -66.13925,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-937539376",
+    "name": "Edificio Unidad Educativa Adventista Domingo Faustino Sarmiento",
+    "type": "school",
+    "lat": -17.38943,
+    "lng": -66.1477,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-506888139",
+    "name": "Escuela Militar de Ingeniería",
+    "type": "school",
+    "lat": -17.37919,
+    "lng": -66.1477,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-4914008953",
+    "name": "Escuela Superior de Administración de Empresas",
+    "type": "school",
+    "lat": -17.38955,
+    "lng": -66.14344,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-13889432002",
+    "name": "Escuela Técnica de Salud",
+    "type": "school",
+    "lat": -17.38573,
+    "lng": -66.14745,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-13889430203",
+    "name": "Escuela Técnica de Salud",
+    "type": "school",
+    "lat": -17.3863,
+    "lng": -66.14764,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-13889430204",
+    "name": "Escuela Técnica de Salud",
+    "type": "school",
+    "lat": -17.3859,
+    "lng": -66.14765,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-206475849",
+    "name": "Escuela Técnica de Salud Boliviano Japonesa de Cooperación Andina",
+    "type": "school",
+    "lat": -17.38631,
+    "lng": -66.14702,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-70711353",
+    "name": "Escuela de Aplicación de Armas y Tecnología Mariscal José Ballivián y Segurola",
+    "type": "school",
+    "lat": -17.37829,
+    "lng": -66.14341,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-5346201221",
+    "name": "Escuela de Baloncesto Atletas del Cristo",
+    "type": "school",
+    "lat": -17.38483,
+    "lng": -66.14399,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-12732020472",
+    "name": "Escuela de Fútbol La Gambeta",
+    "type": "school",
+    "lat": -17.39045,
+    "lng": -66.14644,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-539949009",
+    "name": "Escuela de Idiomas de la Armada Boliviana",
+    "type": "school",
+    "lat": -17.38301,
+    "lng": -66.14274,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-5351180860",
+    "name": "Escuela de Idiomas del Ejército",
+    "type": "school",
+    "lat": -17.3785,
+    "lng": -66.14586,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-1298729723",
+    "name": "Escuela de Natación Hércules",
+    "type": "school",
+    "lat": -17.39003,
+    "lng": -66.14263,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-1298729724",
+    "name": "Escuela de Natación Hércules",
+    "type": "school",
+    "lat": -17.39007,
+    "lng": -66.14274,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-976221967",
+    "name": "Facultad Odontología",
+    "type": "school",
+    "lat": -17.3868,
+    "lng": -66.14977,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-976221968",
+    "name": "Facultad de Ciencias Farmacéuticas y Bioquímicas",
+    "type": "school",
+    "lat": -17.38733,
+    "lng": -66.14965,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-902178133",
+    "name": "Paso a Desnivel Ramón Rivero-Aniceto Arce",
+    "type": "school",
+    "lat": -17.37919,
+    "lng": -66.1431,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-1298729725",
+    "name": "Piscina Escuela de Natación Hércules",
+    "type": "school",
+    "lat": -17.38983,
+    "lng": -66.14262,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-9031313613",
+    "name": "Unidad Educativa Abel Aranibar",
+    "type": "school",
+    "lat": -17.38572,
+    "lng": -66.14934,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-8253296164",
+    "name": "Unidad Educativa Ave María",
+    "type": "school",
+    "lat": -17.3978,
+    "lng": -66.13863,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-192797158",
+    "name": "Unidad Educativa CENDI San Simón",
+    "type": "school",
+    "lat": -17.39255,
+    "lng": -66.14428,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-917587803",
+    "name": "Unidad Educativa Capilla de Cochabamba",
+    "type": "school",
+    "lat": -17.37527,
+    "lng": -66.13193,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-970237858",
+    "name": "Unidad Educativa Domingo Faustino Sarmiento",
+    "type": "school",
+    "lat": -17.3894,
+    "lng": -66.1477,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-156109516",
+    "name": "Unidad Educativa Don Bosco Cochabamba",
+    "type": "school",
+    "lat": -17.38321,
+    "lng": -66.15097,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-414312965",
+    "name": "Unidad Educativa Esclavas del Sagrado Corazón de Jesús",
+    "type": "school",
+    "lat": -17.37638,
+    "lng": -66.13686,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-236150572",
+    "name": "Unidad Educativa Héroes del Chaco",
+    "type": "school",
+    "lat": -17.37985,
+    "lng": -66.14639,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-8253296165",
+    "name": "Unidad Educativa Jesus María",
+    "type": "school",
+    "lat": -17.3977,
+    "lng": -66.13838,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-574203718",
+    "name": "Unidad Educativa Jesús Manuel Carmona",
+    "type": "school",
+    "lat": -17.39833,
+    "lng": -66.14364,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-575551017",
+    "name": "Unidad Educativa Latinoamericano",
+    "type": "school",
+    "lat": -17.382,
+    "lng": -66.14247,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-28665467",
+    "name": "Unidad Educativa Loyola",
+    "type": "school",
+    "lat": -17.38742,
+    "lng": -66.14655,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-13751732412",
+    "name": "Unidad Educativa Luis Guzman Araujo",
+    "type": "school",
+    "lat": -17.38956,
+    "lng": -66.14363,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-9031313614",
+    "name": "Unidad Educativa Manuel Taborga",
+    "type": "school",
+    "lat": -17.38544,
+    "lng": -66.14952,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-13751732409",
+    "name": "Unidad Educativa Petrona Navia",
+    "type": "school",
+    "lat": -17.38937,
+    "lng": -66.14365,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-231656326",
+    "name": "Unidad Educativa San Rafael",
+    "type": "school",
+    "lat": -17.39822,
+    "lng": -66.1395,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-2597502",
+    "name": "Unidad Educativa San Simón CENDI",
+    "type": "school",
+    "lat": -17.39234,
+    "lng": -66.14422,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-355443784",
+    "name": "Unidad Educativa del Ejercito Cochabamba",
+    "type": "school",
+    "lat": -17.37977,
+    "lng": -66.14569,
+    "district_id": 11,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "school-osm-47353694",
+    "name": "Centro Cultural Anglo Americano",
+    "type": "school",
+    "lat": -17.36883,
+    "lng": -66.15619,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-8677384215",
+    "name": "Colegio de Enfermeras",
+    "type": "school",
+    "lat": -17.37565,
+    "lng": -66.15091,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9395976202",
+    "name": "Colegio de Ingenierios Ambientales Cochabamba",
+    "type": "school",
+    "lat": -17.37345,
+    "lng": -66.17455,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-5346201521",
+    "name": "Escuela Patinaje",
+    "type": "school",
+    "lat": -17.37424,
+    "lng": -66.14569,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-5479142214",
+    "name": "Escuela de Conductores Bolivia",
+    "type": "school",
+    "lat": -17.36948,
+    "lng": -66.15102,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-1063123579",
+    "name": "Escuela de Estudios Avanzados en Odontología",
+    "type": "school",
+    "lat": -17.37287,
+    "lng": -66.17096,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-5497843041",
+    "name": "Escuela de Fútbol",
+    "type": "school",
+    "lat": -17.3676,
+    "lng": -66.14949,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-5357125890",
+    "name": "Escuela de Fútbol OTB Tupuraya",
+    "type": "school",
+    "lat": -17.37279,
+    "lng": -66.14039,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-8670124472",
+    "name": "Escuela de Fútbol SEDEDE Cochabamba",
+    "type": "school",
+    "lat": -17.38087,
+    "lng": -66.16082,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9007597525",
+    "name": "Escuela de Negocios",
+    "type": "school",
+    "lat": -17.3766,
+    "lng": -66.14786,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-578830935",
+    "name": "U.E. PARTICULAR",
+    "type": "school",
+    "lat": -17.37217,
+    "lng": -66.15513,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-545166714",
+    "name": "Uniad Educativa Isaac Attie",
+    "type": "school",
+    "lat": -17.3783,
+    "lng": -66.15871,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4478186793",
+    "name": "Unidad Educativa 6 de Junio",
+    "type": "school",
+    "lat": -17.38153,
+    "lng": -66.16628,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-987053497",
+    "name": "Unidad Educativa Adventista Cochabamba",
+    "type": "school",
+    "lat": -17.37371,
+    "lng": -66.16368,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-366421651",
+    "name": "Unidad Educativa Albert Einstein",
+    "type": "school",
+    "lat": -17.38458,
+    "lng": -66.17528,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-47353693",
+    "name": "Unidad Educativa Americano",
+    "type": "school",
+    "lat": -17.36859,
+    "lng": -66.15441,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9072275604",
+    "name": "Unidad Educativa Americano Vecinal A",
+    "type": "school",
+    "lat": -17.36963,
+    "lng": -66.15484,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9072275605",
+    "name": "Unidad Educativa Americano Vecinal B",
+    "type": "school",
+    "lat": -17.36932,
+    "lng": -66.15482,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9072275606",
+    "name": "Unidad Educativa Americano Vecinal C",
+    "type": "school",
+    "lat": -17.369,
+    "lng": -66.15481,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9072275607",
+    "name": "Unidad Educativa Americano Vecinal D",
+    "type": "school",
+    "lat": -17.36863,
+    "lng": -66.15479,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4665940915",
+    "name": "Unidad Educativa Beatriz H. de Bedregal",
+    "type": "school",
+    "lat": -17.36962,
+    "lng": -66.17521,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9003433489",
+    "name": "Unidad Educativa Benjamín Iriarte Rojas",
+    "type": "school",
+    "lat": -17.36804,
+    "lng": -66.16149,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4665940914",
+    "name": "Unidad Educativa Bernardino Bilbao Rioja",
+    "type": "school",
+    "lat": -17.36942,
+    "lng": -66.17493,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-2896379374",
+    "name": "Unidad Educativa Bolivia A",
+    "type": "school",
+    "lat": -17.37025,
+    "lng": -66.16454,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4139799869",
+    "name": "Unidad Educativa CEA Cochabamba",
+    "type": "school",
+    "lat": -17.37047,
+    "lng": -66.16482,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-297944301",
+    "name": "Unidad Educativa Cristo Redentor",
+    "type": "school",
+    "lat": -17.37678,
+    "lng": -66.15737,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-450920554",
+    "name": "Unidad Educativa Despertad",
+    "type": "school",
+    "lat": -17.3843,
+    "lng": -66.16541,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4139799870",
+    "name": "Unidad Educativa Elena Arze de Arze",
+    "type": "school",
+    "lat": -17.37047,
+    "lng": -66.16426,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-463802513",
+    "name": "Unidad Educativa España",
+    "type": "school",
+    "lat": -17.39104,
+    "lng": -66.16869,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-8947856389",
+    "name": "Unidad Educativa Faustino Suarez",
+    "type": "school",
+    "lat": -17.3841,
+    "lng": -66.1672,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9003433488",
+    "name": "Unidad Educativa Germán Busch",
+    "type": "school",
+    "lat": -17.3683,
+    "lng": -66.16121,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-3928838396",
+    "name": "Unidad Educativa Guindalina Loayza",
+    "type": "school",
+    "lat": -17.38112,
+    "lng": -66.1664,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-563674397",
+    "name": "Unidad Educativa Jaime Escalante",
+    "type": "school",
+    "lat": -17.36812,
+    "lng": -66.15811,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4115281663",
+    "name": "Unidad Educativa José Gabriel de Gumucio",
+    "type": "school",
+    "lat": -17.38381,
+    "lng": -66.16692,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-4665940916",
+    "name": "Unidad Educativa José María Santivañez",
+    "type": "school",
+    "lat": -17.36931,
+    "lng": -66.17549,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-9003433487",
+    "name": "Unidad Educativa Mario Antezana",
+    "type": "school",
+    "lat": -17.36798,
+    "lng": -66.16097,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-5481562718",
+    "name": "Unidad Educativa Multidisciplinaria Heroínas de la Coronilla",
+    "type": "school",
+    "lat": -17.38137,
+    "lng": -66.16675,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-916125907",
+    "name": "Unidad Educativa Padre Ignacio Zalles",
+    "type": "school",
+    "lat": -17.37457,
+    "lng": -66.13815,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-795126561",
+    "name": "Unidad Educativa Parroquial Santa Ana de Cala Cala Maryknoll",
+    "type": "school",
+    "lat": -17.37115,
+    "lng": -66.16131,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-175944267",
+    "name": "Unidad Educativa Parroquial Santa Ana de Cala Cala Maryknoll",
+    "type": "school",
+    "lat": -17.37717,
+    "lng": -66.16797,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-925301276",
+    "name": "Unidad Educativa Paulo Freire",
+    "type": "school",
+    "lat": -17.37391,
+    "lng": -66.16193,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-554373563",
+    "name": "Unidad Educativa Paulo VI",
+    "type": "school",
+    "lat": -17.38943,
+    "lng": -66.16989,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-202716313",
+    "name": "Unidad Educativa Pedro Poveda",
+    "type": "school",
+    "lat": -17.37437,
+    "lng": -66.14393,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-901022159",
+    "name": "Unidad Educativa San Agustín",
+    "type": "school",
+    "lat": -17.37298,
+    "lng": -66.144,
+    "district_id": 12,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "school-osm-770578752",
+    "name": "Colegio Jose Carlos Carrillo",
+    "type": "school",
+    "lat": -17.34429,
+    "lng": -66.15694,
+    "district_id": 13,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 13 (Cercado)"
+  },
+  {
+    "id": "school-osm-4279681434",
+    "name": "Unidad Educativa Fe y Alegría Sebastián Pagador",
+    "type": "school",
+    "lat": -17.43972,
+    "lng": -66.11795,
+    "district_id": 14,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 14 (Cercado)"
+  },
+  {
+    "id": "school-osm-146831938",
+    "name": "Unidad Educativa Juan Lechin Oquendo",
+    "type": "school",
+    "lat": -17.45203,
+    "lng": -66.11703,
+    "district_id": 14,
+    "sub_type": "Unidad Educativa",
+    "description": "Unidad Educativa en Distrito 14 (Cercado)"
+  }
+]

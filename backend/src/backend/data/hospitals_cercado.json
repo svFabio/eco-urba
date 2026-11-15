@@ -1,0 +1,1192 @@
+[
+  {
+    "id": "hospital-osm-226975279",
+    "name": "Centro de Salud Beato Salomón",
+    "type": "hospital",
+    "lat": -17.36072,
+    "lng": -66.17449,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-321323184",
+    "name": "Centro de Salud Edgar Montaño R.",
+    "type": "hospital",
+    "lat": -17.34668,
+    "lng": -66.17486,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921103190",
+    "name": "Centro de Salud Santa Ana de Condebamba",
+    "type": "hospital",
+    "lat": -17.35709,
+    "lng": -66.1778,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1180710450",
+    "name": "Centro de Salud Temporal",
+    "type": "hospital",
+    "lat": -17.3601,
+    "lng": -66.1582,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-616650192",
+    "name": "Centro de Salud Temporal",
+    "type": "hospital",
+    "lat": -17.36025,
+    "lng": -66.15827,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1286196200",
+    "name": "Centro de Salud Ticti Norte",
+    "type": "hospital",
+    "lat": -17.34616,
+    "lng": -66.16565,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1286196201",
+    "name": "Centro de Salud Ticti Norte",
+    "type": "hospital",
+    "lat": -17.34617,
+    "lng": -66.16563,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1084140723",
+    "name": "Clínica Víctor Arano",
+    "type": "hospital",
+    "lat": -17.36073,
+    "lng": -66.18013,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-909813715",
+    "name": "Hospital del Norte",
+    "type": "hospital",
+    "lat": -17.34887,
+    "lng": -66.17472,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-963770419",
+    "name": "Planta Criogénica Hospital del Norte",
+    "type": "hospital",
+    "lat": -17.34939,
+    "lng": -66.17503,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-963770432",
+    "name": "Planta Criogénica Hospital del Norte",
+    "type": "hospital",
+    "lat": -17.34943,
+    "lng": -66.17508,
+    "district_id": 2,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 2 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-11225380268",
+    "name": "Centro Clínico Los Olivos",
+    "type": "hospital",
+    "lat": -17.37771,
+    "lng": -66.17636,
+    "district_id": 3,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-965094784",
+    "name": "Clínica Cochabamba ProSalud",
+    "type": "hospital",
+    "lat": -17.36475,
+    "lng": -66.17924,
+    "district_id": 3,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-853546370",
+    "name": "Clínica Los Olivos",
+    "type": "hospital",
+    "lat": -17.38954,
+    "lng": -66.1798,
+    "district_id": 3,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 3 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1192716765",
+    "name": "Cancha Hospital Obrero N° 2",
+    "type": "hospital",
+    "lat": -17.39496,
+    "lng": -66.20553,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-590544760",
+    "name": "Centro de Salud Chimba",
+    "type": "hospital",
+    "lat": -17.40585,
+    "lng": -66.18168,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921092829",
+    "name": "Centro de Salud Chávez Rancho",
+    "type": "hospital",
+    "lat": -17.39497,
+    "lng": -66.19035,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-897403960",
+    "name": "Centro de Salud Rojas Mejía",
+    "type": "hospital",
+    "lat": -17.40112,
+    "lng": -66.17188,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-912257712",
+    "name": "Clínica ProSalud",
+    "type": "hospital",
+    "lat": -17.39477,
+    "lng": -66.18039,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-160442273",
+    "name": "Hospital Elizabeth Seton",
+    "type": "hospital",
+    "lat": -17.39417,
+    "lng": -66.20365,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-160442271",
+    "name": "Hospital Obrero N° 2",
+    "type": "hospital",
+    "lat": -17.39411,
+    "lng": -66.2057,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-12077058066",
+    "name": "Smile Clínica Odontologica",
+    "type": "hospital",
+    "lat": -17.39619,
+    "lng": -66.18644,
+    "district_id": 4,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 4 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921125066",
+    "name": "Centro de Salud Jaihuayco",
+    "type": "hospital",
+    "lat": -17.41698,
+    "lng": -66.163,
+    "district_id": 5,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-851980194",
+    "name": "Centro de Salud Kanata",
+    "type": "hospital",
+    "lat": -17.41345,
+    "lng": -66.15913,
+    "district_id": 5,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1414528513",
+    "name": "Centro de Salud Lacma",
+    "type": "hospital",
+    "lat": -17.43435,
+    "lng": -66.15608,
+    "district_id": 5,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-4819005321",
+    "name": "Clínica Villa México",
+    "type": "hospital",
+    "lat": -17.43872,
+    "lng": -66.15705,
+    "district_id": 5,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 5 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-327025928",
+    "name": "Centro de Salud Alalay",
+    "type": "hospital",
+    "lat": -17.42211,
+    "lng": -66.13758,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-706235013",
+    "name": "Centro de Salud Alto Cochabamba",
+    "type": "hospital",
+    "lat": -17.42452,
+    "lng": -66.14922,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921086254",
+    "name": "Centro de Salud Cerro Verde",
+    "type": "hospital",
+    "lat": -17.41498,
+    "lng": -66.14365,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1340323250",
+    "name": "Centro de Salud Cerro Verde",
+    "type": "hospital",
+    "lat": -17.41497,
+    "lng": -66.1437,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-885727323",
+    "name": "Centro de Salud Senfield",
+    "type": "hospital",
+    "lat": -17.40641,
+    "lng": -66.15243,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-348348912",
+    "name": "Hospital Harry Williams",
+    "type": "hospital",
+    "lat": -17.4199,
+    "lng": -66.1469,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-217378793",
+    "name": "Hospital Univalle",
+    "type": "hospital",
+    "lat": -17.42147,
+    "lng": -66.13286,
+    "district_id": 6,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 6 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1230127416",
+    "name": "Centro de Salud Villa Venezuela",
+    "type": "hospital",
+    "lat": -17.4266,
+    "lng": -66.12702,
+    "district_id": 7,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 7 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-13650371949",
+    "name": "Centro de Salud Llave Mayu",
+    "type": "hospital",
+    "lat": -17.48648,
+    "lng": -66.09528,
+    "district_id": 8,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-9960756711",
+    "name": "Centro de Salud Mineros San Juan",
+    "type": "hospital",
+    "lat": -17.48308,
+    "lng": -66.10522,
+    "district_id": 8,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-614145556",
+    "name": "Centro de Salud Valle Hermoso",
+    "type": "hospital",
+    "lat": -17.44786,
+    "lng": -66.12562,
+    "district_id": 8,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 8 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-5031843600",
+    "name": "Centro Médico Aeronaútico Cochabamba",
+    "type": "hospital",
+    "lat": -17.44837,
+    "lng": -66.14028,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921108271",
+    "name": "Centro de Salud 1ro de Mayo",
+    "type": "hospital",
+    "lat": -17.46892,
+    "lng": -66.20491,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921106210",
+    "name": "Centro de Salud España",
+    "type": "hospital",
+    "lat": -17.45748,
+    "lng": -66.15625,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921106917",
+    "name": "Centro de Salud Gloria",
+    "type": "hospital",
+    "lat": -17.46994,
+    "lng": -66.15612,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921130612",
+    "name": "Centro de Salud Maica Central",
+    "type": "hospital",
+    "lat": -17.42229,
+    "lng": -66.20226,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921132232",
+    "name": "Centro de Salud Pucarita",
+    "type": "hospital",
+    "lat": -17.45182,
+    "lng": -66.20154,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-515171209",
+    "name": "Centro de Salud Universitario Nueva Gante",
+    "type": "hospital",
+    "lat": -17.4472,
+    "lng": -66.14428,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-351954494",
+    "name": "Centro de Salud Universitario Nueva Gante",
+    "type": "hospital",
+    "lat": -17.44712,
+    "lng": -66.14438,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1088997607",
+    "name": "Centro de Salud Villa Israel",
+    "type": "hospital",
+    "lat": -17.48615,
+    "lng": -66.17276,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-12133109998",
+    "name": "Hospital del Sud",
+    "type": "hospital",
+    "lat": -17.45019,
+    "lng": -66.14989,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-515143308",
+    "name": "Hospital del Sur",
+    "type": "hospital",
+    "lat": -17.45057,
+    "lng": -66.1504,
+    "district_id": 9,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 9 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-926482144",
+    "name": "Centro Integral de Medicina Familiar Manuel Ascencio Villarroel",
+    "type": "hospital",
+    "lat": -17.39394,
+    "lng": -66.15824,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-904289304",
+    "name": "Centro de Promoción y Prevención de Salud Albiña Rodrigues de Patiño",
+    "type": "hospital",
+    "lat": -17.39564,
+    "lng": -66.14969,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-904289329",
+    "name": "Centro de Promoción y Prevención de Salud Albiña Rodrigues de Patiño",
+    "type": "hospital",
+    "lat": -17.39565,
+    "lng": -66.14968,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-931376251",
+    "name": "Ciclovía Hospital del Niño-Carlos Blanco Galindo",
+    "type": "hospital",
+    "lat": -17.38889,
+    "lng": -66.15103,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-506877262",
+    "name": "Ciclovía Hospital del Niño-Carlos Blanco Galindo",
+    "type": "hospital",
+    "lat": -17.39135,
+    "lng": -66.16577,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-198471609",
+    "name": "Ciclovía Hospital del Niño-Carlos Blanco Galindo",
+    "type": "hospital",
+    "lat": -17.39114,
+    "lng": -66.16625,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-3682698835",
+    "name": "Clinica Boliviana Americana",
+    "type": "hospital",
+    "lat": -17.4011,
+    "lng": -66.15317,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-11112538065",
+    "name": "Clínica Dental",
+    "type": "hospital",
+    "lat": -17.39682,
+    "lng": -66.15287,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-5296637073",
+    "name": "Clínica Dental Sagrado Corazón",
+    "type": "hospital",
+    "lat": -17.38731,
+    "lng": -66.15378,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-5117996881",
+    "name": "Clínica La Paz",
+    "type": "hospital",
+    "lat": -17.38667,
+    "lng": -66.15841,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1723604900",
+    "name": "Clínica Los Lauros",
+    "type": "hospital",
+    "lat": -17.39197,
+    "lng": -66.16318,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-11220487189",
+    "name": "Clínica Odontológica Univalle",
+    "type": "hospital",
+    "lat": -17.39432,
+    "lng": -66.15871,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-506137600",
+    "name": "Clínica Saavedra",
+    "type": "hospital",
+    "lat": -17.39708,
+    "lng": -66.16125,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-981207623",
+    "name": "Clínica de Ojos",
+    "type": "hospital",
+    "lat": -17.38633,
+    "lng": -66.156,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1044657049",
+    "name": "Clínica de Ojos Santa Lucía",
+    "type": "hospital",
+    "lat": -17.38445,
+    "lng": -66.15466,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-897742246",
+    "name": "Hospital Aranjuez",
+    "type": "hospital",
+    "lat": -17.38223,
+    "lng": -66.15349,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1022446200",
+    "name": "Hospital Aranjuez",
+    "type": "hospital",
+    "lat": -17.38223,
+    "lng": -66.15348,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-686522943",
+    "name": "Hospital Belga CMQBB",
+    "type": "hospital",
+    "lat": -17.38766,
+    "lng": -66.15351,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-515327695",
+    "name": "Hospital Cochabamba",
+    "type": "hospital",
+    "lat": -17.40038,
+    "lng": -66.15594,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-821656784",
+    "name": "Hospital San Vicente",
+    "type": "hospital",
+    "lat": -17.3878,
+    "lng": -66.15906,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-821656785",
+    "name": "Hospital San Vicente",
+    "type": "hospital",
+    "lat": -17.38778,
+    "lng": -66.15901,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-3952902662",
+    "name": "Instituto Oftalmológico Cochabamba",
+    "type": "hospital",
+    "lat": -17.38594,
+    "lng": -66.15224,
+    "district_id": 10,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 10 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-316752835",
+    "name": "Centro de Salud Ambulatorio Padre Calixto",
+    "type": "hospital",
+    "lat": -17.39058,
+    "lng": -66.14598,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1509785800",
+    "name": "Clínica Amazonas",
+    "type": "hospital",
+    "lat": -17.39628,
+    "lng": -66.14689,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-9015843206",
+    "name": "Clínica BioOral",
+    "type": "hospital",
+    "lat": -17.38904,
+    "lng": -66.14724,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-932661407",
+    "name": "Clínica Del Niño",
+    "type": "hospital",
+    "lat": -17.39147,
+    "lng": -66.14752,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-932661408",
+    "name": "Clínica Del Niño",
+    "type": "hospital",
+    "lat": -17.39148,
+    "lng": -66.14751,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-975818811",
+    "name": "Clínica Los Lirios",
+    "type": "hospital",
+    "lat": -17.3882,
+    "lng": -66.1449,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-984208771",
+    "name": "Clínica Los Lirios",
+    "type": "hospital",
+    "lat": -17.38822,
+    "lng": -66.14489,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-878493310",
+    "name": "Clínica Luis Morales Arnez",
+    "type": "hospital",
+    "lat": -17.38007,
+    "lng": -66.14148,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-227451967",
+    "name": "Clínica Luis Morales Arnez",
+    "type": "hospital",
+    "lat": -17.38014,
+    "lng": -66.1417,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1038714024",
+    "name": "Clínica Láser",
+    "type": "hospital",
+    "lat": -17.38937,
+    "lng": -66.14906,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-937511126",
+    "name": "Clínica Policial 2 Virgen de Copacabana",
+    "type": "hospital",
+    "lat": -17.39219,
+    "lng": -66.14881,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-494917404",
+    "name": "Clínica San Pedro",
+    "type": "hospital",
+    "lat": -17.39124,
+    "lng": -66.14804,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1038707054",
+    "name": "Clínica San Pedro",
+    "type": "hospital",
+    "lat": -17.39125,
+    "lng": -66.14813,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-992398472",
+    "name": "Clínica Santa María de los Ángeles",
+    "type": "hospital",
+    "lat": -17.38338,
+    "lng": -66.14908,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-227451963",
+    "name": "Clínica Santa María de los Ángeles",
+    "type": "hospital",
+    "lat": -17.38343,
+    "lng": -66.14908,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-3163908680",
+    "name": "Clínica de Especialidades Odontóligicas Sanabria",
+    "type": "hospital",
+    "lat": -17.39034,
+    "lng": -66.14764,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-4977897816",
+    "name": "Clínica e Importadora de Instrumentos Musicales Santa Cecilia",
+    "type": "hospital",
+    "lat": -17.3884,
+    "lng": -66.14247,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-577951212",
+    "name": "Construcción Hospital del Niño",
+    "type": "hospital",
+    "lat": -17.38575,
+    "lng": -66.14799,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1138944693",
+    "name": "Fuente Antiguo Hospital Viedma",
+    "type": "hospital",
+    "lat": -17.38869,
+    "lng": -66.14985,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-5351186171",
+    "name": "Hospital COSSMIL",
+    "type": "hospital",
+    "lat": -17.37955,
+    "lng": -66.14438,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-9030099131",
+    "name": "Hospital COSSMIL",
+    "type": "hospital",
+    "lat": -17.37976,
+    "lng": -66.14499,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-364815612",
+    "name": "Hospital Clínico Viedma",
+    "type": "hospital",
+    "lat": -17.38578,
+    "lng": -66.14836,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-9035366542",
+    "name": "Hospital Clínico Viedma",
+    "type": "hospital",
+    "lat": -17.38563,
+    "lng": -66.14846,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-689833534",
+    "name": "Hospital Combase",
+    "type": "hospital",
+    "lat": -17.39877,
+    "lng": -66.14213,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-887414103",
+    "name": "Hospital Combase",
+    "type": "hospital",
+    "lat": -17.39878,
+    "lng": -66.14211,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-231406777",
+    "name": "Hospital Corporación de Seguro Social Militar 1",
+    "type": "hospital",
+    "lat": -17.37903,
+    "lng": -66.14494,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-21006393",
+    "name": "Hospital Materno Infantil Germán Urquidi",
+    "type": "hospital",
+    "lat": -17.38653,
+    "lng": -66.14877,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-2892512813",
+    "name": "Hospital Materno Infantil Germán Urquidi",
+    "type": "hospital",
+    "lat": -17.38723,
+    "lng": -66.14847,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-4965335916",
+    "name": "Hospital Materno Infantil Germán Urquidi",
+    "type": "hospital",
+    "lat": -17.38647,
+    "lng": -66.14838,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-13889450803",
+    "name": "Hospital Viedma",
+    "type": "hospital",
+    "lat": -17.38573,
+    "lng": -66.14901,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-13889450802",
+    "name": "Hospital Viedma",
+    "type": "hospital",
+    "lat": -17.38473,
+    "lng": -66.14847,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-13967294682",
+    "name": "Hospital del Niño Manuel Ascencio Villarroel",
+    "type": "hospital",
+    "lat": -17.38681,
+    "lng": -66.14881,
+    "district_id": 11,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 11 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-901022141",
+    "name": "Centro de Salud San Vicente",
+    "type": "hospital",
+    "lat": -17.37407,
+    "lng": -66.14385,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1171902259",
+    "name": "Ciclovía Hospital del Niño-Carlos Blanco Galindo",
+    "type": "hospital",
+    "lat": -17.3905,
+    "lng": -66.16856,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1225127156",
+    "name": "Ciclovía Hospital del Niño-Carlos Blanco Galindo",
+    "type": "hospital",
+    "lat": -17.39058,
+    "lng": -66.17269,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1054101380",
+    "name": "Clinica Cobija",
+    "type": "hospital",
+    "lat": -17.38667,
+    "lng": -66.16657,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-866768602",
+    "name": "Clínica Copacabana",
+    "type": "hospital",
+    "lat": -17.37779,
+    "lng": -66.15428,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-925789550",
+    "name": "Clínica Los Angeles",
+    "type": "hospital",
+    "lat": -17.37856,
+    "lng": -66.16472,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-5294971222",
+    "name": "Clínica Odontológica UNIFRANZ",
+    "type": "hospital",
+    "lat": -17.37379,
+    "lng": -66.1562,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-4437942709",
+    "name": "Clínica Ortodonzia",
+    "type": "hospital",
+    "lat": -17.37795,
+    "lng": -66.15778,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-9776113214",
+    "name": "Clínica San Ignacio",
+    "type": "hospital",
+    "lat": -17.37287,
+    "lng": -66.17088,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-574921605",
+    "name": "Edificio Clínica Copacabana",
+    "type": "hospital",
+    "lat": -17.37779,
+    "lng": -66.1543,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-450920572",
+    "name": "Edificio Clínica Los Ángeles",
+    "type": "hospital",
+    "lat": -17.37856,
+    "lng": -66.16457,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-10112549106",
+    "name": "Farmacia Hospital Univalle",
+    "type": "hospital",
+    "lat": -17.37203,
+    "lng": -66.16069,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1540295675",
+    "name": "Hospital Univalle Norte",
+    "type": "hospital",
+    "lat": -17.37201,
+    "lng": -66.16084,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1409748579",
+    "name": "IpDH Salud",
+    "type": "hospital",
+    "lat": -17.38545,
+    "lng": -66.16575,
+    "district_id": 12,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 12 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-921082655",
+    "name": "Centro de Salud Alto Sebastián Pagador",
+    "type": "hospital",
+    "lat": -17.45013,
+    "lng": -66.11422,
+    "district_id": 14,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 14 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-1085787556",
+    "name": "Centro de Salud Sebastián Pagador",
+    "type": "hospital",
+    "lat": -17.44177,
+    "lng": -66.11616,
+    "district_id": 14,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 14 (Cercado)"
+  },
+  {
+    "id": "hospital-osm-595421303",
+    "name": "Centro de Salud K'ara K'ara",
+    "type": "hospital",
+    "lat": -17.46557,
+    "lng": -66.12671,
+    "district_id": 15,
+    "sub_type": "Centro de Salud / Hospital",
+    "description": "Establecimiento de salud en Distrito 15 (Cercado)"
+  }
+]
