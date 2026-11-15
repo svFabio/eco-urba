@@ -68,3 +68,17 @@ async def test_district_not_found():
     ) as ac:
         response = await ac.get("/api/v1/districts/99")
     assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_get_cota_2750():
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get("/api/v1/districts/cota2750")
+    assert response.status_code == 200
+    feat = response.json()
+    assert feat["type"] == "Feature"
+    assert feat["geometry"]["type"] == "LineString"
+    assert len(feat["geometry"]["coordinates"]) >= 10
+    assert feat["properties"]["elevation_m"] == 2750
