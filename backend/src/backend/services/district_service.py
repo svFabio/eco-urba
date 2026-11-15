@@ -99,11 +99,12 @@ def _load_districts() -> list[District]:
             hotspot_km2 = round(float(nasa_p.get("hotspot_2024_km2", 0.0)), 3)
 
             # Clasificación bioclimática objetiva derivada de telemetría NASA
-            if hotspot_pct >= 25.0 or surface_temp >= 32.5:
+            # Basada en umbrales de isla de calor real para el valle de Cochabamba
+            if hotspot_pct >= 25.0 or surface_temp >= 32.0:
                 risk = "Crítico"
             elif hotspot_pct >= 15.0 or surface_temp >= 30.5:
                 risk = "Alto"
-            elif hotspot_pct >= 5.0 or surface_temp >= 28.0:
+            elif hotspot_pct >= 5.0 or (surface_temp >= 29.5 and hotspot_pct >= 4.0):
                 risk = "Moderado"
             else:
                 risk = "Bajo"
