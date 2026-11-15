@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import httpx
 from shapely.geometry import Point
 
@@ -205,6 +206,8 @@ def _query_gemini_suggestion(district, interventions: list[InterventionPoint]) -
         else str(settings.GEMINI_API_KEY)
     )
     if not raw_key or not raw_key.strip():
+        raw_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not raw_key:
         return None
 
     micro = district.microclimate
@@ -247,10 +250,10 @@ Respondé OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
   }}
 }}
 """
-    for model in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-flash-latest"]:
+    for model in ["gemini-2.5-flash", "gemini-flash-latest"]:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
-            with httpx.Client(timeout=8.0) as client:
+            with httpx.Client(timeout=20.0) as client:
                 resp = client.post(
                     url,
                     headers={"Content-Type": "application/json", "X-goog-api-key": raw_key},

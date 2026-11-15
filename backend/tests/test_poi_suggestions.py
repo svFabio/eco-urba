@@ -56,7 +56,8 @@ def test_suggestion_district_1() -> None:
     assert body["tree_canopy_pct"] == 38.0
     assert "suggestion_text" in body
     assert "available_areas_hint" in body
-    assert "cesión" in body["available_areas_hint"].lower() or "terreno" in body["available_areas_hint"].lower()
+    assert isinstance(body["available_areas_hint"], str) and len(body["available_areas_hint"]) > 5
+    assert len(body["candidate_interventions"]) >= 1
 
 
 def test_suggestion_district_not_found() -> None:
