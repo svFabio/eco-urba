@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   inject,
   signal,
+  computed,
   ElementRef,
   viewChild,
 } from '@angular/core';
@@ -32,7 +33,16 @@ export interface District {
   centroid: Centroid;
   bbox: [number, number, number, number];
   area_km2?: number | null;
+  tree_canopy_pct?: number | null;
+  heat_island_risk?: string | null;
   microclimate?: MicroclimateProfile | null;
+}
+
+export interface SuggestionResult {
+  meets_goal: boolean;
+  tree_canopy_pct: number;
+  suggestion_text: string;
+  available_areas_hint: string;
 }
 
 type float = number;
@@ -57,6 +67,19 @@ export class App implements OnInit, AfterViewInit {
   selectedDistrict = signal<District | null>(null);
   isLoading = signal<boolean>(true);
   backendHealthy = signal<boolean>(false);
+  suggestion = signal<SuggestionResult | null>(null);
+  suggestionLoading = signal(false);
+  currentZoom = signal(12);
+
+  top5Districts = computed(() =>
+    [...this.districts()]
+      .sort((a, b) => {
+        const aVal = a.tree_canopy_pct ?? a.microclimate?.tree_canopy_pct ?? 0;
+        const bVal = b.tree_canopy_pct ?? b.microclimate?.tree_canopy_pct ?? 0;
+        return bVal - aVal;
+      })
+      .slice(0, 5)
+  );
 
   private readonly API_BASE = 'http://localhost:8000/api/v1';
 
@@ -67,6 +90,20 @@ export class App implements OnInit, AfterViewInit {
     fillColor: '#8b5cf6',
     fillOpacity: 0.12,
   };
+
+  getDistrictColor(risk: string): string {
+    switch (risk) {
+      case 'Bajo': return '#4caf50';
+      case 'Moderado': return '#ffeb3b';
+      case 'Alto': return '#ff9800';
+      case 'Crítico': return '#f44336';
+      default: return '#8b5cf6';
+    }
+  }
+
+  getCanopyPct(d: District): number {
+    return d.tree_canopy_pct ?? d.microclimate?.tree_canopy_pct ?? 0;
+  }
 
   private readonly hoverPolygonStyle: L.PathOptions = {
     color: '#4c1d95',
@@ -124,6 +161,35 @@ export class App implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.error('Failed to load districts GeoJSON:', err);
+      },
+    });
+  }
+
+  private schoolsLayer = L.layerGroup();
+  private hospitalsLayer = L.layerGroup();
+
+  private loadPoiLayer(type: 'school' | 'hospital'): void {
+    if (!this.map) return;
+    const emoji = type === 'school' ? '🏫' : '🏥';
+    const targetLayer = type === 'school' ? this.schoolsLayer : this.hospitalsLayer;
+
+    this.http.get<any[]>(`${this.API_BASE}/pois?type=${type}`).subscribe({
+      next: (pois) => {
+        targetLayer.clearLayers();
+        pois.forEach((poi) => {
+          const icon = L.divIcon({
+            html: `<span class="poi-pin">${emoji}</span>`,
+            className: '',
+            iconSize: [28, 28],
+            iconAnchor: [14, 14],
+          });
+          const marker = L.marker([poi.latitude, poi.longitude], { icon });
+          marker.bindTooltip(poi.name ?? `${emoji} POI`, { direction: 'top', offset: [0, -10] });
+          marker.addTo(targetLayer);
+        });
+      },
+      error: (err) => {
+        console.warn(`POI layer "${type}" not available:`, err.status ?? err.message);
       },
     });
   }
@@ -281,14 +347,26 @@ export class App implements OnInit, AfterViewInit {
         '🌳 Parques y Reservas Verdes': greenAreasLayer,
         '⛰️ Cota 2750 Parque Tunari (Línea Legal)': cota2750Line,
         '📍 Distritos y Estaciones MÓNICA': this.districtLayer,
+        'Escuelas': this.schoolsLayer,
+        'Hospitales': this.hospitalsLayer,
         '🏛️ Radio Urbano GAMC (WMS Alcaldía - No son áreas verdes)': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
 
+    this.schoolsLayer.addTo(this.map);
+    this.hospitalsLayer.addTo(this.map);
+
     if (this.districts().length > 0) {
       this.loadDistrictsGeoJson();
     }
+
+    this.loadPoiLayer('school');
+    this.loadPoiLayer('hospital');
+
+    this.map.on('zoomend', () => {
+      this.currentZoom.set(this.map!.getZoom());
+    });
   }
 
   private renderGeoJsonDistricts(geoData: any): void {
@@ -300,7 +378,16 @@ export class App implements OnInit, AfterViewInit {
     }
 
     this.geoJsonLayer = L.geoJSON(geoData, {
-      style: () => ({ ...this.defaultPolygonStyle }),
+      style: (feature) => {
+        const risk = feature?.properties?.heat_island_risk as string | undefined;
+        const fillColor = risk ? this.getDistrictColor(risk) : '#8b5cf6';
+        return {
+          ...this.defaultPolygonStyle,
+          fillColor,
+          fillOpacity: 0.5,
+          weight: 2,
+        };
+      },
       onEachFeature: (feature, layer) => {
         const props = feature.properties || {};
         const districtId = Number(props.id);
@@ -308,26 +395,42 @@ export class App implements OnInit, AfterViewInit {
 
         this.polygonMap.set(districtId, pathLayer);
 
+        // Permanent district number label
+        (layer as L.Layer & { bindTooltip: Function }).bindTooltip(
+          String(districtId),
+          {
+            permanent: true,
+            direction: 'center',
+            className: 'district-number-label',
+          }
+        );
+
         const sensorText = props.has_fixed_sensor
           ? `<br><span style="color:#10b981;font-weight:600">📡 Sensor MÓNICA: ${props.station_name}</span>`
           : '<br><span style="color:#64748b;font-style:italic">Sensado Virtual</span>';
 
         const areaText = props.area_km2 ? `<br>📐 Superficie: <strong>${props.area_km2} km²</strong>` : '';
 
-        layer.bindTooltip(
-          `<strong>${props.name}</strong><br><span style="color:#64748b">${props.zone}</span>${areaText}${sensorText}`,
-          { sticky: true }
+        layer.bindPopup(
+          `<strong>${props.name}</strong><br><span style="color:#64748b">${props.zone}</span>${areaText}${sensorText}`
         );
 
         layer.on('mouseover', () => {
           if (this.activePolygon !== pathLayer) {
-            pathLayer.setStyle(this.hoverPolygonStyle);
+            pathLayer.setStyle({ weight: 4, fillOpacity: 0.75 });
+            pathLayer.bringToFront();
           }
         });
 
         layer.on('mouseout', () => {
           if (this.activePolygon !== pathLayer) {
-            pathLayer.setStyle(this.defaultPolygonStyle);
+            if (this.geoJsonLayer) {
+              this.geoJsonLayer.resetStyle(pathLayer);
+            } else {
+              const risk = feature?.properties?.heat_island_risk as string | undefined;
+              const fillColor = risk ? this.getDistrictColor(risk) : '#8b5cf6';
+              pathLayer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5, weight: 2 });
+            }
           }
         });
 
@@ -383,15 +486,24 @@ export class App implements OnInit, AfterViewInit {
     this.selectedDistrict.set(district);
     if (!this.map) return;
 
-    // Reset previous active polygon style
+    // Reset previous active polygon style & remove selected class
     if (this.activePolygon) {
-      this.activePolygon.setStyle(this.defaultPolygonStyle);
+      const prevElem = (this.activePolygon as any).getElement?.();
+      prevElem?.classList.remove('district-selected');
+      if (this.geoJsonLayer) {
+        this.geoJsonLayer.resetStyle(this.activePolygon);
+      } else {
+        this.activePolygon.setStyle(this.defaultPolygonStyle);
+      }
     }
 
     const poly = this.polygonMap.get(district.id);
     if (poly) {
       poly.setStyle(this.selectedPolygonStyle);
       this.activePolygon = poly;
+
+      const elem = (poly as any).getElement?.();
+      elem?.classList.add('district-selected');
 
       const bounds = (poly as any).getBounds?.();
       if (bounds) {
@@ -402,19 +514,46 @@ export class App implements OnInit, AfterViewInit {
           maxZoom: 14,
           duration: 1.0,
         });
-        return;
+      } else {
+        this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+          duration: 1.0,
+        });
       }
+    } else {
+      this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
+        duration: 1.0,
+      });
     }
 
-    this.map.flyTo([district.centroid.latitude, district.centroid.longitude], 14, {
-      duration: 1.0,
-    });
+    // Fetch suggestion for the selected district
+    this.suggestionLoading.set(true);
+    this.http
+      .get<SuggestionResult>(`${this.API_BASE}/districts/${district.id}/suggestion`)
+      .subscribe({
+        next: (result) => {
+          this.suggestion.set(result);
+          this.suggestionLoading.set(false);
+        },
+        error: () => {
+          this.suggestion.set(null);
+          this.suggestionLoading.set(false);
+        },
+      });
   }
 
   clearSelection(): void {
     this.selectedDistrict.set(null);
+    this.suggestion.set(null);
+    this.suggestionLoading.set(false);
+
     if (this.activePolygon) {
-      this.activePolygon.setStyle(this.defaultPolygonStyle);
+      const prevElem = (this.activePolygon as any).getElement?.();
+      prevElem?.classList.remove('district-selected');
+      if (this.geoJsonLayer) {
+        this.geoJsonLayer.resetStyle(this.activePolygon);
+      } else {
+        this.activePolygon.setStyle(this.defaultPolygonStyle);
+      }
       this.activePolygon = undefined;
     }
     if (this.geoJsonLayer) {

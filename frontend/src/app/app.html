@@ -20,6 +20,40 @@
   <main class="main-content">
     <!-- Sidebar: District Selector & Analytics Summary -->
     <aside class="sidebar">
+      <!-- Top Section: Rankings Top 5 -->
+      <section class="rankings-panel" aria-label="Ranking de Distritos">
+        <div class="rankings-header">
+          <h3>🏆 Top 5 Distritos</h3>
+          <span class="rankings-subtitle">Mayor cobertura arbórea</span>
+        </div>
+        <div class="rankings-list">
+          @for (d of top5Districts(); track d.id; let idx = $index) {
+            <button
+              class="ranking-item"
+              [class.active]="selectedDistrict()?.id === d.id"
+              (click)="selectDistrict(d)"
+              [title]="'Distrito ' + d.id + ' - ' + d.name"
+            >
+              <div class="ranking-rank">
+                @switch (idx) {
+                  @case (0) { <span class="medal">🥇</span> }
+                  @case (1) { <span class="medal">🥈</span> }
+                  @case (2) { <span class="medal">🥉</span> }
+                  @case (3) { <span class="rank-pos">4th</span> }
+                  @case (4) { <span class="rank-pos">5th</span> }
+                }
+              </div>
+              <div class="ranking-details">
+                <span class="ranking-name">{{ d.name }}</span>
+              </div>
+              <div class="ranking-badge">
+                <span class="canopy-badge">{{ getCanopyPct(d) }}%</span>
+              </div>
+            </button>
+          }
+        </div>
+      </section>
+
       <div class="sidebar-header">
         <h2>15 Distritos Municipales</h2>
         <p class="sidebar-desc">
@@ -145,6 +179,26 @@
                   <span class="action-tag">Estrategia de Resiliencia Municipal</span>
                   <p class="action-text">{{ mc.resilience_action }}</p>
                 </div>
+              </div>
+            }
+
+            @if (currentZoom() >= 15) {
+              <div class="zoom-note">Vista de manzanos disponible</div>
+            }
+
+            @if (suggestion()) {
+              <div class="goal-badge" [class.meets]="suggestion()!.meets_goal">
+                🌿 Meta 44%: {{ suggestion()!.meets_goal ? '✅ Cumple' : '❌ No cumple' }}
+              </div>
+            }
+
+            @if (suggestionLoading()) {
+              <div class="loading-spinner">Analizando distrito...</div>
+            } @else if (suggestion()) {
+              <div class="suggestion-card">
+                <h4>💡 Sugerencia IA</h4>
+                <p>{{ suggestion()!.suggestion_text }}</p>
+                <small>{{ suggestion()!.available_areas_hint }}</small>
               </div>
             }
 
