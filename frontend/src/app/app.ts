@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   AfterViewInit,
+  OnDestroy,
+  HostListener,
   inject,
   signal,
   computed,
@@ -102,7 +104,7 @@ type float = number;
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
-export class App implements OnInit, AfterViewInit {
+export class App implements OnInit, AfterViewInit, OnDestroy {
   private http = inject(HttpClient);
   private mapElement = viewChild<ElementRef<HTMLDivElement>>('mapContainer');
 
@@ -125,6 +127,7 @@ export class App implements OnInit, AfterViewInit {
   trendLoading = signal(false);
   currentZoom = signal(12);
   activeMetric = signal<'risk' | 'vegetation' | 'goal'>('risk');
+  legendCollapsed = signal(false);
 
   top5Districts = computed(() =>
     [...this.districts()]
@@ -133,7 +136,7 @@ export class App implements OnInit, AfterViewInit {
         const bVal = b.tree_canopy_pct ?? b.microclimate?.tree_canopy_pct ?? 0;
         return bVal - aVal;
       })
-      .slice(0, 5)
+      .slice(0, 5),
   );
 
   private readonly API_BASE = (() => {
@@ -167,7 +170,8 @@ export class App implements OnInit, AfterViewInit {
 
   getFillColorForFeature(props: any): string {
     const metric = this.activeMetric();
-    const risk = (props?.heat_island_risk || props?.microclimate?.heat_island_risk) as string | undefined;
+    const risk = (props?.heat_island_risk || props?.microclimate?.heat_island_risk) as
+      string | undefined;
     const canopy = props?.tree_canopy_pct ?? props?.microclimate?.tree_canopy_pct ?? 0;
 
     if (metric === 'vegetation') {
@@ -187,15 +191,52 @@ export class App implements OnInit, AfterViewInit {
     this.updatePolygonColors();
   }
 
+  toggleLegend(): void {
+    this.legendCollapsed.update((v) => !v);
+  }
+
+  getDynamicFillOpacity(zoom: number, isSelected = false): number {
+    if (zoom <= 12) {
+      return isSelected ? 0.35 : 0.45;
+    }
+    if (zoom === 13) {
+      return isSelected ? 0.22 : 0.32;
+    }
+    if (zoom === 14) {
+      return isSelected ? 0.12 : 0.18;
+    }
+    if (zoom === 15) {
+      return isSelected ? 0.06 : 0.1;
+    }
+    // Zoom >= 16: Vista de detalle, manzanos y viviendas totalmente despejadas
+    return isSelected ? 0.03 : 0.05;
+  }
+
+  updatePolygonOpacities(): void {
+    if (!this.map || !this.geoJsonLayer) return;
+    const zoom = this.map.getZoom();
+
+    this.geoJsonLayer.eachLayer((layer: any) => {
+      const isSelected = this.activePolygon === layer;
+      const opacity = this.getDynamicFillOpacity(zoom, isSelected);
+      layer.setStyle({ fillOpacity: opacity });
+    });
+  }
+
   private updatePolygonColors(): void {
     if (!this.geoJsonLayer) return;
+    const zoom = this.map?.getZoom() ?? 12;
+
     this.geoJsonLayer.eachLayer((layer: any) => {
       const props = layer.feature?.properties || {};
       const fillColor = this.getFillColorForFeature(props);
-      if (this.activePolygon === layer) {
-        layer.setStyle({ ...this.selectedPolygonStyle, fillColor });
+      const isSelected = this.activePolygon === layer;
+      const fillOpacity = this.getDynamicFillOpacity(zoom, isSelected);
+
+      if (isSelected) {
+        layer.setStyle({ ...this.selectedPolygonStyle, fillColor, fillOpacity });
       } else {
-        layer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5 });
+        layer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity });
       }
     });
   }
@@ -219,9 +260,30 @@ export class App implements OnInit, AfterViewInit {
   };
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', this.onGlobalKeyDown, true);
+    }
     this.checkHealth();
     this.loadDistricts();
   }
+
+  ngOnDestroy(): void {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('keydown', this.onGlobalKeyDown, true);
+    }
+    this.suggestionSub?.unsubscribe();
+    this.trendSub?.unsubscribe();
+  }
+
+  private onGlobalKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+      if (this.selectedDistrict()) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.clearSelection();
+      }
+    }
+  };
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -363,10 +425,7 @@ export class App implements OnInit, AfterViewInit {
     if (!el) return;
 
     // Límite territorial con margen suficiente para vuelo y padding lateral
-    const cercadoBounds = L.latLngBounds(
-      L.latLng(-17.65, -66.40),
-      L.latLng(-17.18, -65.90)
-    );
+    const cercadoBounds = L.latLngBounds(L.latLng(-17.65, -66.4), L.latLng(-17.18, -65.9));
 
     this.map = L.map(el, {
       renderer: L.svg({ padding: 2.0 }),
@@ -374,8 +433,8 @@ export class App implements OnInit, AfterViewInit {
       maxBoundsViscosity: 0.7, // Permite elasticidad para encuadrar distritos periféricos con drawer abierto
       minZoom: 10,
       maxZoom: 18,
-      scrollWheelZoom: false, // Mapa tranquilo: evita zoom descontrolado al hacer scroll
-      doubleClickZoom: false, // Zoom controlado por clics en distritos
+      scrollWheelZoom: true, // Habilitado: zoom fluido con la rueda del ratón
+      doubleClickZoom: true, // Doble clic para acercar
     }).setView([-17.406, -66.174], 12);
 
     // Canvas oscuro puro: permite apagar el mapa mundial y ver únicamente a Cercado
@@ -395,7 +454,7 @@ export class App implements OnInit, AfterViewInit {
       {
         attribution: '&copy; Esri, USGS, NOAA | Relieve Topográfico Oficial',
         maxZoom: 18,
-      }
+      },
     );
 
     // Mapa de Curvas de Nivel y Montaña (OpenTopoMap)
@@ -427,7 +486,7 @@ export class App implements OnInit, AfterViewInit {
       onEachFeature: (feature, layer) => {
         layer.bindTooltip(
           `<strong>${feature.properties?.name || 'Línea Cota 2750 m.s.n.m.'}</strong><br>${feature.properties?.description || 'Límite ecológico y legal del Parque Nacional Tunari (Ley 1262)'}<br><small>Hacia el norte: área de conservación</small>`,
-          { sticky: true }
+          { sticky: true },
         );
       },
     });
@@ -458,11 +517,12 @@ export class App implements OnInit, AfterViewInit {
                 weight: 2,
                 fillOpacity: 0.95,
               });
-              const typeLabel = g.sub_type || (type === 'green_area' ? 'Área Protegida' : 'Parque Urbano');
+              const typeLabel =
+                g.sub_type || (type === 'green_area' ? 'Área Protegida' : 'Parque Urbano');
               const descLabel = g.description ? `<br><small>${g.description}</small>` : '';
               marker.bindTooltip(
                 `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${typeLabel}</span>${descLabel}`,
-                { direction: 'top', offset: [0, -6] }
+                { direction: 'top', offset: [0, -6] },
               );
               marker.addTo(greenAreasLayer);
             }
@@ -476,24 +536,26 @@ export class App implements OnInit, AfterViewInit {
 
     this.districtLayer = L.layerGroup().addTo(this.map);
 
-    L.control.layers(
-      {
-        'OpenStreetMap (Urbano Limpio)': osmBase,
-        'Relieve y Topografía Real (Esri Topo)': esriTopo,
-        'Curvas de Nivel (OpenTopoMap)': openTopo,
-        'Solo Cercado (Fondo Limpio)': darkCanvas,
-      },
-      {
-        'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
-        'Cobertura Forestal y Parques': greenAreasLayer,
-        'Escuelas': this.schoolsLayer,
-        'Hospitales': this.hospitalsLayer,
-        'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
-        'Cota 2750 Parque Tunari': cota2750Line,
-        'Distritos y Estaciones MÓNICA': this.districtLayer,
-      },
-      { position: 'topright', collapsed: false }
-    ).addTo(this.map);
+    L.control
+      .layers(
+        {
+          'OpenStreetMap (Urbano Limpio)': osmBase,
+          'Relieve y Topografía Real (Esri Topo)': esriTopo,
+          'Curvas de Nivel (OpenTopoMap)': openTopo,
+          'Solo Cercado (Fondo Limpio)': darkCanvas,
+        },
+        {
+          'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
+          'Cobertura Forestal y Parques': greenAreasLayer,
+          Escuelas: this.schoolsLayer,
+          Hospitales: this.hospitalsLayer,
+          'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
+          'Cota 2750 Parque Tunari': cota2750Line,
+          'Distritos y Estaciones MÓNICA': this.districtLayer,
+        },
+        { position: 'topright', collapsed: false },
+      )
+      .addTo(this.map);
 
     this.schoolsLayer.addTo(this.map);
     this.hospitalsLayer.addTo(this.map);
@@ -508,9 +570,14 @@ export class App implements OnInit, AfterViewInit {
     this.loadPoiLayer('school');
     this.loadPoiLayer('hospital');
 
+    this.map.on('zoom', () => {
+      this.updatePolygonOpacities();
+    });
+
     this.map.on('zoomend', () => {
       const z = this.map!.getZoom();
       this.currentZoom.set(z);
+      this.updatePolygonOpacities();
     });
   }
 
@@ -527,11 +594,13 @@ export class App implements OnInit, AfterViewInit {
     this.geoJsonLayer = L.geoJSON(geoData, {
       style: (feature) => {
         const fillColor = this.getFillColorForFeature(feature?.properties);
+        const zoom = this.map?.getZoom() ?? 12;
+        const fillOpacity = this.getDynamicFillOpacity(zoom, false);
         return {
           ...this.defaultPolygonStyle,
           renderer: svgRenderer,
           fillColor,
-          fillOpacity: 0.5,
+          fillOpacity,
           weight: 1.5,
         };
       },
@@ -543,14 +612,11 @@ export class App implements OnInit, AfterViewInit {
         this.polygonMap.set(districtId, pathLayer);
 
         // Permanent district number label
-        (layer as L.Layer & { bindTooltip: Function }).bindTooltip(
-          String(districtId),
-          {
-            permanent: true,
-            direction: 'center',
-            className: 'district-number-label',
-          }
-        );
+        (layer as L.Layer & { bindTooltip: Function }).bindTooltip(String(districtId), {
+          permanent: true,
+          direction: 'center',
+          className: 'district-number-label',
+        });
 
         const sensorText = props.has_fixed_sensor
           ? `<br><span style="color:#059669;font-weight:600">Sensor MÓNICA: ${props.station_name}</span>`
@@ -561,12 +627,14 @@ export class App implements OnInit, AfterViewInit {
           : '';
 
         layer.bindPopup(
-          `<strong>${props.name}</strong><br><span style="color:#71717a">${props.zone}</span>${areaText}${sensorText}`
+          `<strong>${props.name}</strong><br><span style="color:#71717a">${props.zone}</span>${areaText}${sensorText}`,
         );
 
         layer.on('mouseover', () => {
           if (this.activePolygon !== pathLayer) {
-            pathLayer.setStyle({ weight: 3, fillOpacity: 0.75 });
+            const zoom = this.map?.getZoom() ?? 12;
+            const baseOpacity = this.getDynamicFillOpacity(zoom, false);
+            pathLayer.setStyle({ weight: 2.5, fillOpacity: Math.min(0.65, baseOpacity + 0.15) });
             pathLayer.bringToFront();
           }
         });
@@ -574,7 +642,14 @@ export class App implements OnInit, AfterViewInit {
         layer.on('mouseout', () => {
           if (this.activePolygon !== pathLayer) {
             const fillColor = this.getFillColorForFeature(props);
-            pathLayer.setStyle({ ...this.defaultPolygonStyle, fillColor, fillOpacity: 0.5, weight: 1.5 });
+            const zoom = this.map?.getZoom() ?? 12;
+            const baseOpacity = this.getDynamicFillOpacity(zoom, false);
+            pathLayer.setStyle({
+              ...this.defaultPolygonStyle,
+              fillColor,
+              fillOpacity: baseOpacity,
+              weight: 1.5,
+            });
           }
         });
 
@@ -659,10 +734,12 @@ export class App implements OnInit, AfterViewInit {
       prevElem?.classList.remove('district-selected');
       const prevProps = (this.activePolygon as any).feature?.properties;
       const prevFillColor = this.getFillColorForFeature(prevProps);
+      const zoom = this.map.getZoom();
+      const prevOpacity = this.getDynamicFillOpacity(zoom, false);
       this.activePolygon.setStyle({
         ...this.defaultPolygonStyle,
         fillColor: prevFillColor,
-        fillOpacity: 0.5,
+        fillOpacity: prevOpacity,
         weight: 1.5,
       });
     }
@@ -670,7 +747,13 @@ export class App implements OnInit, AfterViewInit {
     const poly = this.polygonMap.get(district.id);
     if (poly) {
       const currentFill = this.getFillColorForFeature((poly as any).feature?.properties);
-      poly.setStyle({ ...this.selectedPolygonStyle, fillColor: currentFill });
+      const zoom = this.map.getZoom();
+      const selOpacity = this.getDynamicFillOpacity(zoom, true);
+      poly.setStyle({
+        ...this.selectedPolygonStyle,
+        fillColor: currentFill,
+        fillOpacity: selOpacity,
+      });
       this.activePolygon = poly;
 
       // Bring selected polygon to front so glow & border are prominent
@@ -752,10 +835,22 @@ export class App implements OnInit, AfterViewInit {
     this.interventionsLayer.clearLayers();
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleEscapeKey(event: KeyboardEvent): void {
+    if (event.key === 'Escape' || event.key === 'Esc' || event.keyCode === 27) {
+      if (this.selectedDistrict()) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.clearSelection();
+      }
+    }
+  }
+
   clearSelection(): void {
     if (!this.selectedDistrict()) return;
     if (this.map) {
       this.map.stop();
+      this.map.closePopup();
     }
     this.suggestionSub?.unsubscribe();
     this.trendSub?.unsubscribe();
@@ -772,10 +867,12 @@ export class App implements OnInit, AfterViewInit {
       prevElem?.classList.remove('district-selected');
       const prevProps = (this.activePolygon as any).feature?.properties;
       const prevFillColor = this.getFillColorForFeature(prevProps);
+      const zoom = this.map?.getZoom() ?? 12;
+      const baseOpacity = this.getDynamicFillOpacity(zoom, false);
       this.activePolygon.setStyle({
         ...this.defaultPolygonStyle,
         fillColor: prevFillColor,
-        fillOpacity: 0.5,
+        fillOpacity: baseOpacity,
         weight: 1.5,
       });
       this.activePolygon = undefined;
@@ -875,7 +972,7 @@ export class App implements OnInit, AfterViewInit {
       marker.bindPopup(popupHtml, { maxWidth: 300 });
       marker.bindTooltip(
         `<strong>${item.title}</strong><br><small>Pendiente: ${item.slope_pct}% · Click para ver diagnóstico</small>`,
-        { direction: 'top', offset: [0, -18] }
+        { direction: 'top', offset: [0, -18] },
       );
 
       marker.addTo(this.interventionsLayer);

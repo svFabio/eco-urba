@@ -28,7 +28,7 @@
             </svg>
             <h3>Top 5 Distritos</h3>
           </div>
-          <span class="rankings-subtitle">Mayor cobertura arbórea</span>
+          <span class="rankings-subtitle">Mayor cobertura arbórea (Alcaldía · GAMC)</span>
         </div>
         <div class="rankings-list">
           @for (d of top5Districts(); track d.id; let idx = $index) {
@@ -114,12 +114,13 @@
             class="metric-pill-btn"
             [class.active]="activeMetric() === 'risk'"
             (click)="setMetric('risk')"
-            title="Colorear distritos según riesgo de isla de calor"
+            title="Colorear distritos según riesgo de isla de calor (Datos satelitales NASA)"
           >
             <svg class="ui-icon-xs" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3.5z"/>
             </svg>
             <span>Riesgo Térmico</span>
+            <span class="pill-source-tag nasa">NASA</span>
           </button>
 
           <button
@@ -127,13 +128,14 @@
             class="metric-pill-btn"
             [class.active]="activeMetric() === 'vegetation'"
             (click)="setMetric('vegetation')"
-            title="Colorear distritos según cobertura vegetal NDVI"
+            title="Colorear distritos según cobertura vegetal NDVI (Satélite NASA MODIS)"
           >
             <svg class="ui-icon-xs" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
               <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
             </svg>
             <span>Cobertura Vegetal</span>
+            <span class="pill-source-tag nasa">NASA</span>
           </button>
 
           <button
@@ -141,18 +143,242 @@
             class="metric-pill-btn"
             [class.active]="activeMetric() === 'goal'"
             (click)="setMetric('goal')"
-            title="Evaluar cumplimiento de meta municipal del 44% de vegetación"
+            title="Evaluar meta municipal del 44% de arbolado (Alcaldía de Cochabamba · GAMC)"
           >
             <svg class="ui-icon-xs" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
               <path d="m9 12 2 2 4-4"/>
             </svg>
             <span>Meta 44%</span>
+            <span class="pill-source-tag gamc">Alcaldía</span>
           </button>
         </div>
       </nav>
 
       <div #mapContainer class="map-container"></div>
+
+      <!-- Floating Map Legend (Bottom-Left) -->
+      <aside class="map-floating-legend" [class.collapsed]="legendCollapsed()" aria-label="Leyenda del mapa">
+        @if (legendCollapsed()) {
+          <button
+            type="button"
+            class="legend-collapsed-trigger"
+            (click)="toggleLegend()"
+            title="Mostrar leyenda de colores del mapa"
+          >
+            <svg class="ui-icon-xs" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+            <span>Leyenda</span>
+          </button>
+        } @else {
+          <div class="legend-card">
+            <div class="legend-header">
+              <div class="legend-title-box">
+                <svg class="ui-icon-xs" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
+                <span class="legend-title">Leyenda</span>
+              </div>
+              <button
+                type="button"
+                class="legend-btn-collapse"
+                (click)="toggleLegend()"
+                title="Minimizar leyenda"
+                aria-label="Minimizar"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="legend-body">
+              <!-- Metric Section (Riesgo Térmico) -->
+              @if (activeMetric() === 'risk') {
+                <div class="legend-section">
+                  <div class="section-label-row">
+                    <span class="section-label">Riesgo Isla de Calor (NASA)</span>
+                    <span class="section-badge risk">NASA MODIS</span>
+                  </div>
+                  <div class="legend-items-grid">
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-critico" title="Crítico (> 38°C)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2c-.5 2.5-2.5 4.5-4 7-2 3.3-1.5 7.5 1.5 10 3 2.5 7.5 2 10-1 2.5-3 1.5-7.5-1-10-1-1-2.5-2-3-3.5-.5 2-2 3-3.5 3-1.5 0-2.5-1-2.5-2.5 0-1 .5-2 1.5-3z"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">Crítico</span>
+                        <span class="item-hint">&gt; 38°C</span>
+                      </div>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-alto" title="Alto (34 - 38°C)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0zM11.5 19a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">Alto</span>
+                        <span class="item-hint">34 - 38°C</span>
+                      </div>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-moderado" title="Moderado (30 - 34°C)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <circle cx="12" cy="12" r="5"/>
+                          <path d="M12 1v3m0 16v3M1 12h3m16 0h3m-3.8-7.8-2.1 2.1m-8.4 8.4-2.1 2.1m0-12.6 2.1 2.1m8.4 8.4 2.1 2.1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">Moderado</span>
+                        <span class="item-hint">30 - 34°C</span>
+                      </div>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-bajo" title="Bajo (< 30°C)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">Bajo</span>
+                        <span class="item-hint">&lt; 30°C</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <!-- Metric Section (Cobertura Vegetal) -->
+              @if (activeMetric() === 'vegetation') {
+                <div class="legend-section">
+                  <div class="section-label-row">
+                    <span class="section-label">Cobertura Vegetal NDVI (NASA)</span>
+                    <span class="section-badge vegetation">NASA Satelital</span>
+                  </div>
+                  <div class="canopy-ramp-bar">
+                    <span class="ramp-stop c-30" title="&ge; 30%"></span>
+                    <span class="ramp-stop c-20" title="20 - 30%"></span>
+                    <span class="ramp-stop c-15" title="15 - 20%"></span>
+                    <span class="ramp-stop c-10" title="10 - 15%"></span>
+                    <span class="ramp-stop c-0" title="&lt; 10%"></span>
+                  </div>
+                  <div class="ramp-labels">
+                    <span>&lt;10%</span>
+                    <span>15%</span>
+                    <span>20%</span>
+                    <span>&gt;30%</span>
+                  </div>
+                  <div class="legend-items-grid compact">
+                    <div class="legend-item">
+                      <span class="flaticon-badge c-30" title="&ge;30% Cobertura Alta">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2 4 14h4l-3 6h14l-3-6h4zM11 20h2v3h-2z"/>
+                        </svg>
+                      </span>
+                      <span class="item-name">&ge;30% Alta</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge c-20" title="20-30% Cobertura Moderada">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2a7 7 0 0 0-6.9 8.1 5.5 5.5 0 0 0 .9 10.9h12a5.5 5.5 0 0 0 .9-10.9A7 7 0 0 0 12 2zm-1 15v5h2v-5h-2z"/>
+                        </svg>
+                      </span>
+                      <span class="item-name">20-30%</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge c-15" title="15-20% Cobertura Media">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M2 22h20M12 22v-9M12 13a5 5 0 0 1 5-5h3v3a5 5 0 0 1-5 5h-3zM12 15a5 5 0 0 0-5-5H4v3a5 5 0 0 0 5 5h3z"/>
+                        </svg>
+                      </span>
+                      <span class="item-name">15-20%</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge c-0" title="&lt;10% Cobertura Escasa">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20.6 3.4c-4.9-1.2-10.7.3-14.7 4.3S-.6 17.5.6 22.4l1 .9c4.9 1.2 10.7-.3 14.7-4.3s6.5-9.8 5.3-14.7l-1-.9zM12.4 12c-2.2 2.2-5 3.7-8 4.4 1.7-2.6 3.9-4.8 6.5-6.5.5.7 1 1.4 1.5 2.1z"/>
+                        </svg>
+                      </span>
+                      <span class="item-name">&lt;10% Escasa</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <!-- Metric Section (Meta 44%) -->
+              @if (activeMetric() === 'goal') {
+                <div class="legend-section">
+                  <div class="section-label-row">
+                    <span class="section-label">Meta Municipal (Alcaldía GAMC)</span>
+                    <span class="section-badge goal">Alcaldía 44%</span>
+                  </div>
+                  <div class="legend-items-grid">
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-met" title="Cumple meta 44%">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">Cumple</span>
+                        <span class="item-hint">&ge; 44%</span>
+                      </div>
+                    </div>
+                    <div class="legend-item">
+                      <span class="flaticon-badge swatch-not-met" title="No cumple meta 44%">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                        </svg>
+                      </span>
+                      <div class="item-texts">
+                        <span class="item-name">No Cumple</span>
+                        <span class="item-hint">&lt; 44%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <div class="legend-divider"></div>
+
+              <!-- Puntos de Interés y Líneas -->
+              <div class="legend-section pois-section">
+                <span class="section-label">Capas y Referencias</span>
+                <div class="pois-grid">
+                  <div class="poi-legend-item">
+                    <span class="poi-icon-box school">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </span>
+                    <span>Escuela</span>
+                  </div>
+                  <div class="poi-legend-item">
+                    <span class="poi-icon-box hospital">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="3"><path d="M12 6v12M6 12h12"/></svg>
+                    </span>
+                    <span>Centro de Salud</span>
+                  </div>
+                  <div class="poi-legend-item">
+                    <span class="poi-icon-box park">
+                      <span class="park-dot"></span>
+                    </span>
+                    <span>Área Verde</span>
+                  </div>
+                  <div class="poi-legend-item">
+                    <span class="cota-line-sample"></span>
+                    <span>Cota 2750 Tunari</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </aside>
 
       <!-- Right Analytics Drawer (ElevenLabs Card Style) -->
       @if (selectedDistrict(); as sel) {
@@ -163,7 +389,7 @@
               <h2>{{ sel.name }}</h2>
               <span class="zone-text">{{ sel.zone }}</span>
             </div>
-            <button class="btn-close-drawer" (click)="clearSelection()" title="Cerrar y restablecer vista" aria-label="Cerrar">
+            <button class="btn-close-drawer" (click)="clearSelection()" title="Cerrar y restablecer vista (Esc)" aria-label="Cerrar (Esc)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18M6 6l12 12"/>
               </svg>
@@ -222,10 +448,11 @@
                         <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>
                       </svg>
                       Temp. Superficial Terrestre (LST)
+                      <span class="source-chip source-nasa">NASA</span>
                     </span>
                     <span class="indicator-val hot">{{ mc.surface_temp_c }} °C</span>
                   </div>
-                  <small class="indicator-sub">Temperatura estimada de suelo (MODIS / Landsat)</small>
+                  <small class="indicator-sub">Sensor satelital térmico (NASA EOSDIS · MODIS / Landsat)</small>
                 </div>
 
                 <!-- NDVI (Biomasa Vegetal) -->
@@ -237,13 +464,14 @@
                         <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
                       </svg>
                       Cobertura Vegetal (NDVI)
+                      <span class="source-chip source-nasa">NASA</span>
                     </span>
                     <span class="indicator-val green">{{ mc.ndvi_index.toFixed(2) }}</span>
                   </div>
                   <div class="progress-bar">
                     <div class="progress-fill green" [style.width.%]="mc.ndvi_index * 100"></div>
                   </div>
-                  <small class="indicator-sub">Índice espectral (0 = árido/cemento, 1 = bosque denso)</small>
+                  <small class="indicator-sub">Índice espectral satelital (NASA EOSDIS · MODIS Terra)</small>
                 </div>
 
                 <!-- Cobertura Arbórea -->
@@ -254,12 +482,14 @@
                         <path d="M12 22v-7M9 12a4 4 0 0 1-.83-7.91A6 6 0 0 1 19.5 7 4 4 0 0 1 18 14.86M12 15a4 4 0 0 1-4-4c0-.38.05-.75.15-1.1"/>
                       </svg>
                       Cobertura Arbórea Urbana
+                      <span class="source-chip source-gamc">Alcaldía (GAMC)</span>
                     </span>
                     <span class="indicator-val">{{ mc.tree_canopy_pct }} %</span>
                   </div>
                   <div class="progress-bar">
                     <div class="progress-fill canopy" [style.width.%]="mc.tree_canopy_pct"></div>
                   </div>
+                  <small class="indicator-sub">Catastro y censo forestal municipal (Alcaldía de Cochabamba · GAMC)</small>
                 </div>
 
                 <!-- Vulnerabilidad Térmica -->
@@ -377,13 +607,13 @@
                     <circle cx="12" cy="12" r="10"/>
                     <path d="m9 12 2 2 4-4"/>
                   </svg>
-                  <span>Meta 44%: Cumple</span>
+                  <span>Meta 44% (Alcaldía GAMC): Cumple</span>
                 } @else {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="m15 9-6 6M9 9l6 6"/>
                   </svg>
-                  <span>Meta 44%: No cumple</span>
+                  <span>Meta 44% (Alcaldía GAMC): No cumple</span>
                 }
               </div>
             }
