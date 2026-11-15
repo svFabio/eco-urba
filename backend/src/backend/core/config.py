@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     GAMC_API_KEY: SecretStr = SecretStr("")
     GAMC_SERVICE_ID: str = ""
 
+    GEMINI_API_KEY: SecretStr = SecretStr("")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

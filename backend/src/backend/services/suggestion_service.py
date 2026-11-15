@@ -1,5 +1,12 @@
+import json
+import logging
+import httpx
+
+from backend.core.config import settings
 from backend.schemas.poi import InterventionPoint, SuggestionResult
 from backend.services.district_service import district_service
+
+logger = logging.getLogger(__name__)
 
 _GOAL_PCT = 44.0
 
@@ -166,6 +173,83 @@ def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
     return interventions
 
 
+def _query_gemini_suggestion(district, interventions: list[InterventionPoint]) -> dict | None:
+    raw_key = (
+        settings.GEMINI_API_KEY.get_secret_value()
+        if hasattr(settings.GEMINI_API_KEY, "get_secret_value")
+        else str(settings.GEMINI_API_KEY)
+    )
+    if not raw_key or not raw_key.strip():
+        return None
+
+    micro = district.microclimate
+    temp = micro.surface_temp_c if micro else 28.0
+    ndvi = micro.ndvi_index if micro else 0.3
+    canopy = micro.tree_canopy_pct if micro else 15.0
+    risk = micro.heat_island_risk if micro else "Moderado"
+
+    topography_context = "\n".join(
+        [
+            f"- Propuesta: {i.title} | Tipo: {i.type} | Pendiente NASA SRTM: {i.slope_pct}% | Elevación: {i.elevation_m}m | Motivo preliminar: {i.reason}"
+            for i in interventions
+        ]
+    )
+
+    prompt = f"""Sos el motor de IA de EcoUrba, una plataforma satelital de resiliencia microclimática para Cochabamba (Cercado).
+Analizá la telemetría viva de la NASA para el siguiente distrito:
+- Distrito: {district.name} ({district.zone})
+- Superficie Oficial: {district.area_km2} km²
+- Temperatura Superficial Terrestre (NASA MODIS/Landsat LST): {temp} °C
+- Índice de Vegetación (NASA NDVI): {ndvi}
+- Cobertura Arbórea Actual: {canopy}% (Meta oficial: 44.0%)
+- Nivel de Riesgo de Isla de Calor: {risk}
+
+Topografía y puntos preliminares (NASA ASTER/SRTM):
+{topography_context}
+
+Instrucciones:
+1. Generá una recomendación de intervención urbanística y bioclimática profesional, viva, dinámica, SIN frases cliché ni plantillas repetitivas (máximo 3 o 4 oraciones).
+2. Justificá técnicamente por qué se recomienda cada acción (por ejemplo, laderas altas >15% requieren especies nativas como Kewiña/Kiswara para frenar torrentes y estabilizar suelos, descartando hospitales por accesibilidad de ambulancias; mientras que planicies con alta LST requieren arbolado de sombra densa como Molle/Jacarandá y son aptas para centros de salud).
+3. Podés ajustar o refinar las descripciones y razones de los puntos de intervención para que sean precisos.
+
+Respondé OBLIGATORIAMENTE en formato JSON con la siguiente estructura:
+{{
+  "suggestion_text": "Texto completo y dinámico del diagnóstico y recomendación...",
+  "available_areas_hint": "Descripción de predios públicos o franjas donde actuar...",
+  "refined_reasons": {{
+    "{interventions[0].id if interventions else 'item-1'}": "Razón refinada por IA considerando pendiente y radiación...",
+    "{interventions[1].id if len(interventions) > 1 else 'item-2'}": "Razón refinada por IA..."
+  }}
+}}
+"""
+    for model in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-flash-latest"]:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+        try:
+            with httpx.Client(timeout=8.0) as client:
+                resp = client.post(
+                    url,
+                    headers={"Content-Type": "application/json", "X-goog-api-key": raw_key},
+                    json={
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {"temperature": 0.35, "responseMimeType": "application/json"},
+                    },
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        text = candidates[0]["content"]["parts"][0]["text"]
+                        return json.loads(text)
+                else:
+                    logger.warning(
+                        "Gemini model %s returned status %d: %s", model, resp.status_code, resp.text[:150]
+                    )
+        except Exception as err:
+            logger.warning("Error querying Gemini with model %s: %s", model, err)
+
+    return None
+
+
 def get_suggestion(district_id: int) -> SuggestionResult | None:
     district = district_service.get_district_by_id(district_id)
     if district is None:
@@ -178,15 +262,27 @@ def get_suggestion(district_id: int) -> SuggestionResult | None:
     meets_goal = tree_canopy_pct >= _GOAL_PCT
     zone_hint = _ZONE_HINTS.get(district.zone, _DEFAULT_HINT)
 
-    suggestion_text = _build_suggestion_text(
-        district_name=district.name,
-        tree_canopy_pct=tree_canopy_pct,
-        meets_goal=meets_goal,
-        heat_island_risk=heat_island_risk,
-        zone_hint=zone_hint,
-    )
-
     interventions = _calculate_candidate_interventions(district)
+
+    # Invocar Gemini LLM con telemetría satelital NASA
+    gemini_result = _query_gemini_suggestion(district, interventions)
+
+    if gemini_result and "suggestion_text" in gemini_result:
+        suggestion_text = gemini_result["suggestion_text"]
+        available_areas_hint = gemini_result.get("available_areas_hint", zone_hint)
+        refined_reasons = gemini_result.get("refined_reasons", {})
+        for item in interventions:
+            if item.id in refined_reasons:
+                item.reason = refined_reasons[item.id]
+    else:
+        suggestion_text = _build_suggestion_text(
+            district_name=district.name,
+            tree_canopy_pct=tree_canopy_pct,
+            meets_goal=meets_goal,
+            heat_island_risk=heat_island_risk,
+            zone_hint=zone_hint,
+        )
+        available_areas_hint = zone_hint
 
     return SuggestionResult(
         district_id=district.id,
@@ -194,6 +290,6 @@ def get_suggestion(district_id: int) -> SuggestionResult | None:
         meets_goal=meets_goal,
         tree_canopy_pct=tree_canopy_pct,
         suggestion_text=suggestion_text,
-        available_areas_hint=zone_hint,
+        available_areas_hint=available_areas_hint,
         candidate_interventions=interventions,
     )
