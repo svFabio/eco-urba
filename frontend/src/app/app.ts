@@ -127,7 +127,19 @@ export class App implements OnInit, AfterViewInit {
       .slice(0, 5)
   );
 
-  private readonly API_BASE = 'http://localhost:8000/api/v1';
+  private readonly API_BASE = (() => {
+    if (typeof window !== 'undefined') {
+      const customApi = (window as unknown as { __API_BASE__?: string }).__API_BASE__;
+      if (customApi) {
+        return customApi;
+      }
+      const host = window.location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1') {
+        return 'http://localhost:8000/api/v1';
+      }
+    }
+    return '/api/v1';
+  })();
 
   private readonly defaultPolygonStyle: L.PathOptions = {
     color: '#ffffff',
@@ -335,15 +347,6 @@ export class App implements OnInit, AfterViewInit {
     });
 
     // Capas oficiales del GAMC (Alcaldía de Cochabamba)
-    const distritosGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
-      layers: '',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      maxZoom: 19,
-      attribution: '&copy; GAMC Cochabamba · Limite Distritos Simple',
-    });
-
     const cuencasGamcWms = L.tileLayer.wms(`${this.API_BASE}/gamc/wms`, {
       layers: 'cuencas_principales',
       format: 'image/png',
@@ -378,16 +381,6 @@ export class App implements OnInit, AfterViewInit {
       '<strong>Línea Cota 2750 m.s.n.m.</strong><br>Límite ecológico y legal del Parque Nacional Tunari (Ley 1262)<br><small>Hacia el norte: área de conservación</small>',
       { sticky: true }
     );
-
-    // Capa Satelital NASA GIBS: Índice de Vegetación (NDVI) MODIS Terra (1km)
-    const nasaNdviLayer = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {
-      layers: 'MODIS_Terra_L3_NDVI_Monthly',
-      format: 'image/png',
-      transparent: true,
-      version: '1.1.1',
-      opacity: 0.35,
-      attribution: '&copy; NASA EOSDIS GIBS · MODIS Terra NDVI',
-    });
 
     // Parques y Reservas Verdes emblemáticas de Cochabamba (Vectorial)
     const greenAreasLayer = L.layerGroup();
@@ -475,8 +468,6 @@ export class App implements OnInit, AfterViewInit {
         'Cuencas y Torrentes Tunari (GAMC)': cuencasGamcWms,
         'Cota 2750 Parque Tunari': cota2750Line,
         'Distritos y Estaciones MÓNICA': this.districtLayer,
-        'Evidencia Satelital NASA (MODIS 1km)': nasaNdviLayer,
-        'Radio Urbano GAMC': distritosGamcWms,
       },
       { position: 'topright', collapsed: false }
     ).addTo(this.map);
