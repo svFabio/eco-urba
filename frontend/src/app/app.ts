@@ -147,11 +147,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     const next = !this.rightDrawerOpen();
     this.rightDrawerOpen.set(next);
     if (next) {
-      // Abre el panel derecho (Ficha/IA) -> cierra el izquierdo para garantizar UN SOLO sidebar
+      // Abre el panel derecho (Capas y Ficha) -> minimiza panel izquierdo
       this.sidebarCollapsed.set(true);
-      if (!this.selectedDistrict() && this.districts().length > 0) {
-        this.selectDistrict(this.districts()[0]);
-      }
     }
     setTimeout(() => {
       this.map?.invalidateSize();
@@ -558,6 +555,110 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
   private schoolsLayer = L.layerGroup();
   private hospitalsLayer = L.layerGroup();
+  private greenAreasLayer = L.layerGroup();
+  private radioUrbanoGamcWms?: L.TileLayer.WMS;
+  private cota2750Line?: L.GeoJSON;
+  private lst2025Raster?: L.ImageOverlay;
+  private ndvi2025Raster?: L.ImageOverlay;
+  private hotspotsRaster?: L.ImageOverlay;
+  private deltaLstRaster?: L.ImageOverlay;
+  private deltaNdviRaster?: L.ImageOverlay;
+  private osmBaseTile?: L.TileLayer;
+  private esriTopoTile?: L.TileLayer;
+  private openTopoTile?: L.TileLayer;
+
+  activeBasemap = signal<'osm' | 'topo' | 'opentopo' | 'clean'>('osm');
+
+  layersVisible = {
+    interventions: signal<boolean>(true),
+    greenAreas: signal<boolean>(true),
+    schools: signal<boolean>(true),
+    hospitals: signal<boolean>(true),
+    districts: signal<boolean>(true),
+    cota2750: signal<boolean>(false),
+    radioUrbano: signal<boolean>(false),
+    lst2025: signal<boolean>(false),
+    ndvi2025: signal<boolean>(false),
+    hotspots: signal<boolean>(false),
+    deltaLst: signal<boolean>(false),
+    deltaNdvi: signal<boolean>(false),
+  };
+
+  setBasemap(type: 'osm' | 'topo' | 'opentopo' | 'clean'): void {
+    this.activeBasemap.set(type);
+    if (!this.map) return;
+    if (this.osmBaseTile && this.map.hasLayer(this.osmBaseTile)) this.map.removeLayer(this.osmBaseTile);
+    if (this.esriTopoTile && this.map.hasLayer(this.esriTopoTile)) this.map.removeLayer(this.esriTopoTile);
+    if (this.openTopoTile && this.map.hasLayer(this.openTopoTile)) this.map.removeLayer(this.openTopoTile);
+
+    if (type === 'osm' && this.osmBaseTile) this.osmBaseTile.addTo(this.map);
+    else if (type === 'topo' && this.esriTopoTile) this.esriTopoTile.addTo(this.map);
+    else if (type === 'opentopo' && this.openTopoTile) this.openTopoTile.addTo(this.map);
+  }
+
+  toggleMapLayer(layerKey: keyof typeof this.layersVisible): void {
+    const next = !this.layersVisible[layerKey]();
+    this.layersVisible[layerKey].set(next);
+    if (!this.map) return;
+
+    switch (layerKey) {
+      case 'schools':
+        next ? this.schoolsLayer.addTo(this.map) : this.map.removeLayer(this.schoolsLayer);
+        break;
+      case 'hospitals':
+        next ? this.hospitalsLayer.addTo(this.map) : this.map.removeLayer(this.hospitalsLayer);
+        break;
+      case 'greenAreas':
+        next ? this.greenAreasLayer.addTo(this.map) : this.map.removeLayer(this.greenAreasLayer);
+        break;
+      case 'interventions':
+        next ? this.interventionsLayer.addTo(this.map) : this.map.removeLayer(this.interventionsLayer);
+        break;
+      case 'districts':
+        if (this.districtLayer) {
+          next ? this.districtLayer.addTo(this.map) : this.map.removeLayer(this.districtLayer);
+        }
+        if (this.geoJsonLayer) {
+          next ? this.geoJsonLayer.addTo(this.map) : this.map.removeLayer(this.geoJsonLayer);
+        }
+        break;
+      case 'cota2750':
+        if (this.cota2750Line) {
+          next ? this.cota2750Line.addTo(this.map) : this.map.removeLayer(this.cota2750Line);
+        }
+        break;
+      case 'radioUrbano':
+        if (this.radioUrbanoGamcWms) {
+          next ? this.radioUrbanoGamcWms.addTo(this.map) : this.map.removeLayer(this.radioUrbanoGamcWms);
+        }
+        break;
+      case 'lst2025':
+        if (this.lst2025Raster) {
+          next ? this.lst2025Raster.addTo(this.map) : this.map.removeLayer(this.lst2025Raster);
+        }
+        break;
+      case 'ndvi2025':
+        if (this.ndvi2025Raster) {
+          next ? this.ndvi2025Raster.addTo(this.map) : this.map.removeLayer(this.ndvi2025Raster);
+        }
+        break;
+      case 'hotspots':
+        if (this.hotspotsRaster) {
+          next ? this.hotspotsRaster.addTo(this.map) : this.map.removeLayer(this.hotspotsRaster);
+        }
+        break;
+      case 'deltaLst':
+        if (this.deltaLstRaster) {
+          next ? this.deltaLstRaster.addTo(this.map) : this.map.removeLayer(this.deltaLstRaster);
+        }
+        break;
+      case 'deltaNdvi':
+        if (this.deltaNdviRaster) {
+          next ? this.deltaNdviRaster.addTo(this.map) : this.map.removeLayer(this.deltaNdviRaster);
+        }
+        break;
+    }
+  }
 
   private loadPoiLayer(type: 'school' | 'hospital'): void {
     if (!this.map) return;
@@ -621,7 +722,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     // Canvas oscuro puro: permite apagar el mapa mundial y ver únicamente a Cercado
     const darkCanvas = L.layerGroup();
 
-    const osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    this.osmBaseTile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors | EcoUrba Cochabamba',
       maxZoom: 18,
       keepBuffer: 12,
@@ -630,7 +731,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     }).addTo(this.map);
 
     // Mapa Topográfico Real de Cochabamba (Esri World Topo: relieve real sin ruido)
-    const esriTopo = L.tileLayer(
+    this.esriTopoTile = L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
       {
         attribution: '&copy; Esri, USGS, NOAA | Relieve Topográfico Oficial',
@@ -639,7 +740,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     );
 
     // Mapa de Curvas de Nivel y Montaña (OpenTopoMap)
-    const openTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    this.openTopoTile = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenTopoMap (CC-BY-SA) | Curvas de Nivel',
       maxZoom: 17,
     });
@@ -682,7 +783,6 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       .catch((err) => console.warn('Error loading Cota 2750:', err));
 
     // Parques y Reservas Verdes de Cochabamba (Cargadas dinámicamente desde la API)
-    const greenAreasLayer = L.layerGroup();
     const loadGreenPOIs = (type: string, color: string, radius: number) => {
       fetch(`${this.API_BASE}/pois?type=${type}`)
         .then((res) => (res.ok ? res.json() : []))
@@ -705,7 +805,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
                 `<strong>${g.name}</strong><br><span style="color:#059669;font-weight:600">${typeLabel}</span>${descLabel}`,
                 { direction: 'top', offset: [0, -6] },
               );
-              marker.addTo(greenAreasLayer);
+              marker.addTo(this.greenAreasLayer);
             }
           });
         })
@@ -725,63 +825,39 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       [-17.276771630866786, -66.06619722598597],
     ];
 
-    const lst2025Raster = L.imageOverlay(
+    this.lst2025Raster = L.imageOverlay(
       `${this.API_BASE}/rasters/lst_2025.png`,
       defaultRasterBounds,
       { opacity: 0.82, interactive: false }
     );
-    const ndvi2025Raster = L.imageOverlay(
+    this.ndvi2025Raster = L.imageOverlay(
       `${this.API_BASE}/rasters/ndvi_2025.png`,
       defaultRasterBounds,
       { opacity: 0.82, interactive: false }
     );
-    const deltaLstRaster = L.imageOverlay(
-      `${this.API_BASE}/rasters/delta_lst.png`,
-      defaultRasterBounds,
-      { opacity: 0.85, interactive: false }
-    );
-    const deltaNdviRaster = L.imageOverlay(
-      `${this.API_BASE}/rasters/delta_ndvi.png`,
-      defaultRasterBounds,
-      { opacity: 0.85, interactive: false }
-    );
-    const hotspotsRaster = L.imageOverlay(
+    this.hotspotsRaster = L.imageOverlay(
       `${this.API_BASE}/rasters/hotspots_2024.png`,
       hotspotRasterBounds,
       { opacity: 0.9, interactive: false }
     );
+    this.deltaLstRaster = L.imageOverlay(
+      `${this.API_BASE}/rasters/delta_lst.png`,
+      defaultRasterBounds,
+      { opacity: 0.85, interactive: false }
+    );
+    this.deltaNdviRaster = L.imageOverlay(
+      `${this.API_BASE}/rasters/delta_ndvi.png`,
+      defaultRasterBounds,
+      { opacity: 0.85, interactive: false }
+    );
+
+    this.radioUrbanoGamcWms = radioUrbanoGamcWms;
+    this.cota2750Line = cota2750Line;
 
     this.districtLayer = L.layerGroup().addTo(this.map);
-
-    L.control
-      .layers(
-        {
-          'OpenStreetMap (Urbano Limpio)': osmBase,
-          'Relieve y Topografía Real (Esri Topo)': esriTopo,
-          'Curvas de Nivel (OpenTopoMap)': openTopo,
-          'Solo Cercado (Fondo Limpio)': darkCanvas,
-        },
-        {
-          'Puntos de Inversión Sugeridos (Flaticons)': this.interventionsLayer,
-          'Cobertura Forestal y Parques': greenAreasLayer,
-          Escuelas: this.schoolsLayer,
-          Hospitales: this.hospitalsLayer,
-          'Límite Radio Urbano (GAMC Oficial)': radioUrbanoGamcWms,
-          'Cota 2750 Parque Tunari': cota2750Line,
-          'Distritos y Estaciones MÓNICA': this.districtLayer,
-          'NASA Térmico Píxel a Píxel (LST 2025)': lst2025Raster,
-          'NASA Vegetación Píxel a Píxel (NDVI 2025)': ndvi2025Raster,
-          'NASA Hotspots Térmicos 2024': hotspotsRaster,
-          'Cambio Térmico 2016 - 2025 (Delta LST)': deltaLstRaster,
-          'Cambio Vegetal 2016 - 2025 (Delta NDVI)': deltaNdviRaster,
-        },
-        { position: 'topright', collapsed: true }
-      )
-      .addTo(this.map);
-
     this.schoolsLayer.addTo(this.map);
     this.hospitalsLayer.addTo(this.map);
-    greenAreasLayer.addTo(this.map);
+    this.greenAreasLayer.addTo(this.map);
     this.interventionsLayer.addTo(this.map);
 
     if (this.districts().length > 0) {
@@ -1266,7 +1342,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
     if (!this.mapA) {
       this.mapA = L.map(elA, {
-        zoomControl: true,
+        zoomControl: false,
         attributionControl: false,
         zoomSnap: 0.25,
         zoomDelta: 0.5,

@@ -858,6 +858,211 @@
       gap: 1rem;
       animation: fadeInDrawerContent 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
+      .drawer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .section-title-row {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          color: #0f172a;
+
+          h3 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0;
+            color: #0f172a;
+          }
+        }
+      }
+
+      .basemap-selector-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        .sub-label {
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #64748b;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+
+        .basemap-pills {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.4rem;
+
+          .basemap-pill {
+            padding: 0.35rem 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+
+            &:hover {
+              background: #f1f5f9;
+              color: #0f172a;
+              border-color: #cbd5e1;
+            }
+
+            &.active {
+              background: #0f172a;
+              color: #ffffff;
+              border-color: #0f172a;
+              font-weight: 600;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+      }
+
+      .layer-checkbox-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.45rem;
+
+        .layer-checkbox-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.35rem 0.45rem;
+          border-radius: 6px;
+          cursor: pointer;
+          user-select: none;
+          transition: background 0.12s ease;
+
+          &:hover {
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+          }
+
+          input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            accent-color: #0284c7;
+            margin: 0;
+            flex-shrink: 0;
+          }
+
+          .layer-label {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.4rem;
+            min-width: 0;
+
+            .layer-name {
+              font-size: 0.75rem;
+              font-weight: 500;
+              color: #1e293b;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .layer-tag {
+              font-size: 0.62rem;
+              font-weight: 600;
+              padding: 0.1rem 0.35rem;
+              border-radius: 4px;
+              flex-shrink: 0;
+
+              &.ai {
+                background: #ede9fe;
+                color: #6d28d9;
+              }
+              &.gamc {
+                background: #dcfce7;
+                color: #15803d;
+              }
+              &.info {
+                background: #e0f2fe;
+                color: #0369a1;
+              }
+              &.health {
+                background: #fee2e2;
+                color: #b91c1c;
+              }
+              &.monica {
+                background: #fef3c7;
+                color: #b45309;
+              }
+              &.law {
+                background: #f1f5f9;
+                color: #475569;
+              }
+              &.nasa {
+                background: #e0e7ff;
+                color: #4338ca;
+              }
+              &.delta {
+                background: #fae8ff;
+                color: #86198f;
+              }
+            }
+          }
+        }
+      }
+
+      .drawer-divider {
+        height: 1px;
+        background: #e2e8f0;
+        margin: 0.2rem 0;
+      }
+
+      .district-unselected-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem 1rem;
+        background: #f8fafc;
+        border: 1.5px dashed #cbd5e1;
+        border-radius: 12px;
+        gap: 0.6rem;
+
+        .unselected-icon-pill {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: #e2e8f0;
+          color: #64748b;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        h4 {
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: #0f172a;
+          margin: 0;
+        }
+
+        p {
+          font-size: 0.76rem;
+          color: #64748b;
+          line-height: 1.45;
+          margin: 0;
+        }
+      }
+
       .stat-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;

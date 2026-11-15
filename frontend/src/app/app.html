@@ -633,16 +633,22 @@
         }
       </aside>
 
-      <!-- Right Analytics Drawer (ElevenLabs Card Style) -->
-      @if (rightDrawerOpen() && selectedDistrict(); as sel) {
-        <aside class="right-drawer" aria-label="Ficha de Distrito">
+      <!-- Unified Right Drawer: Checkboxes at the top, then District Details & AI -->
+      @if (rightDrawerOpen()) {
+        <aside class="right-drawer" aria-label="Panel de Capas y Ficha Territorial">
           <div class="drawer-header">
             <div class="header-title-box">
-              <span class="district-pill">Distrito {{ sel.id }}</span>
-              <h2>{{ sel.name }}</h2>
-              <span class="zone-text">{{ sel.zone }}</span>
+              @if (selectedDistrict(); as sel) {
+                <span class="district-pill">Distrito {{ sel.id }}</span>
+                <h2>{{ sel.name }}</h2>
+                <span class="zone-text">{{ sel.zone }}</span>
+              } @else {
+                <span class="district-pill">Territorio &amp; Capas</span>
+                <h2>Capas y Diagnóstico</h2>
+                <span class="zone-text">Cochabamba · Cercado</span>
+              }
             </div>
-            <button class="btn-close-drawer" (click)="clearSelection()" title="Cerrar y restablecer vista (Esc)" aria-label="Cerrar (Esc)">
+            <button class="btn-close-drawer" (click)="toggleRightDrawer()" title="Cerrar panel lateral (Esc)" aria-label="Cerrar (Esc)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18M6 6l12 12"/>
               </svg>
@@ -650,8 +656,222 @@
           </div>
 
           <div class="drawer-content">
-            <!-- Territorial Stats -->
-            <div class="stat-section">
+            <!-- 1. Capas Territoriales y Satelitales (Checkboxes y Mapas Base) -->
+            <section class="drawer-section layer-control-section" aria-label="Capas Territoriales y Satelitales">
+              <div class="section-title-row">
+                <svg class="ui-icon-indicator" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+                <h3>Capas Territoriales</h3>
+              </div>
+
+              <!-- Selector de Mapa Base -->
+              <div class="basemap-selector-box">
+                <span class="sub-label">Mapa Base:</span>
+                <div class="basemap-pills">
+                  <button
+                    type="button"
+                    class="basemap-pill"
+                    [class.active]="activeBasemap() === 'osm'"
+                    (click)="setBasemap('osm')"
+                  >
+                    OSM Urbano
+                  </button>
+                  <button
+                    type="button"
+                    class="basemap-pill"
+                    [class.active]="activeBasemap() === 'topo'"
+                    (click)="setBasemap('topo')"
+                  >
+                    Relieve Esri
+                  </button>
+                  <button
+                    type="button"
+                    class="basemap-pill"
+                    [class.active]="activeBasemap() === 'opentopo'"
+                    (click)="setBasemap('opentopo')"
+                  >
+                    Curvas Nivel
+                  </button>
+                  <button
+                    type="button"
+                    class="basemap-pill"
+                    [class.active]="activeBasemap() === 'clean'"
+                    (click)="setBasemap('clean')"
+                  >
+                    Solo Cercado
+                  </button>
+                </div>
+              </div>
+
+              <!-- Lista de Checkboxes de Capas -->
+              <div class="layer-checkbox-list">
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.interventions()"
+                    (change)="toggleMapLayer('interventions')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Puntos de Inversión Sugeridos</span>
+                    <span class="layer-tag ai">IA MÓNICA</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.greenAreas()"
+                    (change)="toggleMapLayer('greenAreas')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Cobertura Forestal y Parques</span>
+                    <span class="layer-tag gamc">GAMC</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.schools()"
+                    (change)="toggleMapLayer('schools')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Escuelas y Colegios</span>
+                    <span class="layer-tag info">Educación</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.hospitals()"
+                    (change)="toggleMapLayer('hospitals')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Hospitales y Centros de Salud</span>
+                    <span class="layer-tag health">Salud</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.districts()"
+                    (change)="toggleMapLayer('districts')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Distritos y Estaciones MÓNICA</span>
+                    <span class="layer-tag monica">15 Distritos</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.cota2750()"
+                    (change)="toggleMapLayer('cota2750')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Cota 2750 Parque Tunari</span>
+                    <span class="layer-tag law">Ley 1262</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.radioUrbano()"
+                    (change)="toggleMapLayer('radioUrbano')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Límite Radio Urbano GAMC</span>
+                    <span class="layer-tag gamc">WMS Oficial</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.lst2025()"
+                    (change)="toggleMapLayer('lst2025')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">NASA Térmico Píxel a Píxel (LST 2025)</span>
+                    <span class="layer-tag nasa">Landsat</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.ndvi2025()"
+                    (change)="toggleMapLayer('ndvi2025')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">NASA Vegetación Píxel a Píxel (NDVI)</span>
+                    <span class="layer-tag nasa">MODIS</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.hotspots()"
+                    (change)="toggleMapLayer('hotspots')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">NASA Hotspots Térmicos 2024</span>
+                    <span class="layer-tag nasa">FIRMS</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.deltaLst()"
+                    (change)="toggleMapLayer('deltaLst')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Cambio Térmico 2016-2025 (Δ LST)</span>
+                    <span class="layer-tag delta">Delta</span>
+                  </span>
+                </label>
+
+                <label class="layer-checkbox-item">
+                  <input
+                    type="checkbox"
+                    [checked]="layersVisible.deltaNdvi()"
+                    (change)="toggleMapLayer('deltaNdvi')"
+                  />
+                  <span class="custom-checkbox"></span>
+                  <span class="layer-label">
+                    <span class="layer-name">Cambio Vegetal 2016-2025 (Δ NDVI)</span>
+                    <span class="layer-tag delta">Delta</span>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <div class="drawer-divider"></div>
+
+            <!-- 2. Luego lo demás: Ficha del Distrito y Sugerencias IA -->
+            @if (selectedDistrict(); as sel) {
+              <!-- Territorial Stats -->
+              <div class="stat-section">
               <div class="stat-grid">
                 <div class="stat-card">
                   <span class="stat-label">Superficie Oficial</span>
@@ -963,8 +1183,22 @@
                 <path d="m12 19-7-7 7-7"/>
                 <path d="M19 12H5"/>
               </svg>
-              <span>Restablecer vista general</span>
+              <span>Restablecer distrito</span>
             </button>
+            } @else {
+              <!-- Guía cuando no hay distrito seleccionado -->
+              <div class="district-unselected-box">
+                <div class="unselected-icon-pill">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                </div>
+                <h4>Seleccioná un Distrito</h4>
+                <p>Hacé clic en cualquier distrito del mapa o en el ranking para ver su diagnóstico térmico, serie temporal NASA y recomendaciones de IA municipal.</p>
+              </div>
+            }
           </div>
         </aside>
       }
