@@ -376,5 +376,18 @@ class DistrictService:
                     return PerimeterGeoJSONFeature.model_validate(raw)
         return None
 
+    def get_district_shapely_geom(self, district_id: int):
+        if not hasattr(self, "_shapely_geoms") or self._shapely_geoms is None:
+            geojson_path = resolve_geojson_path()
+            self._shapely_geoms = {}
+            if geojson_path and geojson_path.exists():
+                from shapely.geometry import shape
+                with open(geojson_path, "r", encoding="utf-8") as f:
+                    raw_data = json.load(f)
+                for feat in raw_data.get("features", []):
+                    d_id = int(feat.get("properties", {}).get("distrito", 0))
+                    self._shapely_geoms[d_id] = shape(feat["geometry"])
+        return self._shapely_geoms.get(district_id)
+
 
 district_service = DistrictService()

@@ -1,12 +1,42 @@
 import json
 import logging
 import httpx
+from shapely.geometry import Point
 
 from backend.core.config import settings
 from backend.schemas.poi import InterventionPoint, SuggestionResult
 from backend.services.district_service import district_service
 
 logger = logging.getLogger(__name__)
+
+
+def _get_verified_interior_points(district, count: int = 2) -> list[tuple[float, float]]:
+    geom = district_service.get_district_shapely_geom(district.id)
+    if geom is not None and geom.is_valid and not geom.is_empty:
+        pts = []
+        rep = geom.representative_point()
+        pts.append((round(rep.y, 5), round(rep.x, 5)))
+
+        minx, miny, maxx, maxy = geom.bounds
+        steps = 14
+        dx = (maxx - minx) / steps
+        dy = (maxy - miny) / steps
+
+        for i in range(1, steps):
+            for j in range(1, steps):
+                cand = Point(minx + i * dx, miny + j * dy)
+                if geom.contains(cand):
+                    if cand.distance(Point(pts[0][1], pts[0][0])) > dx * 1.8:
+                        pts.append((round(cand.y, 5), round(cand.x, 5)))
+                        if len(pts) == count:
+                            return pts
+        if len(pts) >= count:
+            return pts[:count]
+
+    return [
+        (district.centroid.latitude, district.centroid.longitude),
+        (district.centroid.latitude, district.centroid.longitude),
+    ]
 
 _GOAL_PCT = 44.0
 
@@ -65,9 +95,9 @@ def _build_suggestion_text(
 
 
 def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
-    min_lon, min_lat, max_lon, max_lat = district.bbox
-    c_lat = district.centroid.latitude
-    c_lon = district.centroid.longitude
+    pts = _get_verified_interior_points(district, 2)
+    p1_lat, p1_lon = pts[0]
+    p2_lat, p2_lon = pts[1] if len(pts) > 1 else pts[0]
 
     micro = district.microclimate
     temp = micro.surface_temp_c if micro else 28.0
@@ -79,8 +109,6 @@ def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
     interventions: list[InterventionPoint] = []
 
     # Punto 1: Arbolado / Reforestación urbana (flaticon arbolito)
-    p1_lat = round(c_lat + (max_lat - c_lat) * 0.35, 5)
-    p1_lon = round(c_lon + (max_lon - c_lon) * 0.35, 5)
 
     if is_mountain_district:
         slope1 = 21.4
@@ -124,9 +152,6 @@ def _calculate_candidate_interventions(district) -> list[InterventionPoint]:
     )
 
     # Punto 2: Centro de Salud o Parque de Quebrada según la pendiente
-    p2_lat = round(c_lat - (c_lat - min_lat) * 0.35, 5)
-    p2_lon = round(c_lon - (c_lon - min_lon) * 0.35, 5)
-
     if is_mountain_district:
         slope2 = 16.8
         elev2 = 2740.0
